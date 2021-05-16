@@ -10,7 +10,7 @@
         Lukas Siegburg: Teilleistung Modul Webtechnologien, Studiengang
         Verwaltungsinformatik, Hochschule des Bundes für öffentliche Verwaltung">
         <meta name="keywords" content="JavaScript, M10">
-        <title>Design mit Bootstrap 5</title>
+        <title>Erinnerungen</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark    mb-3">
@@ -39,6 +39,91 @@
         </nav>
 
         <!-- Ab hier kommt der Inhalt der Seite--> 
+        <button type="button" class="btn btn-primary btn-lg">+ Termin hinzufügen</button>
+        <h4>Termine</h4>
+        <div class="container-fluid">
+            <table id="termine" class="table table-hover">
+                <thead>
+                    <tr class="d-flex">
+                        <th class="col-1">Termin-Datum</th>
+                        <th class="col-3">Art</th>
+                        <th class="col-3">ausstehend seit</th>
+                        <th class="col-5">Arzt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="d-flex">
+                        <td class="col-1">01.07.2021</td>
+                        <td class="col-3">Covid-19</td>
+                        <td class="col-3">---</td>
+                        <td class="col-5">Max Mueller</td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-1">01.08.2021</td>
+                        <td class="col-3">Multi</td>
+                        <td class="col-3">20.06.2021</td>
+                        <td class="col-5">Max Mueller</td>
+                    </tr>
+                </tbody>
+             </table>
+            </div>
+
+          <h4>Ausstehend</h4>
+          <div class="container-fluid">
+            <table id="termine" class="table table-hover">
+                <thead>
+                    <tr class="d-flex">
+                        <th class="col-1">Datum</th>
+                        <th class="col-3">Art</th>
+                        <th class="col-3">letzte Impfung</th>
+                        <th class="col-5">Termin buchen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="d-flex">
+                        <td class="col-1">29.09.2021</td>
+                        <td class="col-3">Mulit</td>
+                        <td class="col-3">29.09.2011</td>
+                        <td class="col-5"><a class="btn btn-outline-info" href="#" role="button">Termin buchen</a></td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-1">29.10.2021</td>
+                        <td class="col-3">Hepatitis B</td>
+                        <td class="col-3">02.03.2005</td>
+                        <td class="col-5"><a class="btn btn-outline-info" href="#" role="button">Termin buchen</a></td>
+                    </tr>
+                </tbody>
+             </table>
+            </div>
+
+          <h4>Abgeschlossen</h4>
+          <div class="container-fluid">
+            <table id="termine" class="table table-hover">
+                <thead>
+                    <tr class="d-flex">
+                        <th class="col-1">Datum</th>
+                        <th class="col-3">Art</th>
+                        <th class="col-3">Chargen-Nr.</th>
+                        <th class="col-5">Arzt</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="d-flex">
+                        <td class="col-1">01.03.2021</td>
+                        <td class="col-3">Grippe</td>
+                        <td class="col-3">G010-872</td>
+                        <td class="col-5">Max Mueller</td>
+                    </tr>
+                    <tr class="d-flex">
+                        <td class="col-1">01.03.2020</td>
+                        <td class="col-3">Grippe</td>
+                        <td class="col-3">G010-976</td>
+                        <td class="col-5">Max Mueller</td>
+                    </tr>
+                </tbody>
+             </table>
+            </div>
+
 
         <!-- Hier endet der Inhalt der Seite-->
 
