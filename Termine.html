@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset='UTF-8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+        <link rel='stylesheet' href='css/Bootstrap 5/bootstrap.min.css'>
+        <!-- Favicon made by "catkuro" "https://www.flaticon.com/" -->
+        <link rel="icon" type="image/svg+xml" href="/images/icons/favicon.svg"
+            sizes="any">
+        <meta name="author" content="Franz Bogmann; Lucas Gebert; David Buchert;
+            Lukas Siegburg: Teilleistung Modul Webtechnologien, Studiengang
+            Verwaltungsinformatik, Hochschule des Bundes für öffentliche
+            Verwaltung">
+        <meta name="keywords" content="JavaScript, M10">
+        <title>Digitaler Impfpass</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-xl navbar-dark bg-warning mb-3">
+            <div class="container">
+                <a class="navbar-brand text-dark" href="index.html"><img
+                        src="./images/icons/favicon.svg" alt="" width="32"
+                        height="32"> M10 | Impfpass</a>
+                <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="index.html">Übersicht</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="Impfpass.html">Impfpass</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark"
+                                href="Termine.html">Termine</a>
+                        </li>
+                    </ul>
+                    <div class="float-end text-dark">
+                        <a class="nav-link text-dark" href="Profil.html"><img
+                                src="./images/icons/person-circle.svg" alt=""
+                                width="30" height="30"></a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Ab hier kommt der Inhalt der Seite-->
+        <div class="container">
+
+            <!-- Button trigger modal -->
+            <button type="button" data-bs-toggle="modal" class="btn btn
+                btn-warning btn-lg" data-bs-target="#Termin">+ Termin hinzufügen</button>
+            <br>
+            <br>
+            <!-- Modal für Termin hinzufügen Maske -->
+            <div class="modal fade" id="Termin" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered
+                    modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Termin
+                                hinzufügen</h5>
+                            <button type="button" class="btn-close"
+                                data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Eingabefelder für das Anlegen eines Termins -->
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"
+                                    id="basic-addon1">Datum</span>
+                                <input id="terminDatum" type="datetime-local" class="form-control"
+                                    placeholder="" aria-label="Datum"
+                                    aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"
+                                    id="basic-addon1">Impfung gegen</span>
+                                <input type="text" class="form-control"
+                                    placeholder="ADHS" aria-label="Impfung gegen"
+                                    aria-describedby="basic-addon1">
+                            </div>
+
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"
+                                    id="basic-addon1">Arzt</span>
+                                <input type="text" class="form-control"
+                                    placeholder="Dr. Sommer" aria-label="Arzt"
+                                    aria-describedby="basic-addon1">
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Schließen</button>
+                            <button type="button" class="btn btn-primary">Termin
+                                anlegen</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <h4>Termine</h4>
+            <div class="row">
+                <table id="termine" class="table table-hover">
+                    <thead>
+                        <tr class="d-flex">
+                            <th class="col-3">Termin-Datum</th>
+                            <th class="col-3">Art</th>
+                            <th class="col-3">ausstehend seit</th>
+                            <th class="col-3">Arzt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="d-flex">
+                            <td class="col-3">01.07.2021</td>
+                            <td class="col-3">Covid-19</td>
+                            <td class="col-3">---</td>
+                            <td class="col-3">Max Mueller Max Mueller Max
+                                Mueller Max Mueller</td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-3">01.08.2021</td>
+                            <td class="col-3">Multi</td>
+                            <td class="col-3">20.06.2021</td>
+                            <td class="col-3">Max Mueller</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>Ausstehend</h4>
+            <div class="row">
+                <table id="termine" class="table table-hover table-responsive">
+                    <thead>
+                        <tr class="d-flex">
+                            <th class="col-3">Datum</th>
+                            <th class="col-3">Art</th>
+                            <th class="col-3">letzte Impfung</th>
+                            <th class="col-3">Termin buchen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="d-flex">
+                            <td class="col-3">29.09.2021</td>
+                            <td class="col-3">Multi</td>
+                            <td class="col-3">29.09.2011</td>
+                            <td class="col-3"><a class="btn btn-outline-warning"
+                                    href="#" role="button">Termin buchen</a></td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-3">29.10.2021</td>
+                            <td class="col-3">Hepatitis B</td>
+                            <td class="col-3">02.03.2005</td>
+                            <td class="col-3"><a class="btn btn-outline-warning"
+                                    href="#" role="button">Termin buchen</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>Abgeschlossen</h4>
+            <div class="row">
+                <table id="termine" class="table table-hover">
+                    <thead>
+                        <tr class="d-flex">
+                            <th class="col-3">Datum</th>
+                            <th class="col-3">Art</th>
+                            <th class="col-3">Chargen-Nr.</th>
+                            <th class="col-3">Arzt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="d-flex">
+                            <td class="col-3">01.03.2021</td>
+                            <td class="col-3">Grippe</td>
+                            <td class="col-3">G010-872</td>
+                            <td class="col-3">Max Mueller</td>
+                        </tr>
+                        <tr class="d-flex">
+                            <td class="col-3">01.03.2020</td>
+                            <td class="col-3">Grippe</td>
+                            <td class="col-3">G010-976</td>
+                            <td class="col-3">Max Mueller</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+        <!-- Hier endet der Inhalt der Seite-->
+
+        <footer class="footer mt-auto py-3 bg-warning text-white">
+            <div class="container">
+                <p class="float-end"><a class="text-dark" href="#">Nach Oben⬆</a></p>
+                <p class="text-dark"><a class="text-dark"
+                        href="https://vit-bund.de">Studiengang
+                        Verwaltungsinformatik</a> | <a class="text-dark"
+                        href="https://github.com/FranzBogmann/M10-TL_Impfpass_Webanwendung">Gruppe
+                        Impfpass</a></p>
+            </div>
+        </footer>
+    </body>
+    <script src="js/Bootstrap 5/bootstrap.min.js"></script>
+</html>
