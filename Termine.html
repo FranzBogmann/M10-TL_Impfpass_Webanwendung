@@ -12,6 +12,7 @@
             Verwaltungsinformatik, Hochschule des Bundes für öffentliche
             Verwaltung">
         <meta name="keywords" content="JavaScript, M10">
+        <script src="js/Termine.js"></script>
         <title>Digitaler Impfpass</title>
     </head>
     <body>
@@ -75,7 +76,7 @@
                                 <span class="input-group-text"
                                     id="basic-addon1">Datum</span>
                                 <input id="terminDatum" type="datetime-local" class="form-control"
-                                    placeholder="" aria-label="Datum"
+                                    aria-label="Datum"
                                     aria-describedby="basic-addon1">
                             </div>
 
@@ -84,7 +85,7 @@
                                     id="basic-addon1">Impfung gegen</span>
                                 <input type="text" class="form-control"
                                     placeholder="ADHS" aria-label="Impfung gegen"
-                                    aria-describedby="basic-addon1">
+                                    aria-describedby="basic-addon1" id="terminArt">
                             </div>
 
                             <div class="input-group mb-3">
@@ -92,14 +93,14 @@
                                     id="basic-addon1">Arzt</span>
                                 <input type="text" class="form-control"
                                     placeholder="Dr. Sommer" aria-label="Arzt"
-                                    aria-describedby="basic-addon1">
+                                    aria-describedby="basic-addon1" id="terminArzt">
                             </div>
 
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary"
                                 data-bs-dismiss="modal">Schließen</button>
-                            <button type="button" class="btn btn-primary">Termin
+                            <button type="button" class="btn btn-primary" id="terminAnlegen" data-bs-dismiss="modal">Termin
                                 anlegen</button>
                         </div>
                     </div>
