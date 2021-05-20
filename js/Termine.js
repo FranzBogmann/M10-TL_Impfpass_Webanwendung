@@ -1,41 +1,41 @@
-window.addEventListener("load",init);
+window.addEventListener("load", init);
 
 //var heute = new Date()
 //var unterschiedZeit = heute.getTimezoneOffset() / 60 *-1 
 
-function init(){
+function init() {
     //speicherButton()
     termine = [];
-    if (window.localStorage !== null){
-        holeTermine();   
+    if (window.localStorage !== null) {
+        holeTermine();
     }
-     //Hier wird immer leer gesetzt, bei Abspeicherung im Browser muss hier auf Gespeichertes zurückgegriffen werden
-    document.getElementById("terminAnlegen").addEventListener("keypress", function(e){if(e.key.toLowerCase() == "enter") speicherButton();});
-    document.getElementById("terminAnlegen").addEventListener("click",speicherButton);
+    //Hier wird immer leer gesetzt, bei Abspeicherung im Browser muss hier auf Gespeichertes zurückgegriffen werden
+    document.getElementById("terminAnlegen").addEventListener("keypress", function (e) { if (e.key.toLowerCase() == "enter") speicherButton(); });
+    document.getElementById("terminAnlegen").addEventListener("click", speicherButton);
     zeichneTermine();
     //setzeAktuelleZeit()
 }
 
 
-function speicherButton(){   
+function speicherButton() {
     var termin = new Object();
 
-    termin.datum = document.getElementById("terminDatum").value;         console.log(document.getElementById("terminDatum").value);
-    termin.art = document.getElementById("terminArt").value;             console.log(document.getElementById("terminArt").value);
-    termin.arzt = document.getElementById("terminArzt").value;           console.log(document.getElementById("terminArzt").value);
-    
-    termine.push(termin);                                                console.log(termine[0].arzt);
-    
+    termin.datum = document.getElementById("terminDatum").value; console.log(document.getElementById("terminDatum").value);
+    termin.art = document.getElementById("terminArt").value; console.log(document.getElementById("terminArt").value);
+    termin.arzt = document.getElementById("terminArzt").value; console.log(document.getElementById("terminArzt").value);
+
+    termine.push(termin); console.log(termine[0].arzt);
+
     zeichneTermine();
 
     speichereTermine();
-} 
+}
 
-function zeichneTermine(){
+function zeichneTermine() {
     loescheTabelle();
 
     let table = document.getElementById("terminDaten");
-    if(termine == ""){
+    if (termine == "") {
         let tr = document.createElement("tr");
         tr.classList.add("d-flex");
         table.appendChild(tr);
@@ -46,7 +46,7 @@ function zeichneTermine(){
         terminDatum.innerHTML = "Keine Termine";
     }
 
-    for(let termin of termine){
+    for (let termin of termine) {
         let tr = document.createElement("tr");
         tr.classList.add("d-flex");
         table.appendChild(tr);
@@ -74,23 +74,23 @@ function zeichneTermine(){
     }
 }
 
-function loescheTabelle(){
+function loescheTabelle() {
     let table = document.getElementById("terminDaten");
-    table.innerHTML ="";
+    table.innerHTML = "";
 }
 
-function holeTermine(){
-    for (let i=0; i < localStorage.length; i++) { 
+function holeTermine() {
+    for (let i = 0; i < localStorage.length; i++) {
         let storageKey = localStorage.key(i);
         termine.push(JSON.parse(window.localStorage.getItem(storageKey)));
-      }
+    }
 }
 
-function speichereTermine(){
-    let key = "termin"+(termine.length);
-    let value = JSON.stringify(termine[termine.length-1]);
-    console.log(key+" :"+value);
-    window.localStorage.setItem(key,value);
+function speichereTermine() {
+    let key = "termin" + (termine.length);
+    let value = JSON.stringify(termine[termine.length - 1]);
+    console.log(key + " :" + value);
+    window.localStorage.setItem(key, value);
 }
 /*
 function setzeAktuelleZeit(){
