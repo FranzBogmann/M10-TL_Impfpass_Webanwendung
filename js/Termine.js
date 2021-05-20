@@ -16,7 +16,8 @@ function speicherButton(){
 
     termin.datum = document.getElementById("terminDatum").value;         console.log(document.getElementById("terminDatum").value);
     termin.art = document.getElementById("terminArt").value;             console.log(document.getElementById("terminArt").value);
-    termin.arzt = document.getElementById("terminArzt").value;           console.log(document.getElementById("terminArzt").value); 
+    termin.arzt = document.getElementById("terminArzt").value;           console.log(document.getElementById("terminArzt").value);
+    
      
     
 
