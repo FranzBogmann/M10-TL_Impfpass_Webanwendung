@@ -11,8 +11,7 @@ function init(){
 }
 
 function bearbeitungsmodus(){
-    //TODO Besseren Weg zum Ansprechen der Inputs finden
-    let inputs = document.getElementsByTagName("input");
+    let inputs = document.getElementById("Profilepage").getElementsByTagName("input");
     for(let inputfelder of inputs){
         if(inputfelder.disabled == false){
             inputfelder.disabled = true;
