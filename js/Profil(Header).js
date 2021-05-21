@@ -2,11 +2,10 @@ window.addEventListener("load",init);
 
 function init(){
     document.getElementById("bearbeiten").addEventListener("click",bearbeitungsmodus);
-    console.log(standartProfil);
-    if(standartProfil == "undefined")
-        standartProfil();
-    if(standartArzt == "undefined")    
-        standartArzt();
+    if(typeof standartProfil === "undefined")
+        erstelleStandartProfil();
+    if(typeof standartArzt === "undefined")    
+        erstelleStandartArzt();
     console.log(standartProfil);
     document.getElementById("bearbeiten").addEventListener("click",profilSpeichern);
     document.getElementById("bearbeiten").addEventListener("click",arztSpeichern);
@@ -72,26 +71,26 @@ function arztSpeichern(){
     window.localStorage.setItem(key, value);
 }
 
-function standartProfil(){
+function erstelleStandartProfil(){
     let standartProfil = new Object();
-    profil.vorname = "Max";
-    profil.nachname = "Mustermann";
-    profil.email = "user@example.com";
-    profil.geburtsdatum = "1.1.1970";
-    profil.wohnsitz = "Musterstraße 32";
+    standartProfil.vorname = "Max";
+    standartProfil.nachname = "Mustermann";
+    standartProfil.email = "user@example.com";
+    standartProfil.geburtsdatum = "1.1.1970";
+    standartProfil.wohnsitz = "Musterstraße 32";
 
     let key = "Profil";
-    let value = JSON.stringify(profil);
+    let value = JSON.stringify(standartProfil);
 
     console.log(key + " :" + value);
     window.localStorage.setItem(key, value);
 
 
-    document.getElementById("anmeldeName").innerHTML = profil.vorname + " " + profil.nachname;
+    document.getElementById("anmeldeName").innerHTML = standartProfil.vorname + " " + standartProfil.nachname;
 }
 
-function standartArzt(){
-    let standartArzt= new Object();
+function erstelleStandartArzt(){
+    let standartArzt = new Object();
     arzt.hausarzt = "Dr. Musterartzt";
     arzt.hausarztTelefonnummer = "11880 123456789";
 
