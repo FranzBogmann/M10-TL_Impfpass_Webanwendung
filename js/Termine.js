@@ -13,10 +13,11 @@ function init() {
     document.getElementById("terminAnlegen").addEventListener("keypress", function (e) { if (e.key.toLowerCase() == "enter") speicherButton(); });
     document.getElementById("terminAnlegen").addEventListener("click", speicherButton);
     zeichneTermine();
+    abgeschlossenAuslesen();
     //setzeAktuelleZeit()
 }
 
-
+//      ------------ Termine anlegen ---------------
 function speicherButton() {
     var termin = new Object();
 
@@ -93,6 +94,51 @@ function speichereTermine() {
     console.log(key + " :" + value);
     window.localStorage.setItem(key, value);
 }
+
+// ---------- Ausstehend Berechnen ----------
+function abgeschlossenAuslesen(){
+    let abgeschlossen = document.getElementsByName("abgeschlossenEintrag")
+    for(let part of abgeschlossen){
+        let datum = part.childNodes[1].textContent;
+        let art = part.childNodes[3].textContent;
+        let charge = part.childNodes[5].textContent;
+        let arzt = part.childNodes[7].textContent;
+
+        let datumHeute = new Date()
+        console.log(datum)
+        let datumImpfung = parseDate(datum)
+
+        //let datum
+        console.log(datumHeute);
+        console.log(datumImpfung)
+        datumHeute = new Date(datumHeute)
+        datumImpfung = new Date(datumImpfung)
+
+        let zeitDifferenz = datumHeute - datumImpfung;
+        console.log(zeitDifferenz)
+        let minuten = zeitDifferenz / 1000 / 60
+        let stunden = minuten / 60
+        let tage = stunden / 24
+        let jahre = tage / 365
+
+        console.log(tage)
+        console.log(jahre)
+        if(art == "Grippe"){
+            if(jahre > 1){
+                speichereAusstehend();
+            }
+        }
+    }
+}
+function speichereAusstehend(){
+    console.log()
+}
+//Quelle: https://stackoverflow.com/questions/2945113/how-to-create-a-new-date-in-javascript-from-a-non-standard-date-format/2945150
+function parseDate(input) {
+    var parts = input.match(/(\d+)/g);
+    // note parts[1]-1
+    return new Date(parts[2], parts[1]-1, parts[0]);
+  }
 /*
 function setzeAktuelleZeit(){
 
