@@ -82,8 +82,8 @@ function loescheTabelle() {
 function holeTermine() {
     for (let i = 0; i < localStorage.length; i++) {
         let storageKey = localStorage.key(i);
-        if(storageKey.substring(0,5) == "termin")
-        termine.push(JSON.parse(window.localStorage.getItem(storageKey)));
+        if(storageKey.slice(0,6) == "termin")
+            termine.push(JSON.parse(window.localStorage.getItem(storageKey)));
     }
 }
 
