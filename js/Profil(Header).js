@@ -8,6 +8,7 @@ function init(){
         erstelleStandartArzt();
     document.getElementById("bearbeiten").addEventListener("click",profilSpeichern);
     document.getElementById("bearbeiten").addEventListener("click",arztSpeichern);
+    document.getElementById("triggerModal").addEventListener("click",profilaufruf)
 }
 
 function bearbeitungsmodus(){
@@ -27,10 +28,24 @@ function bearbeitungsmodus(){
     else{
         buttonname.innerHTML = "Bearbeiten";
     }
-
-    
-    
 }
+
+function profilaufruf(){
+    let profil = JSON.parse(window.localStorage.getItem("Profil"));
+    if (profil != null){
+        document.getElementById("vorname").value = profil.vorname;
+        document.getElementById("nachname").value = profil.nachname;
+        document.getElementById("email").value =  profil.email;  
+        document.getElementById("geburtsdatum").value = profil.geburtstag;
+        document.getElementById("wohnsitz").value =profil.wohnsitz;
+        document.getElementById("anmeldeName").innerHTML = profil.vorname + " " + profil.nachname;
+    }
+    let arzt = JSON.parse(window.localStorage.getItem("Arzt"));
+    if (arzt!= null){
+        document.getElementById("hausarzt").value =arzt.hausarzt;
+        document.getElementById("hausarztTelefonnummer").value =arzt.hausarztTelefonnummer;
+    }
+    }
 
 function profilSpeichern(){
     let profil = new Object();
