@@ -6,7 +6,6 @@ function init(){
         erstelleStandartProfil();
     if(typeof standartArzt === "undefined")    
         erstelleStandartArzt();
-    console.log(standartProfil);
     document.getElementById("bearbeiten").addEventListener("click",profilSpeichern);
     document.getElementById("bearbeiten").addEventListener("click",arztSpeichern);
 }
@@ -79,7 +78,7 @@ function erstelleStandartProfil(){
     standartProfil.geburtsdatum = "1.1.1970";
     standartProfil.wohnsitz = "Musterstraße 32";
 
-    let key = "Profil";
+    let key = "standartProfil";
     let value = JSON.stringify(standartProfil);
 
     console.log(key + " :" + value);
@@ -91,11 +90,11 @@ function erstelleStandartProfil(){
 
 function erstelleStandartArzt(){
     let standartArzt = new Object();
-    arzt.hausarzt = "Dr. Musterartzt";
-    arzt.hausarztTelefonnummer = "11880 123456789";
+    standartArzt.hausarzt = "Dr. Musterartzt";
+    standartArzt.hausarztTelefonnummer = "11880 123456789";
 
-    let key = "Arzt";
-    let value = JSON.stringify(arzt);
+    let key = "standartArzt";
+    let value = JSON.stringify(standartArzt);
 
     console.log(key + " :" + value);
     window.localStorage.setItem(key, value);
