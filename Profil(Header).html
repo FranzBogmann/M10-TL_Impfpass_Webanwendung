@@ -71,9 +71,10 @@
                           <div class="row">
                             <div class="col-12 col-sm-auto mb-3">
                               <div class="mx-auto" style="width: 140px;">
-                                <div class="d-flex justify-content-center align-items-center rounded"
+                                <div class="d-flex justify-content-center align-items-center rounded" id="bildContainer"
                                   style="height: 140px; background-color: rgb(233, 236, 239);">
-                                  <span style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
+                                  <img src="" id="profilBild" class="preview_img" width="140px" height="140px"/>
+                                  <span id="previewText" style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
                                 </div>
                               </div>
                             </div>
@@ -81,9 +82,10 @@
                               <div class="text-center text-sm-left mb-2 mb-sm-0">
                                 <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap" id="anmeldeName">Max Mustermann</h4>
                                 <div class="mt-2">
-                                  <button class="btn btn-primary" type="button">
+                                  <input type="file" id="default-file" hidden="hidden" />
+                                  <button class="btn btn-primary" type="button" id="changePhoto">
                                     <i class="fa fa-fw fa-camera"></i>
-                                    <span>Change Photo</span>
+                                    <span>Profilbild ändern</span>
                                   </button>
                                 </div>
                               </div>
