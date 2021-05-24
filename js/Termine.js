@@ -7,6 +7,7 @@ function init() {
     //speicherButton()
     termine = [];
     ausstehendeImpfungen =[];
+    arzt = new Object();
 
     if (window.localStorage !== null) {
         holeLocalStorage();
@@ -15,14 +16,34 @@ function init() {
     document.getElementById("terminAnlegen").addEventListener("keypress", function (e) { if (e.key.toLowerCase() == "enter") speicherButton(); });
     document.getElementById("terminAnlegen").addEventListener("click", speicherButton);
     document.getElementById("terminAnlegenButton").addEventListener("click",arztAuslesen);
+    
     zeichneTermine();
     abgeschlossenAuslesen();
     //setzeAktuelleZeit()
 }
 //Arzt voreinstellen
 function arztAuslesen(){
-    let arztName = document.getElementById("terminArzt");
-    arztName.setAttribute("placeholder",arzt.hausarzt)
+    if (Object.keys(arzt) == ""){
+        let arztName = document.getElementById("terminArzt");
+        arztName.setAttribute("placeholder","Dr. Drosten")    
+    }else{
+        let arztName = document.getElementById("terminArzt");
+        arztName.setAttribute("value",arzt.hausarzt);
+
+        let telefon = document.getElementById("kontaktArzt");
+        telefon.innerHTML = "";
+        let li = document.createElement("li");
+        li.classList.add("list-inline-item");
+        telefon.appendChild(li);
+        li.innerHTML = "Telefonnummer des Arzts/der Ärztin: ";
+        li = document.createElement("li");
+        telefon.appendChild(li);
+        li.classList.add("list-inline-item");
+        let strong = document.createElement("strong");
+        li.appendChild(strong);
+        strong.innerHTML = arzt.hausarztTelefonnummer;     
+    }
+
 }
 
 
