@@ -126,7 +126,7 @@
 
             <h4>Ausstehend</h4>
             <div class="row">
-                <table id="termine" class="table table-hover table-responsive">
+                <table id="ausstehende" class="table table-hover table-responsive">
                     <thead>
                         <tr class="d-flex">
                             <th class="col-3">Datum</th>
@@ -135,10 +135,10 @@
                             <th class="col-3">Termin buchen</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr class="d-flex">
+                    <tbody id="ausstehendDaten">
+                        <!--<tr class="d-flex">
                             <td class="col-3">29.09.2021</td>
-                            <td class="col-3">Multi</td>
+                            <td class="col-3">Kombi</td>
                             <td class="col-3">29.09.2011</td>
                             <td class="col-3"><a class="btn btn-outline-warning"
                                     href="#" role="button">Termin buchen</a></td>
@@ -149,14 +149,14 @@
                             <td class="col-3">02.03.2005</td>
                             <td class="col-3"><a class="btn btn-outline-warning"
                                     href="#" role="button">Termin buchen</a></td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
             </div>
 
             <h4>Abgeschlossen</h4>
             <div class="row">
-                <table id="termine" class="table table-hover">
+                <table id="abgeschlossene" class="table table-hover">
                     <thead>
                         <tr class="d-flex">
                             <th class="col-3">Datum</th>
@@ -175,7 +175,13 @@
                         <tr class="d-flex" name="abgeschlossenEintrag">
                             <td class="col-3" name="abgeschlossenDatum">21.5.2020</td>
                             <td class="col-3" name="abgeschlossenArt">Grippe</td>
-                            <td class="col-3" name="abgeschlossenCharge">G010-872</td>
+                            <td class="col-3" name="abgeschlossenCharge">G069-555</td>
+                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
+                        </tr>
+                        <tr class="d-flex" name="abgeschlossenEintrag">
+                            <td class="col-3" name="abgeschlossenDatum">24.5.2010</td>
+                            <td class="col-3" name="abgeschlossenArt">Kombi</td>
+                            <td class="col-3" name="abgeschlossenCharge">G010-691</td>
                             <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
                         </tr>
                     </tbody>
