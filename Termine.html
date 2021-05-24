@@ -54,7 +54,7 @@
 
             <!-- Button trigger modal -->
             <button type="button" data-bs-toggle="modal" class="btn btn
-                btn-warning btn-lg" data-bs-target="#Termin">+ Termin hinzufügen</button>
+                btn-warning btn-lg" data-bs-target="#Termin" id="terminAnlegenButton">+ Termin hinzufügen</button>
             <br>
             <br>
             <!-- Modal für Termin hinzufügen Maske -->
@@ -74,7 +74,7 @@
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text"
-                                    id="basic-addon1">Datum</span>
+                                    >Datum</span>
                                 <input id="terminDatum" type="datetime-local" class="form-control"
                                     aria-label="Datum"
                                     aria-describedby="basic-addon1">
@@ -82,7 +82,7 @@
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text"
-                                    id="basic-addon1">Impfung gegen</span>
+                                    >Impfung gegen</span>
                                 <input type="text" class="form-control"
                                     placeholder="ADHS" aria-label="Impfung gegen"
                                     aria-describedby="basic-addon1" id="terminArt">
@@ -90,11 +90,13 @@
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text"
-                                    id="basic-addon1">Arzt</span>
+                                    >Arzt</span>
                                 <input type="text" class="form-control"
                                     placeholder="Dr. Sommer" aria-label="Arzt"
                                     aria-describedby="basic-addon1" id="terminArzt">
                             </div>
+                            <p>Telefonnumer</p>
+                            
 
                         </div>
                         <div class="modal-footer">

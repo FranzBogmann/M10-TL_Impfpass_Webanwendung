@@ -14,10 +14,18 @@ function init() {
     //Hier wird immer leer gesetzt, bei Abspeicherung im Browser muss hier auf Gespeichertes zurückgegriffen werden
     document.getElementById("terminAnlegen").addEventListener("keypress", function (e) { if (e.key.toLowerCase() == "enter") speicherButton(); });
     document.getElementById("terminAnlegen").addEventListener("click", speicherButton);
+    document.getElementById("terminAnlegenButton").addEventListener("click",arztAuslesen);
     zeichneTermine();
     abgeschlossenAuslesen();
     //setzeAktuelleZeit()
 }
+//Arzt voreinstellen
+function arztAuslesen(){
+    let arztName = document.getElementById("terminArzt");
+    arztName.setAttribute("placeholder",arzt.hausarzt)
+}
+
+
 
 //      ------------ Termine anlegen ---------------
 function speicherButton() {
@@ -98,6 +106,8 @@ function holeLocalStorage() {
             termine.push(JSON.parse(window.localStorage.getItem(storageKey)));
         /*if(storageKey.slice(0,10) == "ausstehend")
             ausstehendeImpfungen.push(JSON.parse(window.localStorage.getItem(storageKey)));*/
+        if(storageKey.slice(0,4) =="Arzt")
+            arzt = JSON.parse(window.localStorage.getItem(storageKey)); 
     }
 }
 
