@@ -12,17 +12,18 @@ function init() {
     if (window.localStorage !== null) {
         holeLocalStorage();
     }
-    //Hier wird immer leer gesetzt, bei Abspeicherung im Browser muss hier auf Gespeichertes zurückgegriffen werden
-    document.getElementById("terminAnlegen").addEventListener("keypress", function (e) { if (e.key.toLowerCase() == "enter") speicherButton(); });
-    document.getElementById("terminAnlegen").addEventListener("click", speicherButton);
-    document.getElementById("terminAnlegenButton").addEventListener("click",arztAuslesen);
+
+    document.getElementById("terminAnlegenButton").addEventListener("click",erstelleModal);
+    
+
     
     zeichneTermine();
     abgeschlossenAuslesen();
-    //setzeAktuelleZeit()
+
 }
 //Arzt voreinstellen
-function arztAuslesen(){
+function erstelleModal(){
+    //Hier werden die Arzt-Daten aus dem Profil gezogen
     if (Object.keys(arzt) == ""){
         let arztName = document.getElementById("terminArzt");
         arztName.setAttribute("placeholder","Dr. Drosten")    
@@ -43,10 +44,29 @@ function arztAuslesen(){
         li.appendChild(strong);
         strong.innerHTML = arzt.hausarztTelefonnummer;     
     }
+    //Hier wird ein spezifischer Button für die Manuelle Terminerstellung erstellt, da auf das Modal auch noch bei Termin buchen verwendet wird
+    /*let footer = document.getElementById("terminFooter");
+    footer.innerHTML ="";
+    let button = document.createElement("button");
+    button.setAttribute("type","button");
+    button.classList.add("btn");
+    button.classList.add("btn-secondary");
+    button.setAttribute("data-bs-dismiss","modal");
+    footer.appendChild(button);
+    button.innerHTML ="Schließen"
+
+    button = document.createElement("button");
+    button.setAttribute("type","button");
+    button.classList.add("btn");
+    button.classList.add("btn-primary");
+    button.id = "terminAnlegen";
+    button.setAttribute("data-bs-dismiss","modal");
+    footer.appendChild(button);
+    button.innerHTML ="Termin anlegen"*/
+
+    document.getElementById("terminAnlegen").addEventListener("click", speicherButton);
 
 }
-
-
 
 //      ------------ Termine anlegen ---------------
 function speicherButton() {
@@ -57,11 +77,14 @@ function speicherButton() {
     termin.art = document.getElementById("terminArt").value; console.log(document.getElementById("terminArt").value);
     termin.arzt = document.getElementById("terminArzt").value; console.log(document.getElementById("terminArzt").value);
 
+
     termine.push(termin); console.log(termine[0].arzt);
 
     zeichneTermine();
 
     speichereTermine();
+
+    document.getElementById("terminAnlegen").removeEventListener("click",speicherButton);
 }
 
 function zeichneTermine() {
@@ -141,10 +164,11 @@ function speichereTermine() {
 
 // ---------- Ausstehend Berechnen ----------
 function abgeschlossenAuslesen(){
+    //TODO Es muss bei der dynamischen Erstellung der Abgeschlossen-Beiträge der Name "abgeschlossenEintrag" hinzugefügt werden
     let abgeschlossen = document.getElementsByName("abgeschlossenEintrag")
     for(let part of abgeschlossen){
         var ausstehend = new Object();
-
+        //TODO Das wird nachher aus dem Impfpass-JSON-Objekt herausgelesen, nicht aus der Tabellenzeile
         ausstehend.datum = part.childNodes[1].textContent;
         ausstehend.art = part.childNodes[3].textContent;
         ausstehend.charge = part.childNodes[5].textContent;
@@ -226,6 +250,7 @@ function zeichneAusstehend(){
         for (let ausstehend of ausstehendeImpfungen) {
             let tr = document.createElement("tr");
             tr.classList.add("d-flex");
+            tr.setAttribute("name","ausstehendeEintraege")
             table.appendChild(tr);
 
             let ausstehendDatum = document.createElement("td");
@@ -246,15 +271,73 @@ function zeichneAusstehend(){
             let ausstehendBuchung = document.createElement("td");
             ausstehendBuchung.classList.add("col-3");
             tr.appendChild(ausstehendBuchung);
-            let buchenButton = document.createElement("a");
+            let buchenButton = document.createElement("button");
+            buchenButton.setAttribute("type","button")
             buchenButton.classList.add("btn");
             buchenButton.classList.add("btn-outline-warning");
-            buchenButton.setAttribute("href","#");
-            buchenButton.setAttribute("role","button");
+            buchenButton.setAttribute("data-bs-toggle","modal");
+            buchenButton.setAttribute("data-bs-target","#Termin")
+            buchenButton.addEventListener("click",function(event){terminBuchen(event)});
             ausstehendBuchung.appendChild(buchenButton);
             buchenButton.innerHTML = "Termin buchen"
         }
     }    
+}
+
+function terminBuchen(event){
+
+    console.log(event.type + ' on ' + event.target.nodeName);
+    //Arztdaten für Kontaktaufnahme
+    if (Object.keys(arzt) == ""){
+        let arztName = document.getElementById("terminArzt");
+        arztName.setAttribute("placeholder","Dr. Drosten")    
+    }else{
+        let arztName = document.getElementById("terminArzt");
+        arztName.setAttribute("value",arzt.hausarzt);
+
+        let telefon = document.getElementById("kontaktArzt");
+        telefon.innerHTML = "";
+        let li = document.createElement("li");
+        li.classList.add("list-inline-item");
+        telefon.appendChild(li);
+        li.innerHTML = "Telefonnummer des Arzts/der Ärztin: ";
+        li = document.createElement("li");
+        telefon.appendChild(li);
+        li.classList.add("list-inline-item");
+        let strong = document.createElement("strong");
+        li.appendChild(strong);
+        strong.innerHTML = arzt.hausarztTelefonnummer;     
+    }
+    //console.log(event.target.parentElement.parentElement.rowIndex);
+
+    let ausstehend = JSON.parse(localStorage.getItem("ausstehend"+(event.target.parentElement.parentElement.rowIndex -1)));
+
+    let artImpfung = document.getElementById("terminArt");
+    artImpfung.setAttribute("value",ausstehend.art);
+    artImpfung.disabled = true;
+    //TODO HIER WEITER MACHEN MIT löschen der Reihe, des Array-Elements und des localStorage-Eintrags + Abspeichern als neuer Termin
+    /*document.getElementById("terminAnlegen").addEventListener("click",function(event){
+        speicherButton();
+        loescheReihe(event);
+    })*/
+/*
+    console.log(ausstehend);
+    termine.push(ausstehend);
+
+    speichereTermine();
+    zeichneTermine();*/
+    //! Funktion zum löschen der Zeile
+    //event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement);
+}
+
+function loescheReihe(event){
+    localStorage.removeItem("ausstehend"+(event.target.parentElement.parentElement.rowIndex -1));   
+
+    //ausstehendeImpfungen.splice((event.target.parentElement.parentElement.rowIndex -1),1);
+
+
+    event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement);
+
 }
 //Quelle: https://stackoverflow.com/questions/2945113/how-to-create-a-new-date-in-javascript-from-a-non-standard-date-format/2945150
 function parseDate(input) {
