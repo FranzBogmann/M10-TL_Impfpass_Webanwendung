@@ -40,7 +40,7 @@
           <!-- Button trigger modal -->
           <button type="button" id="triggerModal" class="btn bg-warning btn-outline-primary" data-bs-toggle="modal"
             data-bs-target="#Profilepage">
-            <img src="./images/icons/person-circle.svg" alt="" width="30" height="30">
+            <img id="profilIcon" src="./images/icons/person-circle.svg" alt="" width="30" height="30">
           </button>
         </div>
       </div>
@@ -73,7 +73,7 @@
                               <div class="mx-auto" style="width: 140px;">
                                 <div class="d-flex justify-content-center align-items-center rounded" id="bildContainer"
                                   style="height: 140px; background-color: rgb(233, 236, 239);">
-                                  <img src="" id="profilBild" class="preview_img" width="140px" height="140px"/>
+                                  <img src="" id="profilBild" class="preview_img" width="140px" height="140px" style="display: none;"/>
                                   <span id="previewText" style="color: rgb(166, 168, 170); font: bold 8pt Arial;">140x140</span>
                                 </div>
                               </div>
@@ -178,6 +178,7 @@
     </div>
   </div>
 
+  
   <!-- Hier endet der Inhalt der Seite-->
 
   <footer class="footer mt-auto py-3 bg-warning text-white">

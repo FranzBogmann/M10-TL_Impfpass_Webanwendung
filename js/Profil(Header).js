@@ -1,5 +1,6 @@
 window.addEventListener("load", init);
 
+
 function init() {
     document.getElementById("bearbeiten").addEventListener("click", bearbeitungsmodus);
     if (typeof standartProfil === "undefined")
@@ -8,18 +9,23 @@ function init() {
         erstelleStandartArzt();
     document.getElementById("bearbeiten").addEventListener("click", profilSpeichern);
     document.getElementById("bearbeiten").addEventListener("click", arztSpeichern);
-    document.getElementById("triggerModal").addEventListener("click", profilaufruf)
-    document.getElementById("changePhoto").addEventListener("click", function () { document.getElementById("default-file").click() })
-    test();
+    document.getElementById("triggerModal").addEventListener("click", profilaufruf);
+    document.getElementById("changePhoto").addEventListener("click", function () { document.getElementById("default-file").click() });
+    profilBildÄnderung();
+    profilIconÄndern();
 }
 
-function test() {
+function profilIconÄndern (){
+    let bild = JSON.parse(window.localStorage.getItem("Bild"));
+    if(bild != null)
+        document.getElementById("profilIcon").setAttribute("src", bild.src);
+}
+
+function profilBildÄnderung() {
     let bild = new Object();
     const defaultFile = document.getElementById("default-file");
     const profilBild = document.getElementById("profilBild");
     const previewText = document.getElementById("previewText");
-
-    profilBild.style.display = "none";
 
     defaultFile.addEventListener("change", function () {
 
@@ -38,18 +44,49 @@ function test() {
             fileReader.addEventListener("load", function () {
                 // convert image to base64 encoded string
                 profilBild.setAttribute("src", this.result);
+
+                bild.src = profilBild.getAttribute("src");
+
+                let key = "Bild";
+                let value = JSON.stringify(bild);
+
+                console.log(key + " :" + value);
+                window.localStorage.setItem(key, value);
+                profilIconÄndern();
             });
             fileReader.readAsDataURL(files);
-
         }
-        bild.src = profilBild.getAttribute("src");
-
-        let key = "Bild";
-        let value = JSON.stringify(bild);
-
-        console.log(key + " :" + value);
-        window.localStorage.setItem(key, value);
     });
+
+}
+
+
+function profilaufruf() {
+    // Aufruf des Profils
+    let profil = JSON.parse(window.localStorage.getItem("Profil"));
+    if (profil != null) {
+        document.getElementById("vorname").value = profil.vorname;
+        document.getElementById("nachname").value = profil.nachname;
+        document.getElementById("email").value = profil.email;
+        document.getElementById("geburtsdatum").value = profil.geburtstag;
+        document.getElementById("wohnsitz").value = profil.wohnsitz;
+        document.getElementById("anmeldeName").innerHTML = profil.vorname + " " + profil.nachname;
+    }
+
+    //Aufruf des sperat gespeicherten Arzts
+    let arzt = JSON.parse(window.localStorage.getItem("Arzt"));
+    if (arzt != null) {
+        document.getElementById("hausarzt").value = arzt.hausarzt;
+        document.getElementById("hausarztTelefonnummer").value = arzt.hausarztTelefonnummer;
+    }
+
+    //Aufruf des Profils
+    let bild = JSON.parse(window.localStorage.getItem("Bild"));
+    if(bild != null){
+        profilBild.style.display = "block";
+        previewText.style.display = "none";
+        document.getElementById("profilBild").setAttribute("src", bild.src);
+    }   
 }
 
 function bearbeitungsmodus() {
@@ -71,28 +108,7 @@ function bearbeitungsmodus() {
     }
 }
 
-function profilaufruf() {
-    let profil = JSON.parse(window.localStorage.getItem("Profil"));
-    if (profil != null) {
-        document.getElementById("vorname").value = profil.vorname;
-        document.getElementById("nachname").value = profil.nachname;
-        document.getElementById("email").value = profil.email;
-        document.getElementById("geburtsdatum").value = profil.geburtstag;
-        document.getElementById("wohnsitz").value = profil.wohnsitz;
-        document.getElementById("anmeldeName").innerHTML = profil.vorname + " " + profil.nachname;
-    }
 
-    let arzt = JSON.parse(window.localStorage.getItem("Arzt"));
-    if (arzt != null) {
-        document.getElementById("hausarzt").value = arzt.hausarzt;
-        document.getElementById("hausarztTelefonnummer").value = arzt.hausarztTelefonnummer;
-    }
-
-    let bild = JSON.parse(window.localStorage.getItem("Bild"));
-    if(bild != null){
-        document.getElementById("profilBild").setAttribute("src", bild)
-    }   
-}
 
 function profilSpeichern() {
     let profil = new Object();
