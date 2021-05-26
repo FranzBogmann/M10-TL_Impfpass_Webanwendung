@@ -1,0 +1,126 @@
+var impfpass = {
+        Diphtherie : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 10,
+        },
+        FSME : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 5,
+        },
+        Grippe : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 1,
+        },
+        HepatitisB : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        Hib : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        HPV : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        Keuchhusten : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        Masern : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        Meningokokken : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        Mumps : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        //TODO ab 60 alle 6 Jahre, ab 60 als ausstehend
+        Pneumokokken : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        //TODO ab 9. Lebensjahr 1 mal
+        Polio : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        Rotaviren : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        Roeteln : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        Tetanus : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 10,
+        },
+        Windpocken : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        //TODO ab 60 1 mal
+        Guertelrose : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
+        
+        
+}

@@ -140,7 +140,7 @@ function loescheAusstehendTabelle() {
     let table = document.getElementById("ausstehendDaten");
     table.innerHTML = "";
 }
-
+//TODO Auslesen nach Profilbearbeitung
 //! Hier muss das StorageKey mit .... (z.B. ausstehend) wieder geändert werden, wenn der Impfpass implementiert wird
 //! Namens-Konvention beachten!
 function holeLocalStorage() {
@@ -327,7 +327,7 @@ function terminBuchen(event){
     speichereTermine();
     zeichneTermine();*/
     //! Funktion zum löschen der Zeile
-    //event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement);
+    event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement);
 }
 
 function loescheReihe(event){

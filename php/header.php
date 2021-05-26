@@ -11,7 +11,6 @@
             Verwaltungsinformatik, Hochschule des Bundes für öffentliche
             Verwaltung">
         <meta name="keywords" content="JavaScript, M10">
-        <script src="js/Termine.js"></script>
+
         <script src="js/Profil(Header).js"></script>
         <title>Digitaler Impfpass</title>
-    </head>

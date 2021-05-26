@@ -20,7 +20,7 @@
                       <div class="card-body">
                         <h5 class="card-title">Impfungen eintragen</h5>
                         <p class="card-text">Digitalisiere Deine Impfungen durch neue Impfeinträge in den digitalen Impfpass!</p>
-                        <a href="Impfpass.html" class="btn btn-primary">Zum Digitalen Impfpass</a>
+                        <a href="Impfpass.php" class="btn btn-primary">Zum Digitalen Impfpass</a>
                       </div>
                     </div>
                 </div>
