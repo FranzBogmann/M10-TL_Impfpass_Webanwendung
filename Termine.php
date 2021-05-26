@@ -2,7 +2,7 @@
 <?php include("./php/header.php"); ?>
     <body>
         <?php include("./php/nav.php"); ?>
-
+        <?php include("Profil.php"); ?>
         <!-- Ab hier kommt der Inhalt der Seite-->
         <div class="container">
 
