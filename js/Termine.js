@@ -14,7 +14,7 @@ function init() {
     }
 
     document.getElementById("terminAnlegenButton").addEventListener("click",erstelleModal);
-    
+    document.getElementById("bearbeiten").addEventListener("click", holeLocalStorage);
 
     
     zeichneTermine();
@@ -327,7 +327,7 @@ function terminBuchen(event){
     speichereTermine();
     zeichneTermine();*/
     //! Funktion zum löschen der Zeile
-    event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement);
+    //event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement);
 }
 
 function loescheReihe(event){

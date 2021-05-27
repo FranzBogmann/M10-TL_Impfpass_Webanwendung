@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php include("./php/header.php"); ?>
-<script src="js/Termine.js"></script>
-</head>
+        <script src="js/Termine.js"></script>
+    </head>
     <body>
         <?php include("./php/nav.php"); ?>
         <?php include("Profil.php"); ?>

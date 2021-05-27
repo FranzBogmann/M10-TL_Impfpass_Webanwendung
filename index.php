@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="de">
     <?php include("./php/header.php"); ?>
+  </head>
     <body>
     <?php include("./php/nav.php"); ?>
     <?php include("Profil.php"); ?>   
