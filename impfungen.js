@@ -121,6 +121,13 @@ var impfpass = {
             arzt: [],
             intervall: 0,
         },
+        Covid19 : {
+            datum: [],
+            charge: [],
+            impfstoff: [],
+            arzt: [],
+            intervall: 0,
+        },
         
         
 }
