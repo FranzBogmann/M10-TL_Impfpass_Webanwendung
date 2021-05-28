@@ -52,3 +52,7 @@ function impfungSpeichern(){
         document.getElementById("iSpeichern").disabled = true;
     }
 }
+
+function speicherImpfung(){
+    //impfpass[document.getElementById("impfTyp")]    
+}
