@@ -2,6 +2,7 @@
 <html lang="de">
     <?php include("./php/header.php"); ?>
     <script src="js/Impfpass.js"></script>
+    <script src="impfungen.js"></script>
 </head>
     <body>
         <?php include("./php/nav.php"); ?>

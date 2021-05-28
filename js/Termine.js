@@ -23,6 +23,12 @@ function init() {
 }
 //Arzt voreinstellen
 function erstelleModal(){
+    document.getElementById("terminDatum").value = "";
+    let terminArt = document.getElementById("terminArt");
+    terminArt.setAttribute("value","");
+    terminArt.disabled = false;
+
+
     //Hier werden die Arzt-Daten aus dem Profil gezogen
     if (Object.keys(arzt) == ""){
         let arztName = document.getElementById("terminArzt");
@@ -75,6 +81,7 @@ function speicherButton() {
 
     termin.datum = document.getElementById("terminDatum").value; console.log(document.getElementById("terminDatum").value);
     termin.art = document.getElementById("terminArt").value; console.log(document.getElementById("terminArt").value);
+    termin.ausstehend = "---";
     termin.arzt = document.getElementById("terminArzt").value; console.log(document.getElementById("terminArzt").value);
 
 
@@ -121,7 +128,7 @@ function zeichneTermine() {
             let terminAusstehend = document.createElement("td");
             terminAusstehend.classList.add("col-3");
             tr.appendChild(terminAusstehend);
-            terminAusstehend.innerHTML = "---";
+            terminAusstehend.innerHTML = termin.ausstehend;
 
             let terminArzt = document.createElement("td");
             terminArzt.classList.add("col-3");
@@ -156,10 +163,18 @@ function holeLocalStorage() {
 }
 
 function speichereTermine() {
-    let key = "termin" + (termine.length);
+    let zaehlerTermine = 0;
+    for(let termin of termine){
+        let key = "termin" + zaehlerTermine;
+        let value = JSON.stringify(termine[zaehlerTermine]);
+        console.log(key + " :" + value);
+        window.localStorage.setItem(key, value);
+        zaehlerTermine = zaehlerTermine + 1;    
+    }
+    /*let key = "termin" + (termine.length);
     let value = JSON.stringify(termine[termine.length - 1]);
     console.log(key + " :" + value);
-    window.localStorage.setItem(key, value);
+    window.localStorage.setItem(key, value);*/
 }
 
 // ---------- Ausstehend Berechnen ----------
@@ -175,41 +190,32 @@ function abgeschlossenAuslesen(){
         ausstehend.arzt = part.childNodes[7].textContent;
 
         let datumHeute = new Date()
-        console.log(ausstehend.datum)
         let teileImpfdatum = parseDate(ausstehend.datum)
         datumHeute = new Date(datumHeute)
         let datumImpfung = new Date(teileImpfdatum[2], teileImpfdatum[1]-1, teileImpfdatum[0]);
 
-        console.log(datumHeute);
-        console.log(datumImpfung)
   
         //datumImpfung = new Date(datumImpfung)
         //let datumnaechsteImpfung = new Date((datum))
 
         let zeitDifferenz = datumHeute - datumImpfung;
-        console.log(zeitDifferenz)
         let minuten = zeitDifferenz / 1000 / 60
         let stunden = minuten / 60
         let tage = stunden / 24
         let jahre = tage / 365
 
-        console.log(tage)
-        console.log(jahre)
         // HIER erfolgt die Zeitberechnung der Wiederholung von Impfugen nach einem bestimmten Zeitraum
         // Bei dem verschiedenen Impfungen muss das Jahr als Zeitabstand zwischen den Impfungen angepasst werden!
         switch(ausstehend.art.trim()){
             case "Grippe":
                 if(jahre >= 1){
                     ausstehend.naechsteImpfung = new Date(parseInt(teileImpfdatum[2])+1, teileImpfdatum[1]-1, teileImpfdatum[0]).toLocaleDateString('de-DE');
-                    console.log("Nächste Impfung: " + ausstehend.naechsteImpfung)
-                    console.log(ausstehend)
                     ausstehendeImpfungen.push(ausstehend);
                 }
                 break;
             case "Kombi":
                 if(jahre >= 10){
                     ausstehend.naechsteImpfung = new Date(parseInt(teileImpfdatum[2])+10, teileImpfdatum[1]-1, teileImpfdatum[0]).toLocaleDateString('de-DE');
-                    console.log(ausstehend)
                     ausstehendeImpfungen.push(ausstehend);
                 }
                 break;
@@ -244,7 +250,7 @@ function zeichneAusstehend(){
         let ausstehendDatum = document.createElement("td");
         ausstehendDatum.classList.add("col-12");
         tr.appendChild(ausstehendDatum);
-        terminDatum.innerHTML = "Keine ausstehenden Impfungen";
+        ausstehendDatum.innerHTML = "Keine ausstehenden Impfungen";
     }else{
 
         for (let ausstehend of ausstehendeImpfungen) {
@@ -285,7 +291,7 @@ function zeichneAusstehend(){
 }
 
 function terminBuchen(event){
-
+    document.getElementById("terminDatum").value = "";
     console.log(event.type + ' on ' + event.target.nodeName);
     //Arztdaten für Kontaktaufnahme
     if (Object.keys(arzt) == ""){
@@ -309,36 +315,61 @@ function terminBuchen(event){
         strong.innerHTML = arzt.hausarztTelefonnummer;     
     }
     //console.log(event.target.parentElement.parentElement.rowIndex);
-
-    let ausstehend = JSON.parse(localStorage.getItem("ausstehend"+(event.target.parentElement.parentElement.rowIndex -1)));
+    ausstehendIndex = event.target.parentElement.parentElement.rowIndex -1;
+    ausstehende = JSON.parse(localStorage.getItem("ausstehend"+ausstehendIndex));
 
     let artImpfung = document.getElementById("terminArt");
-    artImpfung.setAttribute("value",ausstehend.art);
+    artImpfung.setAttribute("value",ausstehende.art);
     artImpfung.disabled = true;
     //TODO HIER WEITER MACHEN MIT löschen der Reihe, des Array-Elements und des localStorage-Eintrags + Abspeichern als neuer Termin
-    /*document.getElementById("terminAnlegen").addEventListener("click",function(event){
-        speicherButton();
-        loescheReihe(event);
-    })*/
-/*
-    console.log(ausstehend);
-    termine.push(ausstehend);
+    document.getElementById("terminAnlegen").addEventListener("click",terminAusAusstehend);
 
+
+}
+
+function terminAusAusstehend(){
+    console.log("Anlegen Button gedrückt");
+    console.log(ausstehendIndex);
+    ausstehendeImpfungen.splice(ausstehendIndex,1);
+
+    let termin = {
+        datum : document.getElementById("terminDatum").value,
+        art : document.getElementById("terminArt").value,
+        ausstehend : ausstehende.datum,
+        arzt : document.getElementById("terminArzt").value
+    };
+    termine.push(termin);
+
+    loescheLocalStorage();
+}
+
+function loescheLocalStorage() {
+    //! Hier wird nicht das 0te Element im LocalStorage betrachtet, abhilfe mit Do-While schleife und If abfrage ob LocalStorage leer
+    for (let i = 0; i < localStorage.length; i) {
+        let storageKey = localStorage.key(i);
+        if(storageKey.slice(0,6) == "termin"){
+            window.localStorage.removeItem(storageKey);
+            i = 0;}
+        if(storageKey.slice(0,10) == "ausstehend"){
+            window.localStorage.removeItem(storageKey);
+            i = 0;}
+        i++;
+        //if(storageKey.slice(0,4) =="Arzt")
+            //arzt = JSON.parse(window.localStorage.getItem(storageKey)); 
+    }
+    console.log(termine);
+    console.log("Die Tabellen-Zeile")
+    console.log("ausstehendeImpfungen:");
+    console.log(ausstehendeImpfungen);
+    speichereAusstehend();
+    console.log(termine.length);
+    console.log("Termine:")
+    console.log(termine);
     speichereTermine();
-    zeichneTermine();*/
-    //! Funktion zum löschen der Zeile
-    //event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement);
+    zeichneTermine();
+    document.getElementById("terminAnlegen").removeEventListener("click",terminAusAusstehend);
 }
 
-function loescheReihe(event){
-    localStorage.removeItem("ausstehend"+(event.target.parentElement.parentElement.rowIndex -1));   
-
-    //ausstehendeImpfungen.splice((event.target.parentElement.parentElement.rowIndex -1),1);
-
-
-    event.target.parentElement.parentElement.parentElement.removeChild(event.target.parentElement.parentElement);
-
-}
 //Quelle: https://stackoverflow.com/questions/2945113/how-to-create-a-new-date-in-javascript-from-a-non-standard-date-format/2945150
 function parseDate(input) {
     var parts = input.match(/(\d+)/g);
