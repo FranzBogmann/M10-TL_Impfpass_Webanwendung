@@ -47,25 +47,25 @@
                             <!-- Dropdown zur Impfauswahl-->
                             <div id="dropdown">
                                 <label for="form-select">Wählen Sie ihre Impfung:</label>
-                                <select class="form-select" aria-label="Default select example" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
-                                    <option value="1">Diphtherie</option>
-                                    <option value="2">FSME</option>
-                                    <option value="3">Grippe</option>
-                                    <option value="4">HepatitisB</option>
-                                    <option value="5">HepatitisB (HiB)</option>
-                                    <option value="6">HPV</option>
-                                    <option value="7">Keuchhusten</option>
-                                    <option value="8">Masern</option>
-                                    <option value="9">Meningokokken</option>
-                                    <option value="10">Mumps</option>
-                                    <option value="11">Pneumokokken</option>
-                                    <option value="12">Polio</option>
-                                    <option value="13">Rotavirus</option>
-                                    <option value="14">Roeteln</option>
-                                    <option value="15">Tetanus</option>
-                                    <option value="16">Windpocken</option>
-                                    <option value="17">Guertelrose</option>
-                                    <option value="18">Covid-19</option>
+                                <select id="iArt" class="form-select" aria-label="Default select example" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                    <option value="Diphtherie">Diphtherie</option>
+                                    <option value="FSME">FSME</option>
+                                    <option value="Grippe">Grippe</option>
+                                    <option value="HepatitisB">HepatitisB</option>
+                                    <option value="Hib">HepatitisB (HiB)</option>
+                                    <option value="HPV">HPV</option>
+                                    <option value="Keuchhusten">Keuchhusten</option>
+                                    <option value="Masern">Masern</option>
+                                    <option value="Meningokokken">Meningokokken</option>
+                                    <option value="Mumps">Mumps</option>
+                                    <option value="Pneumokokken">Pneumokokken</option>
+                                    <option value="Polio">Polio</option>
+                                    <option value="Rotaviren">Rotaviren</option>
+                                    <option value="Roeteln">Röteln</option>
+                                    <option value="Tetanus">Tetanus</option>
+                                    <option value="Windpocken">Windpocken</option>
+                                    <option value="Guertelrose">Gürtelrose</option>
+                                    <option value="Covid19">Covid-19</option>
                                 </select>
                                 <br>
                             </div>
@@ -81,20 +81,20 @@
                                     <label class="form-check-label" for="Diphtherie">Diphtherie</label>
                                 </div>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="Pertussis">
-                                    <label class="form-check-label" for="Pertussis">Pertussis</label>
+                                    <input class="form-check-input" type="checkbox" id="Keuchhusten">
+                                    <label class="form-check-label" for="Keuchhusten">Pertussis (Keuchhusten)</label>
                                 </div>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="Influenza B (Hib)">
-                                    <label class="form-check-label" for="Influenza B (Hib)">Influenza B (Hib)</label>
+                                    <input class="form-check-input" type="checkbox" id="Hib">
+                                    <label class="form-check-label" for="Hib">Influenza B (Hib)</label>
                                 </div>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="Hepatitis B">
-                                    <label class="form-check-label" for="Hepatitis B">Hepatitis B</label>
+                                    <input class="form-check-input" type="checkbox" id="HepatitisB">
+                                    <label class="form-check-label" for="HepatitisB">Hepatitis B</label>
                                 </div>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="Poliomyelitis">
-                                    <label class="form-check-label" for="Poliomyelitis">Poliomyelitis</label>
+                                    <input class="form-check-input" type="checkbox" id="Polio">
+                                    <label class="form-check-label" for="Polio">Poliomyelitis</label>
                                 </div>
                                 <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="Masern">
@@ -105,8 +105,8 @@
                                     <label class="form-check-label" for="Mumps">Mumps</label>
                                 </div>
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="Röteln">
-                                    <label class="form-check-label" for="Röteln">Röteln</label>
+                                    <input class="form-check-input" type="checkbox" id="Roeteln">
+                                    <label class="form-check-label" for="Roeteln">Röteln</label>
                                 </div>
                             </div>
 
@@ -145,7 +145,7 @@
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Schließen</button>
-                            <button type="button" class="btn btn-primary" id="iSpeichern" disabled>Speichern</button>
+                            <button type="button" class="btn btn-primary" id="iSpeichern" data-bs-dismiss="modal" disabled>Speichern</button>
                         </div>
                     </div>
                 </div>
