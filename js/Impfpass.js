@@ -213,41 +213,41 @@ function zeichneMultiImpfung(){
             tr.appendChild(mImpfCharge);
             mImpfCharge.innerHTML = impfung.charge;
 
-            let mImpfTetanus = document.createDocumentFragment("td");
+            let mImpfTetanus = document.createElement("td");
             tr.appendChild(mImpfTetanus);
             mImpfTetanus.innerHTML = "abc";
 
-            let mImpfDiphtherie = document.createDocumentFragment("td");
+            let mImpfDiphtherie = document.createElement("td");
             tr.appendChild(mImpfDiphtherie);
             mImpfDiphtherie.innerHTML = impfung.diphtherie;
 
-            let mImpfPertussis = document.createDocumentFragment("td");
+            let mImpfPertussis = document.createElement("td");
             tr.appendChild(mImpfPertussis);
             mImpfPertussis.innerHTML = impfung.pertussis;
 
-            let mImpfHib = document.createDocumentFragment("td");
+            let mImpfHib = document.createElement("td");
             tr.appendChild(mImpfHib);
             mImpfHib.innerHTML = impfung.hib;
             console.log("hier")
-            let mImpfHepatitis = document.createDocumentFragment("td");
-            tr.appendChild(mImpfTetanus);
-            mImpfTetanus.innerHTML = impfung.hepatitis;
+            let mImpfHepatitis = document.createElement("td");
+            tr.appendChild(mImpfHepatitis);
+            mImpfHepatitis.innerHTML = impfung.hepatitis;
 
-            let mImpfPoliomyelitis = document.createDocumentFragment("td");
-            tr.appendChild(mImpfTetanus);
-            mImpfTetanus.innerHTML = impfung.poliomyelitis;
+            let mImpfPoliomyelitis = document.createElement("td");
+            tr.appendChild(mImpfPoliomyelitis);
+            mImpfPoliomyelitis.innerHTML = impfung.poliomyelitis;
 
-            let mImpfTMasern = document.createDocumentFragment("td");
-            tr.appendChild(mImpfTetanus);
-            mImpfTetanus.innerHTML = impfung.masern;
+            let mImpfTMasern = document.createElement("td");
+            tr.appendChild(mImpfTMasern);
+            mImpfTMasern.innerHTML = impfung.masern;
 
-            let mImpfMumps = document.createDocumentFragment("td");
-            tr.appendChild(mImpfTetanus);
-            mImpfTetanus.innerHTML = impfung.mumps;
+            let mImpfMumps = document.createElement("td");
+            tr.appendChild(mImpfMumps);
+            mImpfMumps.innerHTML = impfung.mumps;
 
-            let mImpfRöteln = document.createDocumentFragment("td");
-            tr.appendChild(mImpfTetanus);
-            mImpfTetanus.innerHTML = impfung.röteln;
+            let mImpfRöteln = document.createElement("td");
+            tr.appendChild(mImpfRöteln);
+            mImpfRöteln.innerHTML = impfung.röteln;
 
             let mImpfArzt= document.createElement("td");
             tr.appendChild(mImpfArzt);
