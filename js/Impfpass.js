@@ -49,7 +49,6 @@ function impfungSpeichern(){
         for(let i = 0;i<schiebereglerKinder.length;i++){
             if(schiebereglerKinder[i].checked){
                 treffer = true;
-                multiImpfung.push(schiebereglerKinder[i].id)
             }
         }
     }
@@ -102,18 +101,32 @@ function speicherImpfung(){
         /*Multiimpfung*/
 
     }else if(document.getElementById("multiImpfung").checked){
-        console.log(multiImpfung)
-        for(let element of multiImpfung){
-            impfpass[element].datum.push(impfDatum);
-            impfpass[element].charge.push(impfCharge);
-            impfpass[element].impfstoff.push(impfstoff);
-            impfpass[element].arzt.push(impfArzt);    
+        let mImpfung = new Object();
+        mImpfung.impfung = [];
+
+        let schiebereglerElement = document.getElementById("schieberegler");
+        let schiebereglerKinder = schiebereglerElement.getElementsByTagName("input");
+
+        //multiImpfung.push(schiebereglerKinder[i].id)
+        
+        for(let i = 0;i<schiebereglerKinder.length;i++){
+            if(schiebereglerKinder[i].checked){
+                mImpfung.impfung[mImpfung.impfung.length] = schiebereglerKinder[i].id;
+            }
+        }
+
+
+        for(let element =0;element <mImpfung.impfung.length; element++){
+            impfpass[mImpfung.impfung[element]].datum.push(impfDatum);
+            impfpass[mImpfung.impfung[element]].charge.push(impfCharge);
+            impfpass[mImpfung.impfung[element]].impfstoff.push(impfstoff);
+            impfpass[mImpfung.impfung[element]].arzt.push(impfArzt);
         }
         let value = JSON.stringify(impfpass);
         localStorage.setItem("impfpass",value); 
         console.log(impfpass);
 
-        let mImpfung = new Object();
+        
         mImpfung.datum = impfDatum;
         mImpfung.impfstoff = impfstoff;
         mImpfung.charge = impfCharge;
@@ -196,65 +209,77 @@ function zeichneMultiImpfung(){
         tr.appendChild(mImpfDatum);
         mImpfDatum.innerHTML = "Keine MultiImpfungen vorhanden";
     }else{
-        for (let impfung of multiImpfung) {
+
+        for (let element of multiImpfung) {
             let tr = document.createElement("tr");
             table.appendChild(tr);
 
             let mImpfDatum = document.createElement("td");
             tr.appendChild(mImpfDatum);
-            let datum = new Date(impfung.datum);
+            let datum = new Date(element.datum);
             mImpfDatum.innerHTML = datum.toLocaleDateString('de-DE');
 
             let mImpfImpfstoff = document.createElement("td");
             tr.appendChild(mImpfImpfstoff);
-            mImpfImpfstoff.innerHTML = impfung.impfstoff;
+            mImpfImpfstoff.innerHTML = element.impfstoff;
             
             let mImpfCharge = document.createElement("td");
             tr.appendChild(mImpfCharge);
-            mImpfCharge.innerHTML = impfung.charge;
-
+            mImpfCharge.innerHTML = element.charge;
+        if (element.impfung.includes("Tetanus")){
             let mImpfTetanus = document.createElement("td");
             tr.appendChild(mImpfTetanus);
-            mImpfTetanus.innerHTML = "abc";
-
+            mImpfTetanus.innerHTML = "Tetanus";
+        } else {appendKreuz(tr);}
+        if(element.impfung.includes("Diphtherie")){
             let mImpfDiphtherie = document.createElement("td");
             tr.appendChild(mImpfDiphtherie);
-            mImpfDiphtherie.innerHTML = impfung.diphtherie;
-
+            mImpfDiphtherie.innerHTML = "Diphtherie";
+        }else {appendKreuz(tr);}
+         if(element.impfung.includes("Keuchhusten")){
             let mImpfPertussis = document.createElement("td");
             tr.appendChild(mImpfPertussis);
-            mImpfPertussis.innerHTML = impfung.pertussis;
-
+            mImpfPertussis.innerHTML = "Pertussis<br/>/Keuchhusten";
+        }else {appendKreuz(tr);}
+        if(element.impfung.includes("Hib")){
             let mImpfHib = document.createElement("td");
             tr.appendChild(mImpfHib);
-            mImpfHib.innerHTML = impfung.hib;
-            console.log("hier")
+            mImpfHib.innerHTML = "Hib";
+        }else {appendKreuz(tr);}
+        if(element.impfung.includes("HepatitisB")){
             let mImpfHepatitis = document.createElement("td");
             tr.appendChild(mImpfHepatitis);
-            mImpfHepatitis.innerHTML = impfung.hepatitis;
-
+            mImpfHepatitis.innerHTML = "HepatitisB";
+        }else {appendKreuz(tr);}
+        if(element.impfung.includes("Polio")){
             let mImpfPoliomyelitis = document.createElement("td");
             tr.appendChild(mImpfPoliomyelitis);
-            mImpfPoliomyelitis.innerHTML = impfung.poliomyelitis;
-
+            mImpfPoliomyelitis.innerHTML = "Polio";
+        }else {appendKreuz(tr);}
+        if(element.impfung.includes("Masern")){
             let mImpfTMasern = document.createElement("td");
             tr.appendChild(mImpfTMasern);
-            mImpfTMasern.innerHTML = impfung.masern;
-
+            mImpfTMasern.innerHTML = "Masern";
+        }else {appendKreuz(tr);}
+        if(element.impfung.includes("Mumps")){
             let mImpfMumps = document.createElement("td");
             tr.appendChild(mImpfMumps);
-            mImpfMumps.innerHTML = impfung.mumps;
-
+            mImpfMumps.innerHTML = "Mumps";
+        }else {appendKreuz(tr);}
+        if(element.impfung.includes("Roeteln")){
             let mImpfRöteln = document.createElement("td");
             tr.appendChild(mImpfRöteln);
-            mImpfRöteln.innerHTML = impfung.röteln;
-
+            mImpfRöteln.innerHTML = "Roeteln";
+        }else {appendKreuz(tr);}
+        
+    
             let mImpfArzt= document.createElement("td");
             tr.appendChild(mImpfArzt);
-            mImpfArzt.innerHTML = impfung.arzt;
+            mImpfArzt.innerHTML = element.arzt;
+        }
         } 
     }
-}
+
 
 function holeLocalStorage() {
     for (let i = 0; i < localStorage.length; i++) {
@@ -287,4 +312,10 @@ function holeLocalStorage() {
 
 function speicherLocalStorage(){
 
+}
+
+function appendKreuz(tr){
+    let Kreuz = document.createElement("td");
+            tr.appendChild(Kreuz);
+            Kreuz.innerHTML = "Kreuz";
 }
