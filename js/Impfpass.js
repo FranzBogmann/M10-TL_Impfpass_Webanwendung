@@ -185,15 +185,39 @@ function zeichneEinfachImpfung(){
 }
 
 function zeichneMultiImpfung(){
-    if(localStorage.getItem("impfpass") !== null){
-        console.log("Impfpass im Speicher vorhanden!")
-        impfpass = JSON.parse(localStorage.getItem("impfpass"));    
-    }else if(localStorage.getItem("impfpass") === null){
-        console.log("Impfpass wird neu erstellt")
-        let value = JSON.stringify(impfpass);
-        localStorage.setItem("impfpass",value);
+    let table = document.getElementById("multiImpfungTabelle");
+    table.innerHTML = "";
+    if (multiImpfung == "") {
+        let tr = document.createElement("tr");
+        tr.classList.add("d-flex");
+        table.appendChild(tr);
+
+        let mImpfDatum = document.createElement("td");
+        mImpfDatum.classList.add("col-12");
+        tr.appendChild(mImpfDatum);
+        mImpfDatum.innerHTML = "Keine MultiImpfungen vorhanden";
     }else{
-        console.log("Irgendein Fehler für den wir nichts können.")
+        for (let impfung of multiImpfung) {
+            let tr = document.createElement("tr");
+            table.appendChild(tr);
+
+            let mImpfDatum = document.createElement("td");
+            tr.appendChild(mImpfDatum);
+            let datum = new Date(impfung.datum);
+            mImpfDatum.innerHTML = datum.toLocaleDateString('de-DE');
+
+            let mImpfImpfstoff = document.createElement("td");
+            tr.appendChild(mImpfImpfstoff);
+            mImpfImpfstoff.innerHTML = impfung.impfstoff;
+
+            let mImpfCharge = document.createElement("td");
+            tr.appendChild(mImpfCharge);
+            mImpfCharge.innerHTML = impfung.charge;
+
+            let mImpfArzt= document.createElement("td");
+            tr.appendChild(mImpfArzt);
+            mImpfArzt.innerHTML = impfung.arzt;
+        } 
     }
 }
 
