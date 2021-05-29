@@ -186,13 +186,23 @@
             </div>
             <h4>Mulit-Impfungen</h4>
             <div class="row">
+                <div class="table-responsive">
                 <table id="abgeschlossene" class="table table-hover">
                     <thead>
-                        <tr class="d-flex">
-                            <th class="col-2">Datum</th>
-                            <th class="col-2">Impfstoff</th>
-                            <th class="col-2">Chargen-Nr.</th>
-                            <th class="col-2">Arzt</th>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Impfstoff</th>
+                            <th>Chargennummer</th>
+                            <th>Tetanus</th>
+                            <th>Diphtherie</th>
+                            <th>Pertussis</th>
+                            <th>Influenza B (Hib)</th>
+                            <th>HepatitisB</th>
+                            <th>Poliomyelitis</th>
+                            <th>Masern</th>
+                            <th>Mumps</th>
+                            <th>Röteln</th>
+                            <th>Arzt</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -216,6 +226,7 @@
                         </tr> -->
                     </tbody>
                 </table>
+                </div>
             </div>
         </div>     
         <!-- Hier endet der Inhalt der Seite-->
