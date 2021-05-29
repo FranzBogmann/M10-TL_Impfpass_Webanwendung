@@ -21,6 +21,7 @@ function init (){
     document.getElementById("iSpeichern").addEventListener("click",speicherImpfung);
     holeLocalStorage();
     zeichneEinfachImpfung();
+    zeichneMultiImpfung();
 }
 
 function auswahl (){
@@ -97,6 +98,9 @@ function speicherImpfung(){
         value = JSON.stringify(impfpass);
         localStorage.setItem("impfpass",value); 
         zeichneEinfachImpfung();
+
+        /*Multiimpfung*/
+
     }else if(document.getElementById("multiImpfung").checked){
         for(let element of multiImpfung){
             impfpass[element].datum.push(impfDatum);
@@ -107,7 +111,22 @@ function speicherImpfung(){
         let value = JSON.stringify(impfpass);
         localStorage.setItem("impfpass",value); 
         console.log(impfpass);
+
+        let impfArt = document.getElementById("iArt").options[document.getElementById("iArt").selectedIndex].value;
+        let mImpfung = new Object();
+        mImpfung.datum = impfDatum;
+        mImpfung.art = impfArt;
+        mImpfung.impfstoff = impfstoff;
+        mImpfung.charge = impfCharge;
+        mImpfung.arzt = impfArzt;
+        multiImpfung.push(mImpfung);
+
+        value = JSON.stringify(multiImpfung)//[einfachImpfung.length-1]);
+        localStorage.setItem("multiImpfung",value);
         zeichneMultiImpfung();
+
+
+
     }else{
         console.log("Fehler")
     }
@@ -166,15 +185,39 @@ function zeichneEinfachImpfung(){
 }
 
 function zeichneMultiImpfung(){
-    if(localStorage.getItem("impfpass") !== null){
-        console.log("Impfpass im Speicher vorhanden!")
-        impfpass = JSON.parse(localStorage.getItem("impfpass"));    
-    }else if(localStorage.getItem("impfpass") === null){
-        console.log("Impfpass wird neu erstellt")
-        let value = JSON.stringify(impfpass);
-        localStorage.setItem("impfpass",value);
+    let table = document.getElementById("multiImpfungTabelle");
+    table.innerHTML = "";
+    if (multiImpfung == "") {
+        let tr = document.createElement("tr");
+        tr.classList.add("d-flex");
+        table.appendChild(tr);
+
+        let mImpfDatum = document.createElement("td");
+        mImpfDatum.classList.add("col-12");
+        tr.appendChild(mImpfDatum);
+        mImpfDatum.innerHTML = "Keine MultiImpfungen vorhanden";
     }else{
-        console.log("Irgendein Fehler für den wir nichts können.")
+        for (let impfung of multiImpfung) {
+            let tr = document.createElement("tr");
+            table.appendChild(tr);
+
+            let mImpfDatum = document.createElement("td");
+            tr.appendChild(mImpfDatum);
+            let datum = new Date(impfung.datum);
+            mImpfDatum.innerHTML = datum.toLocaleDateString('de-DE');
+
+            let mImpfImpfstoff = document.createElement("td");
+            tr.appendChild(mImpfImpfstoff);
+            mImpfImpfstoff.innerHTML = impfung.impfstoff;
+
+            let mImpfCharge = document.createElement("td");
+            tr.appendChild(mImpfCharge);
+            mImpfCharge.innerHTML = impfung.charge;
+
+            let mImpfArzt= document.createElement("td");
+            tr.appendChild(mImpfArzt);
+            mImpfArzt.innerHTML = impfung.arzt;
+        } 
     }
 }
 
@@ -195,8 +238,15 @@ function holeLocalStorage() {
             console.log("Einfach Impfung")
             console.log(einfachImpfung)
         }
-        if(storageKey.slice(0,12) =="multiImpfung")
-            arzt = JSON.parse(window.localStorage.getItem(storageKey));
+        if(storageKey.slice(0,12) =="multiImpfung"){
+            let multiImpfungObjekt = new Object();
+            multiImpfungObjekt = JSON.parse(localStorage.getItem("multiImpfung"));
+            console.log(multiImpfungObjekt);
+            for(let i = 0 ; i < multiImpfungObjekt.length; i++){
+                multiImpfung.push(multiImpfungObjekt[i]);
+            }
+        }
+            
     }
 }
 
