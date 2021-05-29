@@ -39,7 +39,7 @@ function auswahl (){
 function impfungSpeichern(){
     //Variable die genutzt wird um zu Überprüfen ob eine Multiimpfung ausgewählt ist
     let treffer = false;
-    multiImpfung = [];
+ 
     //Überprüfung ob es sich um eine Multiimpfung handelt
     if(document.getElementById("multiImpfung").checked){
         
@@ -131,11 +131,14 @@ function speicherImpfung(){
         mImpfung.impfstoff = impfstoff;
         mImpfung.charge = impfCharge;
         mImpfung.arzt = impfArzt;
+        console.log(multiImpfung);
         multiImpfung.push(mImpfung);
-
-        value = JSON.stringify(multiImpfung)//[einfachImpfung.length-1]);
-        localStorage.setItem("multiImpfung",value);
+        console.log(multiImpfung);
+        let value2 = JSON.stringify(multiImpfung)//[einfachImpfung.length-1]);
+        console.log(multiImpfung);
+        localStorage.setItem("multiImpfung",value2);
         zeichneMultiImpfung();
+        console.log(multiImpfung);
 
 
 
