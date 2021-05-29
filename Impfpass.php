@@ -169,7 +169,7 @@
             <h4>Multi-Impfungen</h4>
             <div class="row">
                 <div class="table-responsive">
-                <table id="multiImpfungTabelle" class="table table-hover table-bordered">
+                <table class="table table-hover table-bordered">
                     <thead>
                         <tr>
                             <th>Datum</th>
@@ -187,7 +187,7 @@
                             <th>Arzt</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="multiImpfungTabelle">
                        <!-- <tr class="d-flex" name="abgeschlossenEintrag">
                             <td class="col-3" name="abgeschlossenDatum">21.5.2020</td>
                             <td class="col-3" name="abgeschlossenArt">Grippe</td>

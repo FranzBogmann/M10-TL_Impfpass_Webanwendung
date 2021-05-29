@@ -21,6 +21,7 @@ function init (){
     document.getElementById("iSpeichern").addEventListener("click",speicherImpfung);
     holeLocalStorage();
     zeichneEinfachImpfung();
+    zeichneMultiImpfung();
 }
 
 function auswahl (){
@@ -97,6 +98,9 @@ function speicherImpfung(){
         value = JSON.stringify(impfpass);
         localStorage.setItem("impfpass",value); 
         zeichneEinfachImpfung();
+
+        /*Multiimpfung*/
+
     }else if(document.getElementById("multiImpfung").checked){
         for(let element of multiImpfung){
             impfpass[element].datum.push(impfDatum);
@@ -107,7 +111,22 @@ function speicherImpfung(){
         let value = JSON.stringify(impfpass);
         localStorage.setItem("impfpass",value); 
         console.log(impfpass);
+
+        let impfArt = document.getElementById("iArt").options[document.getElementById("iArt").selectedIndex].value;
+        let mImpfung = new Object();
+        mImpfung.datum = impfDatum;
+        mImpfung.art = impfArt;
+        mImpfung.impfstoff = impfstoff;
+        mImpfung.charge = impfCharge;
+        mImpfung.arzt = impfArzt;
+        multiImpfung.push(mImpfung);
+
+        value = JSON.stringify(multiImpfung)//[einfachImpfung.length-1]);
+        localStorage.setItem("multiImpfung",value);
         zeichneMultiImpfung();
+
+
+
     }else{
         console.log("Fehler")
     }
@@ -195,8 +214,15 @@ function holeLocalStorage() {
             console.log("Einfach Impfung")
             console.log(einfachImpfung)
         }
-        if(storageKey.slice(0,12) =="multiImpfung")
-            arzt = JSON.parse(window.localStorage.getItem(storageKey));
+        if(storageKey.slice(0,12) =="multiImpfung"){
+            let multiImpfungObjekt = new Object();
+            multiImpfungObjekt = JSON.parse(localStorage.getItem("multiImpfung"));
+            console.log(multiImpfungObjekt);
+            for(let i = 0 ; i < multiImpfungObjekt.length; i++){
+                multiImpfung.push(multiImpfungObjekt[i]);
+            }
+        }
+            
     }
 }
 
