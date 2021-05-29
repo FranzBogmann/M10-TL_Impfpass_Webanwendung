@@ -3,7 +3,7 @@ window.addEventListener("load", init);
 function init (){
     document.getElementById("impfTyp").addEventListener("click",auswahl);
 
-    // Überprüfung der EIngabe Felder darauf ob alle gefüllt sind und der Termin gespeichert werden kann
+    // Überprüfung der Eingabe Felder darauf ob alle gefüllt sind und der Termin gespeichert werden kann
 
     document.getElementById("iDatum").addEventListener("change",impfungSpeichern);
     document.getElementById("iChargenNr").addEventListener("change",impfungSpeichern);
@@ -16,6 +16,7 @@ function init (){
 }
 
 function auswahl (){
+    //Je nachdem ob Einfach oder Multiimpfung gewählt wird, wird das andere ausgeblendet
     if(document.getElementById("einfachImpfung").checked){
         document.getElementById("dropdown").style.display = "block";
         document.getElementById("schieberegler").style.display = "none";
@@ -27,13 +28,15 @@ function auswahl (){
 }
 
 function impfungSpeichern(){
+    //Variable die genutzt wird um zu Überprüfen ob eine Multiimpfung ausgewählt ist
     let treffer = false;
     multiImpfung = [];
+    //Überprüfung ob es sich um eine Multiimpfung handelt
     if(document.getElementById("multiImpfung").checked){
         
         let schiebereglerElement = document.getElementById("schieberegler");
         let schiebereglerKinder = schiebereglerElement.getElementsByTagName("input");
-
+        // Überprüfung aller Inputfelder ob eines von ihnen ausgewählt ist. ISt dies der Fall wird treffer auf ture gesetzt
         for(let i = 0;i<schiebereglerKinder.length;i++){
             if(schiebereglerKinder[i].checked){
                 treffer = true;
@@ -41,6 +44,8 @@ function impfungSpeichern(){
             }
         }
     }
+    //Überprüfung ob in alle Felder etwas eingefüllt wird und fals es sich um eine Multiimpfung handelt,
+    //ob ein Inputfeld ausgewählt wurde. Fals true wird das Speichern erlaubt
     if(document.getElementById("iDatum").value != "" && 
     document.getElementById("iChargenNr").value != "" &&
     document.getElementById("iArzt").value != "" &&
