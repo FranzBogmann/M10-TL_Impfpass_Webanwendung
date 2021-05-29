@@ -163,24 +163,6 @@
                         </tr>
                     </thead>
                     <tbody id="einfachImpfungTabelle">
-                       <!-- <tr class="d-flex" name="abgeschlossenEintrag">
-                            <td class="col-3" name="abgeschlossenDatum">21.5.2020</td>
-                            <td class="col-3" name="abgeschlossenArt">Grippe</td>
-                            <td class="col-3" name="abgeschlossenCharge">G010-872</td>
-                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
-                        </tr>
-                        <tr class="d-flex" name="abgeschlossenEintrag">
-                            <td class="col-3" name="abgeschlossenDatum">22.5.2020</td>
-                            <td class="col-3" name="abgeschlossenArt">Grippe</td>
-                            <td class="col-3" name="abgeschlossenCharge">G069-555</td>
-                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
-                        </tr>
-                        <tr class="d-flex" name="abgeschlossenEintrag">
-                            <td class="col-3" name="abgeschlossenDatum">24.5.2010</td>
-                            <td class="col-3" name="abgeschlossenArt">Kombi</td>
-                            <td class="col-3" name="abgeschlossenCharge">G010-691</td>
-                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
-                        </tr> -->
                     </tbody>
                 </table>
             </div>

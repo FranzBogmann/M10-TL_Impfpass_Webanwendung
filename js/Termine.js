@@ -25,7 +25,7 @@ function init() {
 function erstelleModal(){
     document.getElementById("terminDatum").value = "";
     let terminArt = document.getElementById("terminArt");
-    terminArt.setAttribute("value","");
+    terminArt.value = "";
     terminArt.disabled = false;
 
 
