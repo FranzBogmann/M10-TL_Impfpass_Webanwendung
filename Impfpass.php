@@ -51,8 +51,8 @@
                                     <option value="Diphtherie">Diphtherie</option>
                                     <option value="FSME">FSME</option>
                                     <option value="Grippe">Grippe</option>
-                                    <option value="HepatitisB">HepatitisB</option>
-                                    <option value="Hib">HepatitisB (HiB)</option>
+                                    <option value="HepatitisB">Hepatitis B</option>
+                                    <option value="Hib">Influenza B (HiB)</option>
                                     <option value="HPV">HPV</option>
                                     <option value="Keuchhusten">Keuchhusten</option>
                                     <option value="Masern">Masern</option>
@@ -152,7 +152,7 @@
             </div>
             <h4>Einfach-Impfungen</h4>
             <div class="row">
-                <table id="abgeschlossene" class="table table-hover">
+                <table class="table table-hover">
                     <thead>
                         <tr class="d-flex">
                             <th class="col-2">Datum</th>
@@ -162,7 +162,7 @@
                             <th class="col-3">Arzt</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="einfachImpfungTabelle">
                        <!-- <tr class="d-flex" name="abgeschlossenEintrag">
                             <td class="col-3" name="abgeschlossenDatum">21.5.2020</td>
                             <td class="col-3" name="abgeschlossenArt">Grippe</td>
@@ -184,10 +184,10 @@
                     </tbody>
                 </table>
             </div>
-            <h4>Mulit-Impfungen</h4>
+            <h4>Multi-Impfungen</h4>
             <div class="row">
                 <div class="table-responsive">
-                <table id="abgeschlossene" class="table table-hover table-bordered">
+                <table id="multiImpfungTabelle" class="table table-hover table-bordered">
                     <thead>
                         <tr>
                             <th>Datum</th>

@@ -4,6 +4,14 @@ function init (){
     document.getElementById("impfTyp").addEventListener("click",auswahl);
 
     // Überprüfung der Eingabe Felder darauf ob alle gefüllt sind und der Termin gespeichert werden kann
+    einfachImpfung = [];
+    multiImpfung = [];
+
+    if(localStorage.getItem("impfpass") === null){
+        console.log("Impfpass wird neu erstellt")
+        let value = JSON.stringify(impfpass);
+        localStorage.setItem("impfpass",value);
+    }
 
     document.getElementById("iDatum").addEventListener("change",impfungSpeichern);
     document.getElementById("iChargenNr").addEventListener("change",impfungSpeichern);
@@ -11,7 +19,7 @@ function init (){
     document.getElementById("impfstoff").addEventListener("change",impfungSpeichern);
     document.getElementById("schieberegler").addEventListener("click",impfungSpeichern);
     document.getElementById("iSpeichern").addEventListener("click",speicherImpfung);
-
+    holeLocalStorage();
     zeichneEinfachImpfung();
 }
 
@@ -70,13 +78,23 @@ function speicherImpfung(){
     let impfArzt = document.getElementById("iArzt").value;
     if(document.getElementById("einfachImpfung").checked){
         let impfArt = document.getElementById("iArt").options[document.getElementById("iArt").selectedIndex].value;
+        let eImpfung = new Object();
         console.log(impfArt);
         impfpass[impfArt].datum.push(impfDatum);
         impfpass[impfArt].charge.push(impfCharge);
         impfpass[impfArt].impfstoff.push(impfstoff);
         impfpass[impfArt].arzt.push(impfArzt);
         console.log(impfpass);
-        let value = JSON.stringify(impfpass);
+        eImpfung.datum = impfDatum;
+        eImpfung.art = impfArt;
+        eImpfung.impfstoff = impfstoff;
+        eImpfung.charge = impfCharge;
+        eImpfung.arzt = impfArzt;
+        einfachImpfung.push(eImpfung);
+        let value = JSON.stringify(einfachImpfung)//[einfachImpfung.length-1]);
+        localStorage.setItem("einfachImpfung",value);
+        console.log(einfachImpfung);
+        value = JSON.stringify(impfpass);
         localStorage.setItem("impfpass",value); 
         zeichneEinfachImpfung();
     }else if(document.getElementById("multiImpfung").checked){
@@ -97,20 +115,53 @@ function speicherImpfung(){
 }
 
 function zeichneEinfachImpfung(){
-    if(localStorage.getItem("impfpass") !== null){
-        console.log("Impfpass im Speicher vorhanden!")
-        impfpass = JSON.parse(localStorage.getItem("impfpass"));    
-    }else if(localStorage.getItem("impfpass") === null){
-        console.log("Impfpass wird neu erstellt")
-        let value = JSON.stringify(impfpass);
-        localStorage.setItem("impfpass",value);
+
+    console.log("Einfach Impfung in Termin zeichnen")
+    console.log(einfachImpfung)
+    let table = document.getElementById("einfachImpfungTabelle");
+    table.innerHTML = "";
+    if (einfachImpfung == "") {
+        let tr = document.createElement("tr");
+        tr.classList.add("d-flex");
+        table.appendChild(tr);
+
+        let eImpfDatum = document.createElement("td");
+        eImpfDatum.classList.add("col-12");
+        tr.appendChild(eImpfDatum);
+        eImpfDatum.innerHTML = "Keine Einfach-Impfungen vorhanden";
     }else{
-        console.log("Irgendein Fehler für den wir nichts können.")
+        for (let impfung of einfachImpfung) {
+            let tr = document.createElement("tr");
+            tr.classList.add("d-flex");
+            table.appendChild(tr);
+
+            let eImpfDatum = document.createElement("td");
+            eImpfDatum.classList.add("col-2");
+            tr.appendChild(eImpfDatum);
+            let datum = new Date(impfung.datum);
+            eImpfDatum.innerHTML = datum.toLocaleDateString('de-DE');
+
+            let eImpfArt = document.createElement("td");
+            eImpfArt.classList.add("col-2");
+            tr.appendChild(eImpfArt);
+            eImpfArt.innerHTML = impfung.art;
+
+            let eImpfImpfstoff = document.createElement("td");
+            eImpfImpfstoff.classList.add("col-2");
+            tr.appendChild(eImpfImpfstoff);
+            eImpfImpfstoff.innerHTML = impfung.impfstoff;
+
+            let eImpfCharge = document.createElement("td");
+            eImpfCharge.classList.add("col-3");
+            tr.appendChild(eImpfCharge);
+            eImpfCharge.innerHTML = impfung.charge;
+
+            let eImpfArzt= document.createElement("td");
+            eImpfArzt.classList.add("col-3");
+            tr.appendChild(eImpfArzt);
+            eImpfArzt.innerHTML = impfung.arzt;
+        } 
     }
-    let testDatum = new Date();
-    testDatum = testDatum.now();
-    console.log(testDatum);
-    
 
 }
 
@@ -125,4 +176,30 @@ function zeichneMultiImpfung(){
     }else{
         console.log("Irgendein Fehler für den wir nichts können.")
     }
+}
+
+function holeLocalStorage() {
+    for (let i = 0; i < localStorage.length; i++) {
+        let storageKey = localStorage.key(i);
+        if(storageKey.slice(0,8) == "impfpass")
+            impfpass = JSON.parse(localStorage.getItem("impfpass"));
+        /*if(storageKey.slice(0,10) == "ausstehend")
+            ausstehendeImpfungen.push(JSON.parse(window.localStorage.getItem(storageKey)));*/
+        if(storageKey.slice(0,14) =="einfachImpfung"){
+            let einfachImpfungObjekt = new Object();
+            einfachImpfungObjekt = JSON.parse(localStorage.getItem("einfachImpfung"));
+            console.log(einfachImpfungObjekt);
+            for(let i = 0 ; i < einfachImpfungObjekt.length; i++){
+                einfachImpfung.push(einfachImpfungObjekt[i]);
+            }
+            console.log("Einfach Impfung")
+            console.log(einfachImpfung)
+        }
+        if(storageKey.slice(0,12) =="multiImpfung")
+            arzt = JSON.parse(window.localStorage.getItem(storageKey));
+    }
+}
+
+function speicherLocalStorage(){
+
 }
