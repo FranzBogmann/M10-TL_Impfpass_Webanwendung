@@ -11,6 +11,8 @@ function init (){
     document.getElementById("impfstoff").addEventListener("change",impfungSpeichern);
     document.getElementById("schieberegler").addEventListener("click",impfungSpeichern);
     document.getElementById("iSpeichern").addEventListener("click",speicherImpfung);
+
+    zeichneEinfachImpfung();
 }
 
 function auswahl (){
@@ -58,7 +60,6 @@ function impfungSpeichern(){
 
 function speicherImpfung(){
     let impfDatum = new Date(document.getElementById("iDatum").value);
-    impfDatum.toISOString();
     let impfCharge = document.getElementById("iChargenNr").value;
     let impfstoff = document.getElementById("impfstoff").value;
     let impfArzt = document.getElementById("iArzt").value;
@@ -70,6 +71,9 @@ function speicherImpfung(){
         impfpass[impfArt].impfstoff.push(impfstoff);
         impfpass[impfArt].arzt.push(impfArzt);
         console.log(impfpass);
+        let value = JSON.stringify(impfpass);
+        localStorage.setItem("impfpass",value); 
+        zeichneEinfachImpfung();
     }else if(document.getElementById("multiImpfung").checked){
         for(let element of multiImpfung){
             impfpass[element].datum.push(impfDatum);
@@ -77,9 +81,43 @@ function speicherImpfung(){
             impfpass[element].impfstoff.push(impfstoff);
             impfpass[element].arzt.push(impfArzt);    
         }
+        let value = JSON.stringify(impfpass);
+        localStorage.setItem("impfpass",value); 
         console.log(impfpass);
+        zeichneMultiImpfung();
     }else{
         console.log("Fehler")
     }
-    //impfpass[document.getElementById("impfTyp")]    
+   
+}
+
+function zeichneEinfachImpfung(){
+    if(localStorage.getItem("impfpass") !== null){
+        console.log("Impfpass im Speicher vorhanden!")
+        impfpass = JSON.parse(localStorage.getItem("impfpass"));    
+    }else if(localStorage.getItem("impfpass") === null){
+        console.log("Impfpass wird neu erstellt")
+        let value = JSON.stringify(impfpass);
+        localStorage.setItem("impfpass",value);
+    }else{
+        console.log("Irgendein Fehler für den wir nichts können.")
+    }
+    let testDatum = new Date();
+    testDatum = testDatum.now();
+    console.log(testDatum);
+    
+
+}
+
+function zeichneMultiImpfung(){
+    if(localStorage.getItem("impfpass") !== null){
+        console.log("Impfpass im Speicher vorhanden!")
+        impfpass = JSON.parse(localStorage.getItem("impfpass"));    
+    }else if(localStorage.getItem("impfpass") === null){
+        console.log("Impfpass wird neu erstellt")
+        let value = JSON.stringify(impfpass);
+        localStorage.setItem("impfpass",value);
+    }else{
+        console.log("Irgendein Fehler für den wir nichts können.")
+    }
 }

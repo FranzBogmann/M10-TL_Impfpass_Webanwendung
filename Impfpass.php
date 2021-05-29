@@ -150,6 +150,73 @@
                     </div>
                 </div>
             </div>
+            <h4>Einfach-Impfungen</h4>
+            <div class="row">
+                <table id="abgeschlossene" class="table table-hover">
+                    <thead>
+                        <tr class="d-flex">
+                            <th class="col-2">Datum</th>
+                            <th class="col-2">Art</th>
+                            <th class="col-2">Impfstoff</th>
+                            <th class="col-3">Chargen-Nr.</th>
+                            <th class="col-3">Arzt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <!-- <tr class="d-flex" name="abgeschlossenEintrag">
+                            <td class="col-3" name="abgeschlossenDatum">21.5.2020</td>
+                            <td class="col-3" name="abgeschlossenArt">Grippe</td>
+                            <td class="col-3" name="abgeschlossenCharge">G010-872</td>
+                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
+                        </tr>
+                        <tr class="d-flex" name="abgeschlossenEintrag">
+                            <td class="col-3" name="abgeschlossenDatum">22.5.2020</td>
+                            <td class="col-3" name="abgeschlossenArt">Grippe</td>
+                            <td class="col-3" name="abgeschlossenCharge">G069-555</td>
+                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
+                        </tr>
+                        <tr class="d-flex" name="abgeschlossenEintrag">
+                            <td class="col-3" name="abgeschlossenDatum">24.5.2010</td>
+                            <td class="col-3" name="abgeschlossenArt">Kombi</td>
+                            <td class="col-3" name="abgeschlossenCharge">G010-691</td>
+                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
+            <h4>Mulit-Impfungen</h4>
+            <div class="row">
+                <table id="abgeschlossene" class="table table-hover">
+                    <thead>
+                        <tr class="d-flex">
+                            <th class="col-2">Datum</th>
+                            <th class="col-2">Impfstoff</th>
+                            <th class="col-2">Chargen-Nr.</th>
+                            <th class="col-2">Arzt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <!-- <tr class="d-flex" name="abgeschlossenEintrag">
+                            <td class="col-3" name="abgeschlossenDatum">21.5.2020</td>
+                            <td class="col-3" name="abgeschlossenArt">Grippe</td>
+                            <td class="col-3" name="abgeschlossenCharge">G010-872</td>
+                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
+                        </tr>
+                        <tr class="d-flex" name="abgeschlossenEintrag">
+                            <td class="col-3" name="abgeschlossenDatum">22.5.2020</td>
+                            <td class="col-3" name="abgeschlossenArt">Grippe</td>
+                            <td class="col-3" name="abgeschlossenCharge">G069-555</td>
+                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
+                        </tr>
+                        <tr class="d-flex" name="abgeschlossenEintrag">
+                            <td class="col-3" name="abgeschlossenDatum">24.5.2010</td>
+                            <td class="col-3" name="abgeschlossenArt">Kombi</td>
+                            <td class="col-3" name="abgeschlossenCharge">G010-691</td>
+                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
+                        </tr> -->
+                    </tbody>
+                </table>
+            </div>
         </div>     
         <!-- Hier endet der Inhalt der Seite-->
 
