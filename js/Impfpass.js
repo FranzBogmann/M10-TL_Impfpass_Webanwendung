@@ -39,7 +39,6 @@ function auswahl (){
 function impfungSpeichern(){
     //Variable die genutzt wird um zu Überprüfen ob eine Multiimpfung ausgewählt ist
     let treffer = false;
- 
     //Überprüfung ob es sich um eine Multiimpfung handelt
     if(document.getElementById("multiImpfung").checked){
         
@@ -138,7 +137,7 @@ function speicherImpfung(){
         console.log(multiImpfung);
         localStorage.setItem("multiImpfung",value2);
         zeichneMultiImpfung();
-        console.log(multiImpfung);
+         console.log(multiImpfung);
 
 
 
@@ -230,49 +229,31 @@ function zeichneMultiImpfung(){
             tr.appendChild(mImpfCharge);
             mImpfCharge.innerHTML = element.charge;
         if (element.impfung.includes("Tetanus")){
-            let mImpfTetanus = document.createElement("td");
-            tr.appendChild(mImpfTetanus);
-            mImpfTetanus.innerHTML = "Tetanus";
+            appendHaken(tr);
         } else {appendKreuz(tr);}
         if(element.impfung.includes("Diphtherie")){
-            let mImpfDiphtherie = document.createElement("td");
-            tr.appendChild(mImpfDiphtherie);
-            mImpfDiphtherie.innerHTML = "Diphtherie";
+            appendHaken(tr);
         }else {appendKreuz(tr);}
          if(element.impfung.includes("Keuchhusten")){
-            let mImpfPertussis = document.createElement("td");
-            tr.appendChild(mImpfPertussis);
-            mImpfPertussis.innerHTML = "Pertussis<br/>/Keuchhusten";
+            appendHaken(tr);
         }else {appendKreuz(tr);}
         if(element.impfung.includes("Hib")){
-            let mImpfHib = document.createElement("td");
-            tr.appendChild(mImpfHib);
-            mImpfHib.innerHTML = "Hib";
+            appendHaken(tr);
         }else {appendKreuz(tr);}
         if(element.impfung.includes("HepatitisB")){
-            let mImpfHepatitis = document.createElement("td");
-            tr.appendChild(mImpfHepatitis);
-            mImpfHepatitis.innerHTML = "HepatitisB";
+            appendHaken(tr);
         }else {appendKreuz(tr);}
         if(element.impfung.includes("Polio")){
-            let mImpfPoliomyelitis = document.createElement("td");
-            tr.appendChild(mImpfPoliomyelitis);
-            mImpfPoliomyelitis.innerHTML = "Polio";
+            appendHaken(tr);
         }else {appendKreuz(tr);}
         if(element.impfung.includes("Masern")){
-            let mImpfTMasern = document.createElement("td");
-            tr.appendChild(mImpfTMasern);
-            mImpfTMasern.innerHTML = "Masern";
+            appendHaken(tr);
         }else {appendKreuz(tr);}
         if(element.impfung.includes("Mumps")){
-            let mImpfMumps = document.createElement("td");
-            tr.appendChild(mImpfMumps);
-            mImpfMumps.innerHTML = "Mumps";
+            appendHaken(tr);
         }else {appendKreuz(tr);}
         if(element.impfung.includes("Roeteln")){
-            let mImpfRöteln = document.createElement("td");
-            tr.appendChild(mImpfRöteln);
-            mImpfRöteln.innerHTML = "Roeteln";
+            appendHaken(tr);
         }else {appendKreuz(tr);}
         
     
@@ -318,7 +299,19 @@ function speicherLocalStorage(){
 }
 
 function appendKreuz(tr){
-    let Kreuz = document.createElement("td");
-            tr.appendChild(Kreuz);
-            Kreuz.innerHTML = "Kreuz";
+    let Tabledata = document.createElement("td");
+            
+    let Kreuz = document.createElement("img");
+    Kreuz.src = "./images/icons/Kreuz.png"
+    Tabledata.appendChild(Kreuz);
+    tr.appendChild(Tabledata);
+            
+}
+
+function appendHaken(tr){
+    let Tabledatahaken = document.createElement("td");
+    let Haken = document.createElement("img");
+    Haken.src = "./images/icons/Checkmark.png"
+    Tabledatahaken.appendChild(Haken);
+    tr.appendChild(Tabledatahaken);
 }
