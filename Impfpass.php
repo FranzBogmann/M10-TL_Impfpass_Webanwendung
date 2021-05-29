@@ -187,7 +187,7 @@
             <h4>Mulit-Impfungen</h4>
             <div class="row">
                 <div class="table-responsive">
-                <table id="abgeschlossene" class="table table-hover">
+                <table id="abgeschlossene" class="table table-hover table-bordered">
                     <thead>
                         <tr>
                             <th>Datum</th>
