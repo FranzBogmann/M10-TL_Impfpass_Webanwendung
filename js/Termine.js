@@ -16,9 +16,9 @@ function init() {
     document.getElementById("terminAnlegenButton").addEventListener("click",erstelleModal);
     document.getElementById("bearbeiten").addEventListener("click", holeLocalStorage);
 
-    
-    zeichneTermine();
+    zeichneLetzteImpfungen();
     abgeschlossenAuslesen();
+    zeichneTermine();
 
 }
 //Arzt voreinstellen
@@ -319,7 +319,7 @@ function terminBuchen(event){
     ausstehende = JSON.parse(localStorage.getItem("ausstehend"+ausstehendIndex));
 
     let artImpfung = document.getElementById("terminArt");
-    artImpfung.setAttribute("value",ausstehende.art);
+    artImpfung.value = ausstehende.art;
     artImpfung.disabled = true;
     //TODO HIER WEITER MACHEN MIT löschen der Reihe, des Array-Elements und des localStorage-Eintrags + Abspeichern als neuer Termin
     document.getElementById("terminAnlegen").addEventListener("click",terminAusAusstehend);
@@ -368,6 +368,54 @@ function loescheLocalStorage() {
     speichereTermine();
     zeichneTermine();
     document.getElementById("terminAnlegen").removeEventListener("click",terminAusAusstehend);
+}
+
+//Zeichnen der Letzte Impfungen Tabelle:
+function zeichneLetzteImpfungen() {
+
+    let table = document.getElementById("letzteImpfungenDaten");
+    table.innerHTML = "";
+
+    let impfpassDaten = JSON.parse(localStorage.getItem("impfpass"));
+
+    if (localStorage.getItem("impfpass") == JSON.stringify(impfpass) || impfpassDaten === null) {
+        let tr = document.createElement("tr");
+        tr.classList.add("d-flex");
+        table.appendChild(tr);
+
+        let tabellenEintrag = document.createElement("td");
+        tabellenEintrag.classList.add("col-12");
+        tr.appendChild(tabellenEintrag );
+        tabellenEintrag.innerHTML = "Keine letzten Impfungen vorhanden. Bitte diese im <a href='Impfpass.php'>Impfpass</a> anlegen!";
+    } else{
+
+        for (let i = 0; impfpassDaten.length; i++) {
+            if(impfpassDaten[i].datum.length != 0) {
+
+            //TODO Umschreiben zu Impfungen aus impfpass
+            /*let tr = document.createElement("tr");
+            tr.classList.add("d-flex");
+            table.appendChild(tr);
+
+            let impfungArt = document.createElement("td");
+            impfungArt.classList.add("col-3");
+            tr.appendChild(impfungArt);
+            impfungArt.innerHTML = impfpassDaten;
+
+            let terminDatum = document.createElement("td");
+            terminDatum.classList.add("col-3");
+            tr.appendChild(terminDatum);
+            let terminDatumString = new Date(termin.datum)
+            terminDatum.innerHTML = terminDatumString.toLocaleDateString('de-DE');
+
+            let terminArzt = document.createElement("td");
+            terminArzt.classList.add("col-3");
+            tr.appendChild(terminArzt);
+            terminArzt.innerHTML = termin.arzt;
+            */
+            }
+        }
+    } 
 }
 
 //Quelle: https://stackoverflow.com/questions/2945113/how-to-create-a-new-date-in-javascript-from-a-non-standard-date-format/2945150

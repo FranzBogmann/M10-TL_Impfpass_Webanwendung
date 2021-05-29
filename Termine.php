@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <?php include("./php/header.php"); ?>
         <script src="js/Termine.js"></script>
+        <script src="impfungen.js"></script>
     </head>
     <body>
         <?php include("./php/nav.php"); ?>
@@ -84,7 +85,7 @@
                 </table>
             </div>
 
-            <h4>Ausstehend</h4>
+            <h4>Ausstehende Impfungen</h4>
             <div class="row">
                 <table id="ausstehende" class="table table-hover table-responsive">
                     <thead>
@@ -101,19 +102,17 @@
                 </table>
             </div>
 
-            <h4>Abgeschlossen</h4>
+            <h4>Letzte Impfungen</h4>
             <div class="row">
                 <table id="abgeschlossene" class="table table-hover">
                     <thead>
                         <tr class="d-flex">
-                            <th class="col-2">Datum</th>
-                            <th class="col-3">Art</th>
-                            <th class="col-2">Impfstoff</th>
-                            <th class="col-2">Chargen-Nr.</th>
-                            <th class="col-3">Arzt</th>
+                            <th class="col-4">Art</th>
+                            <th class="col-4">letzte Impfung am</th>
+                            <th class="col-4">Arzt</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="letzteImpfungenDaten">
                        <!-- <tr class="d-flex" name="abgeschlossenEintrag">
                             <td class="col-3" name="abgeschlossenDatum">21.5.2020</td>
                             <td class="col-3" name="abgeschlossenArt">Grippe</td>
