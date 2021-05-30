@@ -407,13 +407,13 @@ function zeichneLetzteImpfungen() {
                 let letzteImpfung = document.createElement("td");
                 letzteImpfung.classList.add("col-4");
                 tr.appendChild(letzteImpfung);
-                let impfungDatumString = new Date(impfpassDaten[key].datum[0])
+                let impfungDatumString = new Date(impfpassDaten[key].letzteImpfung[0])
                 letzteImpfung.innerHTML = impfungDatumString.toLocaleDateString('de-DE');
 
                 let impfungArzt = document.createElement("td");
                 impfungArzt.classList.add("col-4");
                 tr.appendChild(impfungArzt);
-                impfungArzt.innerHTML = impfpassDaten[key].arzt[0];
+                impfungArzt.innerHTML = impfpassDaten[key].letzteImpfung[1];
             }
         }
     } 

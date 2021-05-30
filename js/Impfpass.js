@@ -83,6 +83,17 @@ function speicherImpfung(){
         impfpass[impfArt].charge.push(impfCharge);
         impfpass[impfArt].impfstoff.push(impfstoff);
         impfpass[impfArt].arzt.push(impfArzt);
+        //letzte Impfung wird gesetzt
+        if (impfpass[impfArt].datum.length > 1){
+            let datumLetzteImpfung = Date.parse(impfpass[impfArt].letzteImpfung[0]);
+            if(Date.parse(impfDatum) > datumLetzteImpfung){
+                impfpass[impfArt].letzteImpfung[0] = impfDatum;
+                impfpass[impfArt].letzteImpfung[1] = impfArzt;
+            }
+        }else{
+            impfpass[impfArt].letzteImpfung[0] = impfDatum;
+            impfpass[impfArt].letzteImpfung[1] = impfArzt;
+        }
         console.log(impfpass);
         eImpfung.datum = impfDatum;
         eImpfung.art = impfArt;

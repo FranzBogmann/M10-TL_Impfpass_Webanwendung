@@ -5,6 +5,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 10,
+            letzteImpfung: [,],
         },
         FSME : {
             datum: [],
@@ -12,6 +13,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 5,
+            letzteImpfung: [,],
         },
         Grippe : {
             datum: [],
@@ -19,6 +21,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 1,
+            letzteImpfung: [,],
         },
         HepatitisB : {
             datum: [],
@@ -26,6 +29,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         Hib : {
             datum: [],
@@ -33,6 +37,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         HPV : {
             datum: [],
@@ -40,6 +45,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         Keuchhusten : {
             datum: [],
@@ -47,6 +53,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         Masern : {
             datum: [],
@@ -54,6 +61,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         Meningokokken : {
             datum: [],
@@ -61,6 +69,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         Mumps : {
             datum: [],
@@ -68,6 +77,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         //TODO ab 60 alle 6 Jahre, ab 60 als ausstehend
         Pneumokokken : {
@@ -76,6 +86,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         //TODO ab 9. Lebensjahr 1 mal
         Polio : {
@@ -84,6 +95,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         Rotaviren : {
             datum: [],
@@ -91,6 +103,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         Roeteln : {
             datum: [],
@@ -98,6 +111,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         Tetanus : {
             datum: [],
@@ -105,6 +119,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 10,
+            letzteImpfung: [,],
         },
         Windpocken : {
             datum: [],
@@ -112,6 +127,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         //TODO ab 60 1 mal
         Guertelrose : {
@@ -120,6 +136,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         Covid19 : {
             datum: [],
@@ -127,6 +144,7 @@ var impfpass = {
             impfstoff: [],
             arzt: [],
             intervall: 0,
+            letzteImpfung: [,],
         },
         
         
