@@ -379,6 +379,7 @@ function zeichneLetzteImpfungen() {
     let impfpassDaten = JSON.parse(localStorage.getItem("impfpass"));
 
     if (localStorage.getItem("impfpass") == JSON.stringify(impfpass) || impfpassDaten === null) {
+        console.log("Kein Impfpass");
         let tr = document.createElement("tr");
         tr.classList.add("d-flex");
         table.appendChild(tr);
@@ -388,31 +389,31 @@ function zeichneLetzteImpfungen() {
         tr.appendChild(tabellenEintrag );
         tabellenEintrag.innerHTML = "Keine letzten Impfungen vorhanden. Bitte diese im <a href='Impfpass.php'>Impfpass</a> anlegen!";
     } else{
+        console.log("Impfpass-Daten vorhanden")
+        for (let key of Object.keys(impfpassDaten)) {
+            //console.log(`${key}: ${value}`);
 
-        for (let i = 0; impfpassDaten.length; i++) {
-            if(impfpassDaten[i].datum.length != 0) {
+            if(impfpassDaten[key].datum.length != 0) {
+                console.log(impfpassDaten[key])
+                let tr = document.createElement("tr");
+                tr.classList.add("d-flex");
+                table.appendChild(tr);
 
-            //TODO Umschreiben zu Impfungen aus impfpass
-            /*let tr = document.createElement("tr");
-            tr.classList.add("d-flex");
-            table.appendChild(tr);
+                let impfungArt = document.createElement("td");
+                impfungArt.classList.add("col-4");
+                tr.appendChild(impfungArt);
+                impfungArt.innerHTML = key;
+                //TODO Hier das letzte Datum herausnehmen und den Index dieser Stelle Speichern!
+                let letzteImpfung = document.createElement("td");
+                letzteImpfung.classList.add("col-4");
+                tr.appendChild(letzteImpfung);
+                let impfungDatumString = new Date(impfpassDaten[key].datum[0])
+                letzteImpfung.innerHTML = impfungDatumString.toLocaleDateString('de-DE');
 
-            let impfungArt = document.createElement("td");
-            impfungArt.classList.add("col-3");
-            tr.appendChild(impfungArt);
-            impfungArt.innerHTML = impfpassDaten;
-
-            let terminDatum = document.createElement("td");
-            terminDatum.classList.add("col-3");
-            tr.appendChild(terminDatum);
-            let terminDatumString = new Date(termin.datum)
-            terminDatum.innerHTML = terminDatumString.toLocaleDateString('de-DE');
-
-            let terminArzt = document.createElement("td");
-            terminArzt.classList.add("col-3");
-            tr.appendChild(terminArzt);
-            terminArzt.innerHTML = termin.arzt;
-            */
+                let impfungArzt = document.createElement("td");
+                impfungArzt.classList.add("col-4");
+                tr.appendChild(impfungArzt);
+                impfungArzt.innerHTML = impfpassDaten[key].arzt[0];
             }
         }
     } 
