@@ -17,7 +17,6 @@ function init() {
     document.getElementById("bearbeiten").addEventListener("click", holeLocalStorage);
 
     zeichneLetzteImpfungen();
-    abgeschlossenAuslesen();
     zeichneTermine();
 
 }
@@ -50,6 +49,21 @@ function erstelleModal(){
         li.appendChild(strong);
         strong.innerHTML = arzt.hausarztTelefonnummer;     
     }
+
+    let select = document.getElementById("terminArt");
+    for(let key of Object.keys(impfpassDaten)){
+        console.log(key);
+        if(impfpassDaten[key].termin == ""){
+            console.log("Bin drin!")
+            let option = document.createElement("option");
+            option.value = key
+            select.appendChild(option);
+            option.innerHTML= key;
+
+
+
+        }
+    }
     //Hier wird ein spezifischer Button für die Manuelle Terminerstellung erstellt, da auf das Modal auch noch bei Termin buchen verwendet wird
     /*let footer = document.getElementById("terminFooter");
     footer.innerHTML ="";
@@ -77,13 +91,14 @@ function erstelleModal(){
 //      ------------ Termine anlegen ---------------
 function speicherButton() {
     var termin = new Object();
-
+    let terminArt = document.getElementById("terminArt").options[document.getElementById("terminArt").selectedIndex].value;
 
     termin.datum = document.getElementById("terminDatum").value; console.log(document.getElementById("terminDatum").value);
-    termin.art = document.getElementById("terminArt").value; console.log(document.getElementById("terminArt").value);
+    termin.art = terminArt; //document.getElementById("terminArt").value; console.log(document.getElementById("terminArt").value);
     termin.ausstehend = "---";
     termin.arzt = document.getElementById("terminArzt").value; console.log(document.getElementById("terminArzt").value);
 
+    impfpassDaten[terminArt].termin = new Date(termin.datum);
 
     termine.push(termin); console.log(termine[0].arzt);
 
@@ -179,8 +194,59 @@ function speichereTermine() {
 
 // ---------- Ausstehend Berechnen ----------
 function abgeschlossenAuslesen(){
+    console.log("Ausstehende auslesen")
+    for(let key of Object.keys(impfpassDaten)){
+        if(impfpassDaten[key].termin == ""){
+            console.log("Termin nicht vorhanden");
+            let heuteDatum = new Date();
+            heuteDatum.toLocaleDateString("de-De");
+            if(impfpassDaten[key].letzteImpfung[0] === null){
+                console.log("Keine letzte Impfung vorhanden!")
+                var ausstehend = new Object();
+                ausstehend.datum = "Noch nie geimpft!"
+                ausstehend.art = key;
+                ausstehend.naechsteImpfung = heuteDatum;
+                ausstehendeImpfungen.push(ausstehend);
+                speichereAusstehend();
+            }else{
+                console.log("Letzte Impfung vorhanden!")
+                var ausstehend = new Object(); 
+                let datumletzteImpfung = new Date(impfpassDaten[key].letzteImpfung[0]);
+                datumletzteImpfung = datumletzteImpfung.toLocaleDateString("de-De");
+                console.log(datumletzteImpfung);
+                let teileImpfdatum = parseDate(datumletzteImpfung);
+                if(impfpassDaten[key].intervall != 0){
+                    console.log("Intervall ist nicht null")
+                    let datumnaechsteImpfung = new Date(parseInt(teileImpfdatum[2])+impfpassDaten[key].intervall, teileImpfdatum[1]-1, teileImpfdatum[0])
+                    datumnaechsteImpfung = new Date(datumnaechsteImpfung);
+                    //datumnaechsteImpfung = datumnaechsteImpfung.toLocaleDateString("de-De");
+                    console.log("Datum nächste Impfung");
+                    console.log(datumnaechsteImpfung);
+                    //datumImpfung = new Date(datumImpfung)
+                    //let datumnaechsteImpfung = new Date((datum))
+                    console.log(Date.parse(heuteDatum))
+                    console.log(Date.parse(datumnaechsteImpfung))
+                    console.log(Date.parse(heuteDatum) -Date.parse(datumnaechsteImpfung));
+                    if((Date.parse(heuteDatum) -Date.parse(datumnaechsteImpfung))>=0){
+                        console.log("Differenz größer 0")
+                        ausstehend.datum = new Date(impfpassDaten[key].letzteImpfung[0]).toLocaleDateString("de-De");
+                        ausstehend.naechsteImpfung = datumnaechsteImpfung;
+                        ausstehend.art = key;
+                        ausstehendeImpfungen.push(ausstehend);
+                        speichereAusstehend();
+                    }
+                }
+                
+
+
+
+            }
+                
+
+        }
+    }
     //TODO Es muss bei der dynamischen Erstellung der Abgeschlossen-Beiträge der Name "abgeschlossenEintrag" hinzugefügt werden
-    let abgeschlossen = document.getElementsByName("abgeschlossenEintrag")
+   /* let abgeschlossen = document.getElementsByName("abgeschlossenEintrag")
     for(let part of abgeschlossen){
         var ausstehend = new Object();
         //TODO Das wird nachher aus dem Impfpass-JSON-Objekt herausgelesen, nicht aus der Tabellenzeile
@@ -221,7 +287,7 @@ function abgeschlossenAuslesen(){
                 break;
         }
     }
-    speichereAusstehend();
+    speichereAusstehend();*/
 }
 
 //TODO Diese Methode kann gelöscht werden, wenn die Daten aus dem Impfpass genommen werden
@@ -262,7 +328,8 @@ function zeichneAusstehend(){
             let ausstehendDatum = document.createElement("td");
             ausstehendDatum.classList.add("col-3");
             tr.appendChild(ausstehendDatum);
-            ausstehendDatum.innerHTML = ausstehend.naechsteImpfung;
+            let datum = new Date(ausstehend.naechsteImpfung).toLocaleDateString("de-De")
+            ausstehendDatum.innerHTML = datum;
 
             let ausstehendArt = document.createElement("td");
             ausstehendArt.classList.add("col-3");
@@ -318,7 +385,7 @@ function terminBuchen(event){
     ausstehendIndex = event.target.parentElement.parentElement.rowIndex -1;
     ausstehende = JSON.parse(localStorage.getItem("ausstehend"+ausstehendIndex));
 
-    let artImpfung = document.getElementById("terminArt");
+    let artImpfung = document.getElementById("terminArt").options[ausstehende.art];
     artImpfung.value = ausstehende.art;
     artImpfung.disabled = true;
     //TODO HIER WEITER MACHEN MIT löschen der Reihe, des Array-Elements und des localStorage-Eintrags + Abspeichern als neuer Termin
@@ -334,10 +401,13 @@ function terminAusAusstehend(){
 
     let termin = {
         datum : document.getElementById("terminDatum").value,
-        art : document.getElementById("terminArt").value,
-        ausstehend : ausstehende.datum,
+        art : document.getElementById("terminArt").options[document.getElementById("terminArt").selectedIndex].value,
+        ausstehend : new Date(ausstehende.naechsteImpfung).toLocaleDateString("de-De"),
         arzt : document.getElementById("terminArzt").value
     };
+    impfpassDaten[document.getElementById("terminArt").options[document.getElementById("terminArt").selectedIndex].value].termin = new Date(termin.datum);
+    let value = JSON.stringify(impfpassDaten); 
+    localStorage.setItem("impfpass",value)
     termine.push(termin);
 
     loescheLocalStorage();
@@ -376,7 +446,7 @@ function zeichneLetzteImpfungen() {
     let table = document.getElementById("letzteImpfungenDaten");
     table.innerHTML = "";
 
-    let impfpassDaten = JSON.parse(localStorage.getItem("impfpass"));
+    impfpassDaten = JSON.parse(localStorage.getItem("impfpass"));
 
     if (localStorage.getItem("impfpass") == JSON.stringify(impfpass) || impfpassDaten === null) {
         console.log("Kein Impfpass");
@@ -416,6 +486,8 @@ function zeichneLetzteImpfungen() {
                 impfungArzt.innerHTML = impfpassDaten[key].letzteImpfung[1];
             }
         }
+        //! Hier wird geguckt, ob eine Impfung noch aussteht!
+        abgeschlossenAuslesen();
     } 
 }
 

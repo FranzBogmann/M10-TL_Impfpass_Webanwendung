@@ -37,6 +37,31 @@
                                     aria-describedby="basic-addon1">
                             </div>
 
+                            <div id="dropdown">
+                                <label for="form-select">Wählen Sie ihre Impfung:</label>
+                                <select id="terminArt" class="form-select" aria-label="Default select example" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
+                                    <!--<option value="Diphtherie">Diphtherie</option>
+                                    <option value="FSME">FSME</option>
+                                    <option value="Grippe">Grippe</option>
+                                    <option value="HepatitisB">Hepatitis B</option>
+                                    <option value="Hib">Influenza B (HiB)</option>
+                                    <option value="HPV">HPV</option>
+                                    <option value="Keuchhusten">Keuchhusten</option>
+                                    <option value="Masern">Masern</option>
+                                    <option value="Meningokokken">Meningokokken</option>
+                                    <option value="Mumps">Mumps</option>
+                                    <option value="Pneumokokken">Pneumokokken</option>
+                                    <option value="Polio">Polio</option>
+                                    <option value="Rotaviren">Rotaviren</option>
+                                    <option value="Roeteln">Röteln</option>
+                                    <option value="Tetanus">Tetanus</option>
+                                    <option value="Windpocken">Windpocken</option>
+                                    <option value="Guertelrose">Gürtelrose</option>
+                                    <option value="Covid19">Covid-19</option>-->
+                                </select>
+                                <br>
+                            </div>
+                            <!--
                             <div class="input-group mb-3">
                                 <span class="input-group-text"
                                     >Impfung gegen</span>
@@ -44,7 +69,7 @@
                                     placeholder="ADHS" aria-label="Impfung gegen"
                                     aria-describedby="basic-addon1" id="terminArt">
                             </div>
-
+                            -->
                             <div class="input-group mb-3">
                                 <span class="input-group-text"
                                     >Arzt/Ärztin</span>
@@ -90,7 +115,7 @@
                 <table id="ausstehende" class="table table-hover table-responsive">
                     <thead>
                         <tr class="d-flex">
-                            <th class="col-3">Datum</th>
+                            <th class="col-3">ausstehend seit</th>
                             <th class="col-3">Art</th>
                             <th class="col-3">letzte Impfung</th>
                             <th class="col-3">Termin buchen</th>
@@ -108,7 +133,7 @@
                     <thead>
                         <tr class="d-flex">
                             <th class="col-4">Art</th>
-                            <th class="col-4">letzte Impfung am</th>
+                            <th class="col-4">letzte Impfung</th>
                             <th class="col-4">Arzt</th>
                         </tr>
                     </thead>
