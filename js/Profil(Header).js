@@ -20,6 +20,21 @@ function init() {
     profilBildÄnderung();
     //Das Icon im Header wird eingeblendet
     profilIconÄndern();
+
+    //Hier wird der Export gestartet
+    document.getElementById("exportJson").addEventListener("click",function(){
+        if(localStorage.getItem("impfpass") != null){
+            let dataStr = localStorage.getItem("impfpass");
+            let dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
+    
+            let exportFileDefaultName = 'data.json';
+    
+            let linkElement = document.getElementById("exportJson");
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+        }
+        
+    })
 }
 
 function profilIconÄndern (){

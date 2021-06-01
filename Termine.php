@@ -10,10 +10,10 @@
         <div class="container">
 
             <!-- Button trigger modal -->
-            <button type="button" data-bs-toggle="modal" class="btn btn
+            <!--<button type="button" data-bs-toggle="modal" class="btn btn
                 btn-warning btn-lg" data-bs-target="#Termin" id="terminAnlegenButton">+ Termin hinzufügen</button>
             <br>
-            <br>
+            <br>-->
             <!-- Modal für Termin hinzufügen Maske -->
             <div class="modal fade" id="Termin" tabindex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true">

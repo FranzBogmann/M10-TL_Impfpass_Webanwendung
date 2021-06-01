@@ -13,10 +13,10 @@ function init (){
         localStorage.setItem("impfpass",value);
     }
 
-    document.getElementById("iDatum").addEventListener("change",impfungSpeichern);
-    document.getElementById("iChargenNr").addEventListener("change",impfungSpeichern);
-    document.getElementById("iArzt").addEventListener("change",impfungSpeichern);
-    document.getElementById("impfstoff").addEventListener("change",impfungSpeichern);
+    document.getElementById("iDatum").addEventListener("keyup",impfungSpeichern);
+    document.getElementById("iChargenNr").addEventListener("keyup",impfungSpeichern);
+    document.getElementById("iArzt").addEventListener("keyup",impfungSpeichern);
+    document.getElementById("impfstoff").addEventListener("keyup",impfungSpeichern);
     document.getElementById("schieberegler").addEventListener("click",impfungSpeichern);
     document.getElementById("iSpeichern").addEventListener("click",speicherImpfung);
     holeLocalStorage();
@@ -41,13 +41,16 @@ function impfungSpeichern(){
     let treffer = false;
     //Überprüfung ob es sich um eine Multiimpfung handelt
     if(document.getElementById("multiImpfung").checked){
-        
+        let zaehler = 0;
         let schiebereglerElement = document.getElementById("schieberegler");
         let schiebereglerKinder = schiebereglerElement.getElementsByTagName("input");
         // Überprüfung aller Inputfelder ob eines von ihnen ausgewählt ist. ISt dies der Fall wird treffer auf ture gesetzt
         for(let i = 0;i<schiebereglerKinder.length;i++){
             if(schiebereglerKinder[i].checked){
-                treffer = true;
+                zaehler ++;
+                if(zaehler >= 2){
+                    treffer = true;
+                }   
             }
         }
     }
@@ -131,6 +134,16 @@ function speicherImpfung(){
             impfpass[mImpfung.impfung[element]].charge.push(impfCharge);
             impfpass[mImpfung.impfung[element]].impfstoff.push(impfstoff);
             impfpass[mImpfung.impfung[element]].arzt.push(impfArzt);
+            if (impfpass[mImpfung.impfung[element]].datum.length > 1){
+                let datumLetzteImpfung = Date.parse(impfpass[mImpfung.impfung[element]].letzteImpfung[0]);
+                if(Date.parse(impfDatum) > datumLetzteImpfung){
+                    impfpass[mImpfung.impfung[element]].letzteImpfung[0] = impfDatum;
+                    impfpass[mImpfung.impfung[element]].letzteImpfung[1] = impfArzt;
+                }
+            }else{
+                impfpass[mImpfung.impfung[element]].letzteImpfung[0] = impfDatum;
+                impfpass[mImpfung.impfung[element]].letzteImpfung[1] = impfArzt;
+            }
         }
         let value = JSON.stringify(impfpass);
         localStorage.setItem("impfpass",value); 
