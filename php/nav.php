@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-xl navbar-dark bg-warning mb-3">
+<nav class="navbar navbar-expand-xl navbar-dark bg-warning mb-3 sticky-top">
             <div class="container">
                 <a class="navbar-brand text-dark" href="index.php"><img
                         src="./images/icons/favicon.svg" alt="" width="32"
