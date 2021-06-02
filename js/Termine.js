@@ -2,7 +2,7 @@ window.addEventListener("load", init);
 
 
 function init() {
-
+    console.log("init Funktion betreten")
     termine = [];
     ausstehendeImpfungen =[];
     arzt = new Object();
@@ -18,14 +18,15 @@ function init() {
     zeichneLetzteImpfungen();
     zeichneAusstehend();
     zeichneTermine();
-
+    console.log("init Funktion verlassen")
 }
 
 function zeichneTermine() {
-    console.log("Die zeichneTermine()-Funktion wird aufgerufen!")
-    loescheTerminTabelle();
+    console.log("Die zeichneTermine()-Funktion wird aufgerufen!");
 
     let table = document.getElementById("terminDaten");
+    table.innerHTML ="";
+
     if (termine == "") {
         let tr = document.createElement("tr");
         tr.classList.add("d-flex");
@@ -45,11 +46,19 @@ function zeichneTermine() {
             let terminDatum = document.createElement("td");
             terminDatum.classList.add("col-3");
             tr.appendChild(terminDatum);
+            let div = document.createElement("div")
             let terminDatumString = new Date(termin.datum)
-            terminDatum.innerHTML = terminDatumString.toLocaleDateString('de-DE');
+            div.classList.add("fw-bold");
+            div.textContent = terminDatumString.toLocaleDateString('de-DE');
+            terminDatum.appendChild(div);
+            div = document.createElement("div");
+            div.classList.add("text-muted");
+            div.textContent = terminDatumString.toLocaleTimeString('de-DE').slice(0,5);
+            terminDatum.appendChild(div);
 
             let terminArt = document.createElement("td");
             terminArt.classList.add("col-3");
+            terminArt.classList.add("fs-5");
             tr.appendChild(terminArt);
             terminArt.innerHTML = termin.art;
 
@@ -66,17 +75,9 @@ function zeichneTermine() {
     }
 }
 
-function loescheTerminTabelle() {
-    let table = document.getElementById("terminDaten");
-    table.innerHTML = "";
-}
-
-function loescheAusstehendTabelle() {
-    let table = document.getElementById("ausstehendDaten");
-    table.innerHTML = "";
-}
 
 function holeLocalStorage() {
+    console.log("Termine neu geholt")
     for (let i = 0; i < localStorage.length; i++) {
         let storageKey = localStorage.key(i);
         if(storageKey.slice(0,6) == "termin")
@@ -85,6 +86,7 @@ function holeLocalStorage() {
 }
 
 function speichereTermine() {
+    console.log("Termine werden in LocalStorage gespeichert")
     let zaehlerTermine = 0;
     for(let termin of termine){
         let key = "termin" + zaehlerTermine;
@@ -96,6 +98,7 @@ function speichereTermine() {
 
 // ---------- Ausstehend Berechnen ----------
 function abgeschlossenAuslesen(){
+    console.log("Ausstehende Impfungen werden ausgelesen")
     for(let key of Object.keys(impfpassDaten)){
         if(impfpassDaten[key].termin == ""){
             let heuteDatum = new Date();
@@ -106,7 +109,6 @@ function abgeschlossenAuslesen(){
                 ausstehend.art = key;
                 ausstehend.naechsteImpfung = heuteDatum;
                 ausstehendeImpfungen.push(ausstehend);
-                zeichneAusstehend();
             }else{
                 var ausstehend = new Object(); 
                 let datumletzteImpfung = new Date(impfpassDaten[key].letzteImpfung[0]);
@@ -120,18 +122,19 @@ function abgeschlossenAuslesen(){
                         ausstehend.naechsteImpfung = datumnaechsteImpfung;
                         ausstehend.art = key;
                         ausstehendeImpfungen.push(ausstehend);
-                        zeichneAusstehend();
                     }
                 }
             }      
         }
     }
+    zeichneAusstehend();
 }
 
 function zeichneAusstehend(){
-    loescheAusstehendTabelle();
-
+    console.log("Ausstehende Impfungen werden gezeichnet")
     let table = document.getElementById("ausstehendDaten");
+    table.innerHTML = "";
+
     if (ausstehendeImpfungen.length == 0) {
         let tr = document.createElement("tr");
         tr.classList.add("d-flex");
@@ -151,12 +154,14 @@ function zeichneAusstehend(){
 
             let ausstehendDatum = document.createElement("td");
             ausstehendDatum.classList.add("col-3");
+            ausstehendDatum.classList.add("fw-bold")
             tr.appendChild(ausstehendDatum);
             let datum = new Date(ausstehend.naechsteImpfung).toLocaleDateString("de-De")
             ausstehendDatum.innerHTML = datum;
 
             let ausstehendArt = document.createElement("td");
             ausstehendArt.classList.add("col-3");
+            ausstehendArt.classList.add("fs-5");
             tr.appendChild(ausstehendArt);
             ausstehendArt.innerHTML = ausstehend.art;
 
@@ -211,7 +216,7 @@ function terminBuchen(event){
         strong.innerHTML = arzt.hausarztTelefonnummer;     
     }
     ausstehendIndex = event.target.parentElement.parentElement.rowIndex -1;
-    console.log(ausstehende);
+
     ausstehende = ausstehendeImpfungen[ausstehendIndex];
     let artImpfung = document.getElementById("terminArt");
     artImpfung.innerHTML ="";
@@ -228,7 +233,7 @@ function terminBuchen(event){
 
 function valid(){
     
-    if((document.getElementById("terminDatum").value != "") && (document.getElementById("terminArzt").value != "")){
+    if((document.getElementById("terminDatum").value != "") && (document.getElementById("terminArzt").value != "") && (Date.parse(document.getElementById("terminDatum").value) > Date.now())){
         document.getElementById("terminAnlegen").disabled = false;
     }
     else{
@@ -237,6 +242,7 @@ function valid(){
 }
 
 function terminAusAusstehend(){
+    console.log("Impftermin eingetragen und ausstehende Impfung gelöscht")
     ausstehendeImpfungen.splice(ausstehendIndex,1);
 
     let termin = {
@@ -254,13 +260,11 @@ function terminAusAusstehend(){
 }
 
 function loescheLocalStorage() {
+    console.log("Termine werden aus dem LocalStorage gelöscht und anschließend neu gezeichnet und gespeichert")
     //! Hier wird nicht das 0te Element im LocalStorage betrachtet, abhilfe mit Do-While schleife und If abfrage ob LocalStorage leer
     for (let i = 0; i < localStorage.length; i) {
         let storageKey = localStorage.key(i);
         if(storageKey.slice(0,6) == "termin"){
-            window.localStorage.removeItem(storageKey);
-            i = 0;}
-        if(storageKey.slice(0,10) == "ausstehend"){
             window.localStorage.removeItem(storageKey);
             i = 0;}
         i++;
@@ -273,7 +277,7 @@ function loescheLocalStorage() {
 
 //Zeichnen der Letzte Impfungen Tabelle:
 function zeichneLetzteImpfungen() {
-
+    console.log("Die letzten Impfungen werden gezeichnet");
     let table = document.getElementById("letzteImpfungenDaten");
     table.innerHTML = "";
 
@@ -297,6 +301,7 @@ function zeichneLetzteImpfungen() {
 
                 let impfungArt = document.createElement("td");
                 impfungArt.classList.add("col-4");
+                impfungArt.classList.add("fs-5");
                 tr.appendChild(impfungArt);
                 impfungArt.innerHTML = key;
                 //TODO Hier das letzte Datum herausnehmen und den Index dieser Stelle Speichern!
