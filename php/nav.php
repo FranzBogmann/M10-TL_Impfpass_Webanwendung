@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-xl navbar-dark bg-warning mb-3">
             <div class="container">
-                <a class="navbar-brand text-dark" href="index.html"><img
+                <a class="navbar-brand text-dark" href="index.php"><img
                         src="./images/icons/favicon.svg" alt="" width="32"
                         height="32"> M10 | Impfpass</a>
                 <button class="navbar-toggler" type="button"
