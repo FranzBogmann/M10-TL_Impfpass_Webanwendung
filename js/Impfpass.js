@@ -1,4 +1,5 @@
 window.addEventListener("load", init);
+window.addEventListener("load", profilAbruf);
 
 function init (){
     document.getElementById("impfTyp").addEventListener("click",auswahl);
@@ -19,6 +20,7 @@ function init (){
     document.getElementById("impfstoff").addEventListener("keyup",impfungSpeichern);
     document.getElementById("schieberegler").addEventListener("click",impfungSpeichern);
     document.getElementById("iSpeichern").addEventListener("click",speicherImpfung);
+
     holeLocalStorage();
     zeichneEinfachImpfung();
     zeichneMultiImpfung();
@@ -338,4 +340,41 @@ function appendHaken(tr){
     Haken.src = "./images/icons/Checkmark.png"
     Tabledatahaken.appendChild(Haken);
     tr.appendChild(Tabledatahaken);
+}
+
+function profilAbruf(){
+    // Aufruf des Profils
+    let profil = JSON.parse(window.localStorage.getItem("Profil"));
+    if (profil != null) {
+        document.getElementById("Iemail").textContent = profil.email;
+        document.getElementById("Igeburtsdatum").textContent = profil.geburtstag;
+        document.getElementById("Iwohnsitz").textContent = profil.wohnsitz;
+        document.getElementById("IanmeldeName").innerHTML = profil.vorname + " " + profil.nachname;
+    }
+    //Sollte kein Profil vorhanden sein wird das Standardprofil angezeigt
+    else{
+        let profil = JSON.parse(window.localStorage.getItem("standartProfil"));
+        document.getElementById("Iemail").textContent = profil.email;
+        document.getElementById("Igeburtsdatum").textContent = profil.geburtstag;
+        document.getElementById("Iwohnsitz").textContent = profil.wohnsitz;
+        document.getElementById("IanmeldeName").innerHTML = profil.vorname + " " + profil.nachname;
+    }
+
+    //Aufruf des sperat gespeicherten Arzts
+    let arzt = JSON.parse(window.localStorage.getItem("Arzt"));
+    if (arzt != null) {
+        document.getElementById("Iarzt").textContent = arzt.hausarzt;
+        document.getElementById("Iarztnummer").textContent = arzt.hausarztTelefonnummer;
+    }
+    else{
+        let arzt = JSON.parse(window.localStorage.getItem("standartArzt"));
+        document.getElementById("Iarzt").textContent = arzt.hausarzt;
+        document.getElementById("Iarztnummer").textContent = arzt.hausarztTelefonnummer;
+    }
+
+    //Aufruf des Profils
+    let bild = JSON.parse(window.localStorage.getItem("Bild"));
+    if(bild != null){
+        document.getElementById("IprofilBild").setAttribute("src", bild.src);
+    }   
 }

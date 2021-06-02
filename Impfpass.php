@@ -9,7 +9,7 @@
         <?php include("Profil.php"); ?>
 
         <!-- Ab hier kommt der Inhalt der Seite-->
-        <div class="container">
+        <div class="container" >
             <button type="button" data-bs-toggle="modal" class="btn btn
                 btn-warning btn-lg" data-bs-target="#Termin" id="terminAnlegenButton">+ Impfung hinzufügen</button>
             <br>
@@ -150,66 +150,93 @@
                     </div>
                 </div>
             </div>
+            <!-- Ende des Impfungsbutton -->
+
+            <!-- Beginn der Profil Übersicht -->
+                <div class="" id="impfpassProfil">
+                    <div class="card p-3">
+                        <div class="d-flex align-items-center">
+                            <div> <img src="/images/icons/favicon.svg" id="IprofilBild" class="rounded" width="100" height="100" style="margin: 5px"> </div>
+                            <div class="ml-3 w-100">
+                                <h4 class="mb-0 mt-0" id="IanmeldeName">Max Mustermann</h4>
+                                <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
+                                    <div class="d-flex flex-column"> <span>Email:</span> <span id="Iemail"></span></div>
+                                    <div class="d-flex flex-column"> <span>Geburtsdatum:</span> <span id="Igeburtsdatum"></span> </div>
+                                    <div class="d-flex flex-column"> <span>Wohnsitz:</span> <span id="Iwohnsitz"></span></div>
+                                    <div class="d-flex flex-column"> <span>Hausarzt:</span> <span id="Iarzt"></span> </div>
+                                    <div class="d-flex flex-column"> <span>Telefonnummer Arzt:</span> <span id="Iarztnummer"></span> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <br>
+            <!-- Ende der Profil Übersicht -->
+
+            <!-- Beginn der Impfungstabellen -->
             <h4>Einfach-Impfungen</h4>
             <div class="row">
-                <table class="table table-hover">
-                    <thead>
-                        <tr class="d-flex">
-                            <th class="col-2">Datum</th>
-                            <th class="col-2">Art</th>
-                            <th class="col-2">Impfstoff</th>
-                            <th class="col-3">Chargen-Nr.</th>
-                            <th class="col-3">Arzt</th>
-                        </tr>
-                    </thead>
-                    <tbody id="einfachImpfungTabelle">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-hover" style="padding-left: 12px">
+                        <thead>
+                            <tr class="d-flex">
+                                <th class="col-2">Datum</th>
+                                <th class="col-2">Art</th>
+                                <th class="col-2">Impfstoff</th>
+                                <th class="col-3">Chargen-Nr.</th>
+                                <th class="col-3">Arzt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="einfachImpfungTabelle">
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <h4>Multi-Impfungen</h4>
             <div class="row">
                 <div class="table-responsive">
-                <table class="table table-hover table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Datum</th>
-                            <th>Impfstoff</th>
-                            <th>Chargennummer</th>
-                            <th>Tetanus</th>
-                            <th>Diphtherie</th>
-                            <th>Pertussis</th>
-                            <th>Influenza B (Hib)</th>
-                            <th>HepatitisB</th>
-                            <th>Poliomyelitis</th>
-                            <th>Masern</th>
-                            <th>Mumps</th>
-                            <th>Röteln</th>
-                            <th>Arzt</th>
-                        </tr>
-                    </thead>
-                    <tbody id="multiImpfungTabelle">
-                       <!-- <tr class="d-flex" name="abgeschlossenEintrag">
-                            <td class="col-3" name="abgeschlossenDatum">21.5.2020</td>
-                            <td class="col-3" name="abgeschlossenArt">Grippe</td>
-                            <td class="col-3" name="abgeschlossenCharge">G010-872</td>
-                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
-                        </tr>
-                        <tr class="d-flex" name="abgeschlossenEintrag">
-                            <td class="col-3" name="abgeschlossenDatum">22.5.2020</td>
-                            <td class="col-3" name="abgeschlossenArt">Grippe</td>
-                            <td class="col-3" name="abgeschlossenCharge">G069-555</td>
-                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
-                        </tr>
-                        <tr class="d-flex" name="abgeschlossenEintrag">
-                            <td class="col-3" name="abgeschlossenDatum">24.5.2010</td>
-                            <td class="col-3" name="abgeschlossenArt">Kombi</td>
-                            <td class="col-3" name="abgeschlossenCharge">G010-691</td>
-                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
-                        </tr> -->
-                    </tbody>
-                </table>
+                    <table class="table table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Datum</th>
+                                <th>Impfstoff</th>
+                                <th>Chargennummer</th>
+                                <th>Tetanus</th>
+                                <th>Diphtherie</th>
+                                <th>Pertussis</th>
+                                <th>Influenza B (Hib)</th>
+                                <th>HepatitisB</th>
+                                <th>Poliomyelitis</th>
+                                <th>Masern</th>
+                                <th>Mumps</th>
+                                <th>Röteln</th>
+                                <th>Arzt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="multiImpfungTabelle">
+                        <!-- <tr class="d-flex" name="abgeschlossenEintrag">
+                                <td class="col-3" name="abgeschlossenDatum">21.5.2020</td>
+                                <td class="col-3" name="abgeschlossenArt">Grippe</td>
+                                <td class="col-3" name="abgeschlossenCharge">G010-872</td>
+                                <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
+                            </tr>
+                            <tr class="d-flex" name="abgeschlossenEintrag">
+                                <td class="col-3" name="abgeschlossenDatum">22.5.2020</td>
+                                <td class="col-3" name="abgeschlossenArt">Grippe</td>
+                                <td class="col-3" name="abgeschlossenCharge">G069-555</td>
+                                <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
+                            </tr>
+                            <tr class="d-flex" name="abgeschlossenEintrag">
+                                <td class="col-3" name="abgeschlossenDatum">24.5.2010</td>
+                                <td class="col-3" name="abgeschlossenArt">Kombi</td>
+                                <td class="col-3" name="abgeschlossenCharge">G010-691</td>
+                                <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
+                            </tr> -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            <!-- Ender der Imnpfungstabellen -->
         </div>     
         <!-- Hier endet der Inhalt der Seite-->
 
