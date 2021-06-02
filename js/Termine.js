@@ -189,26 +189,18 @@ function speichereTermine() {
     for(let termin of termine){
         let key = "termin" + zaehlerTermine;
         let value = JSON.stringify(termine[zaehlerTermine]);
-        console.log(key + " :" + value);
         window.localStorage.setItem(key, value);
         zaehlerTermine = zaehlerTermine + 1;    
     }
-    /*let key = "termin" + (termine.length);
-    let value = JSON.stringify(termine[termine.length - 1]);
-    console.log(key + " :" + value);
-    window.localStorage.setItem(key, value);*/
 }
 
 // ---------- Ausstehend Berechnen ----------
 function abgeschlossenAuslesen(){
-    console.log("Ausstehende auslesen")
     for(let key of Object.keys(impfpassDaten)){
         if(impfpassDaten[key].termin == ""){
-            console.log("Termin nicht vorhanden");
             let heuteDatum = new Date();
             heuteDatum.toLocaleDateString("de-De");
             if(impfpassDaten[key].letzteImpfung[0] === null){
-                console.log("Keine letzte Impfung vorhanden!")
                 var ausstehend = new Object();
                 ausstehend.datum = "Noch nie geimpft!"
                 ausstehend.art = key;
@@ -216,26 +208,14 @@ function abgeschlossenAuslesen(){
                 ausstehendeImpfungen.push(ausstehend);
                 speichereAusstehend();
             }else{
-                console.log("Letzte Impfung vorhanden!")
                 var ausstehend = new Object(); 
                 let datumletzteImpfung = new Date(impfpassDaten[key].letzteImpfung[0]);
                 datumletzteImpfung = datumletzteImpfung.toLocaleDateString("de-De");
-                console.log(datumletzteImpfung);
                 let teileImpfdatum = parseDate(datumletzteImpfung);
                 if(impfpassDaten[key].intervall != 0){
-                    console.log("Intervall ist nicht null")
                     let datumnaechsteImpfung = new Date(parseInt(teileImpfdatum[2])+impfpassDaten[key].intervall, teileImpfdatum[1]-1, teileImpfdatum[0])
                     datumnaechsteImpfung = new Date(datumnaechsteImpfung);
-                    //datumnaechsteImpfung = datumnaechsteImpfung.toLocaleDateString("de-De");
-                    console.log("Datum nächste Impfung");
-                    console.log(datumnaechsteImpfung);
-                    //datumImpfung = new Date(datumImpfung)
-                    //let datumnaechsteImpfung = new Date((datum))
-                    console.log(Date.parse(heuteDatum))
-                    console.log(Date.parse(datumnaechsteImpfung))
-                    console.log(Date.parse(heuteDatum) -Date.parse(datumnaechsteImpfung));
                     if((Date.parse(heuteDatum) -Date.parse(datumnaechsteImpfung))>=0){
-                        console.log("Differenz größer 0")
                         ausstehend.datum = new Date(impfpassDaten[key].letzteImpfung[0]).toLocaleDateString("de-De");
                         ausstehend.naechsteImpfung = datumnaechsteImpfung;
                         ausstehend.art = key;
@@ -304,7 +284,6 @@ function speichereAusstehend(){
     for(let ausstehend of ausstehendeImpfungen){
         let key = "ausstehend" + zaehlerAusstehend;
         let value = JSON.stringify(ausstehendeImpfungen[zaehlerAusstehend]);
-        console.log(key + " :" + value);
         window.localStorage.setItem(key, value);
         zaehlerAusstehend = zaehlerAusstehend + 1;    
     }
@@ -372,7 +351,6 @@ function terminBuchen(event){
     document.getElementById("terminAnlegen").disabled = true;
 
     document.getElementById("terminDatum").value = "";
-    console.log(event.type + ' on ' + event.target.nodeName);
     //Arztdaten für Kontaktaufnahme
     if (Object.keys(arzt) == ""){
         let arztName = document.getElementById("terminArzt");
@@ -394,7 +372,6 @@ function terminBuchen(event){
         li.appendChild(strong);
         strong.innerHTML = arzt.hausarztTelefonnummer;     
     }
-    //console.log(event.target.parentElement.parentElement.rowIndex);
     ausstehendIndex = event.target.parentElement.parentElement.rowIndex -1;
     ausstehende = JSON.parse(localStorage.getItem("ausstehend"+ausstehendIndex));
 
@@ -422,8 +399,6 @@ function valid(){
 }
 
 function terminAusAusstehend(){
-    console.log("Anlegen Button gedrückt");
-    console.log(ausstehendIndex);
     ausstehendeImpfungen.splice(ausstehendIndex,1);
 
     let termin = {
@@ -432,8 +407,6 @@ function terminAusAusstehend(){
         ausstehend : new Date(ausstehende.naechsteImpfung).toLocaleDateString("de-De"),
         arzt : document.getElementById("terminArzt").value
     };
-    console.log("Termin-Datum")
-    console.log(termin.datum);
     impfpassDaten[document.getElementById("terminArt").options[document.getElementById("terminArt").selectedIndex].value].termin = new Date(termin.datum);
     let value = JSON.stringify(impfpassDaten); 
     localStorage.setItem("impfpass",value)
@@ -456,14 +429,6 @@ function loescheLocalStorage() {
         //if(storageKey.slice(0,4) =="Arzt")
             //arzt = JSON.parse(window.localStorage.getItem(storageKey)); 
     }
-    console.log(termine);
-    console.log("Die Tabellen-Zeile")
-    console.log("ausstehendeImpfungen:");
-    console.log(ausstehendeImpfungen);
-    speichereAusstehend();
-    console.log(termine.length);
-    console.log("Termine:")
-    console.log(termine);
     speichereTermine();
     zeichneTermine();
     document.getElementById("terminAnlegen").removeEventListener("click",terminAusAusstehend);
@@ -478,7 +443,6 @@ function zeichneLetzteImpfungen() {
     impfpassDaten = JSON.parse(localStorage.getItem("impfpass"));
 
     if (localStorage.getItem("impfpass") == JSON.stringify(impfpass) || impfpassDaten === null) {
-        console.log("Kein Impfpass");
         let tr = document.createElement("tr");
         tr.classList.add("d-flex");
         table.appendChild(tr);
@@ -488,12 +452,8 @@ function zeichneLetzteImpfungen() {
         tr.appendChild(tabellenEintrag );
         tabellenEintrag.innerHTML = "Keine letzten Impfungen vorhanden. Bitte diese im <a href='Impfpass.php'>Impfpass</a> anlegen!";
     } else{
-        console.log("Impfpass-Daten vorhanden")
         for (let key of Object.keys(impfpassDaten)) {
-            //console.log(`${key}: ${value}`);
-
             if(impfpassDaten[key].datum.length != 0) {
-                console.log(impfpassDaten[key])
                 let tr = document.createElement("tr");
                 tr.classList.add("d-flex");
                 table.appendChild(tr);
@@ -523,7 +483,6 @@ function zeichneLetzteImpfungen() {
 //Quelle: https://stackoverflow.com/questions/2945113/how-to-create-a-new-date-in-javascript-from-a-non-standard-date-format/2945150
 function parseDate(input) {
     var parts = input.match(/(\d+)/g);
-    //console.log(parts);
     return parts;
   }
 /*
