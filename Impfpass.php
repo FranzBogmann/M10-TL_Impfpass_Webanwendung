@@ -166,7 +166,7 @@
                                     <div class="col-lg-2 col-md-4 col-sm-6 col-12"> <span>Geburtsdatum:</span> <br> <span id="Igeburtsdatum"></span> </div>
                                     <div class="col-lg-3 col-md-4 col-sm-6 col-12"> <span>Wohnsitz:</span> <br> <span id="Iwohnsitz"></span></div>
                                     <div class="col-lg-2 col-md-6 col-sm-6 col-12"> <span>Hausarzt:</span> <br> <span id="Iarzt"></span> </div>
-                                    <div class="col-lg-3 col-md-6 col-sm-6 col-12"> <span style="word-wrap: break-word">Telefonnummer Arzt:</span> <br> <span id="Iarztnummer"></span> </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-12"> <span>Telefonnummer Arzt:</span> <br> <span id="Iarztnummer"></span> </div>
                                         </div>
                                     </div>
                                 </div>
