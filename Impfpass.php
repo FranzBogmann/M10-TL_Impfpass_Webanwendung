@@ -160,11 +160,15 @@
                             <div class="ml-3 w-100">
                                 <h4 class="mb-0 mt-0" id="IanmeldeName">Max Mustermann</h4>
                                 <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
-                                    <div class="d-flex flex-column"> <span>Email:</span> <span id="Iemail"></span></div>
-                                    <div class="d-flex flex-column"> <span>Geburtsdatum:</span> <span id="Igeburtsdatum"></span> </div>
-                                    <div class="d-flex flex-column"> <span>Wohnsitz:</span> <span id="Iwohnsitz"></span></div>
-                                    <div class="d-flex flex-column"> <span>Hausarzt:</span> <span id="Iarzt"></span> </div>
-                                    <div class="d-flex flex-column"> <span>Telefonnummer Arzt:</span> <span id="Iarztnummer"></span> </div>
+                                    <div class="container">
+                                        <div class="row">
+                                    <div class="col-lg-2 col-md-4 col-sm-6 col-12"> <span>Email:</span> <br> <span id="Iemail"></span></div>
+                                    <div class="col-lg-2 col-md-4 col-sm-6 col-12"> <span>Geburtsdatum:</span> <br> <span id="Igeburtsdatum"></span> </div>
+                                    <div class="col-lg-3 col-md-4 col-sm-6 col-12"> <span>Wohnsitz:</span> <br> <span id="Iwohnsitz"></span></div>
+                                    <div class="col-lg-2 col-md-6 col-sm-6 col-12"> <span>Hausarzt:</span> <br> <span id="Iarzt"></span> </div>
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-12"> <span style="word-wrap: break-word">Telefonnummer Arzt:</span> <br> <span id="Iarztnummer"></span> </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

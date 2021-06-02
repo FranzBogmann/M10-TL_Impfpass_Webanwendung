@@ -62,7 +62,7 @@
                                       <div class="col">
                                         <div class="form-group">
                                           <label>Email</label>
-                                          <input disabled class="form-control" type="email" id="email"
+                                          <input disabled type="email" class="form-control"  id="email"
                                             placeholder="user@example.com">
                                         </div>
                                       </div>
