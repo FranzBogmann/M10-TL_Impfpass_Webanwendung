@@ -1,10 +1,8 @@
 window.addEventListener("load", init);
 
-//var heute = new Date()
-//var unterschiedZeit = heute.getTimezoneOffset() / 60 *-1 
 
 function init() {
-    //speicherButton()
+
     termine = [];
     ausstehendeImpfungen =[];
     arzt = new Object();
@@ -13,8 +11,6 @@ function init() {
         holeLocalStorage();
     }
 
-    //document.getElementById("terminAnlegenButton").addEventListener("click",erstelleModal);
-    //Hier werden eventuelle Änderungen im Profil auf der Termine-Seite übernommen
     document.getElementById("bearbeiten").addEventListener("click", function(){
         arzt = JSON.parse(localStorage.getItem("Arzt"));
     });
@@ -24,99 +20,9 @@ function init() {
     zeichneTermine();
 
 }
-/*
-//Arzt voreinstellen
-function erstelleModal(){
-    document.getElementById("terminDatum").value = "";
-    let terminArt = document.getElementById("terminArt");
-    terminArt.value = "";
-    terminArt.disabled = false;
-
-
-    //Hier werden die Arzt-Daten aus dem Profil gezogen
-    if (Object.keys(arzt) == ""){
-        let arztName = document.getElementById("terminArzt");
-        arztName.setAttribute("placeholder","Dr. Drosten")    
-    }else{
-        let arztName = document.getElementById("terminArzt");
-        arztName.setAttribute("value",arzt.hausarzt);
-
-        let telefon = document.getElementById("kontaktArzt");
-        telefon.innerHTML = "";
-        let li = document.createElement("li");
-        li.classList.add("list-inline-item");
-        telefon.appendChild(li);
-        li.innerHTML = "Telefonnummer des Arzts/der Ärztin: ";
-        li = document.createElement("li");
-        telefon.appendChild(li);
-        li.classList.add("list-inline-item");
-        let strong = document.createElement("strong");
-        li.appendChild(strong);
-        strong.innerHTML = arzt.hausarztTelefonnummer;     
-    }
-
-    let select = document.getElementById("terminArt");
-    select.innerHTML ="";
-    for(let key of Object.keys(impfpassDaten)){
-        console.log(key);
-        if(impfpassDaten[key].termin == ""){
-            console.log("Bin drin!")
-            let option = document.createElement("option");
-            option.value = key
-            select.appendChild(option);
-            option.innerHTML= key;
-
-
-
-        }
-    }
-    //Hier wird ein spezifischer Button für die Manuelle Terminerstellung erstellt, da auf das Modal auch noch bei Termin buchen verwendet wird
-    /*let footer = document.getElementById("terminFooter");
-    footer.innerHTML ="";
-    let button = document.createElement("button");
-    button.setAttribute("type","button");
-    button.classList.add("btn");
-    button.classList.add("btn-secondary");
-    button.setAttribute("data-bs-dismiss","modal");
-    footer.appendChild(button);
-    button.innerHTML ="Schließen"
-
-    button = document.createElement("button");
-    button.setAttribute("type","button");
-    button.classList.add("btn");
-    button.classList.add("btn-primary");
-    button.id = "terminAnlegen";
-    button.setAttribute("data-bs-dismiss","modal");
-    footer.appendChild(button);
-    button.innerHTML ="Termin anlegen"
-
-    document.getElementById("terminAnlegen").addEventListener("click", speicherButton);
-
-}
-
-//      ------------ Termine anlegen ---------------
-function speicherButton() {
-    var termin = new Object();
-    let terminArt = document.getElementById("terminArt").options[document.getElementById("terminArt").selectedIndex].value;
-
-    termin.datum = document.getElementById("terminDatum").value; console.log(document.getElementById("terminDatum").value);
-    termin.art = terminArt; //document.getElementById("terminArt").value; console.log(document.getElementById("terminArt").value);
-    termin.ausstehend = "---";
-    termin.arzt = document.getElementById("terminArzt").value; console.log(document.getElementById("terminArzt").value);
-
-    impfpassDaten[terminArt].termin = new Date(termin.datum);
-
-    termine.push(termin); console.log(termine[0].arzt);
-
-    loescheLocalStorage();
-    //zeichneTermine();
-
-    //speichereTermine();
-
-    document.getElementById("terminAnlegen").removeEventListener("click",speicherButton);
-}*/
 
 function zeichneTermine() {
+    console.log("Die zeichneTermine()-Funktion wird aufgerufen!")
     loescheTerminTabelle();
 
     let table = document.getElementById("terminDaten");
@@ -169,18 +75,12 @@ function loescheAusstehendTabelle() {
     let table = document.getElementById("ausstehendDaten");
     table.innerHTML = "";
 }
-//TODO Auslesen nach Profilbearbeitung
-//! Hier muss das StorageKey mit .... (z.B. ausstehend) wieder geändert werden, wenn der Impfpass implementiert wird
-//! Namens-Konvention beachten!
+
 function holeLocalStorage() {
     for (let i = 0; i < localStorage.length; i++) {
         let storageKey = localStorage.key(i);
         if(storageKey.slice(0,6) == "termin")
             termine.push(JSON.parse(window.localStorage.getItem(storageKey)));
-        /*if(storageKey.slice(0,10) == "ausstehend")
-            ausstehendeImpfungen.push(JSON.parse(window.localStorage.getItem(storageKey)));*/
-        /*if(storageKey.slice(0,4) =="Arzt")
-            arzt = JSON.parse(window.localStorage.getItem(storageKey)); */
     }
 }
 
@@ -206,7 +106,7 @@ function abgeschlossenAuslesen(){
                 ausstehend.art = key;
                 ausstehend.naechsteImpfung = heuteDatum;
                 ausstehendeImpfungen.push(ausstehend);
-                speichereAusstehend();
+                zeichneAusstehend();
             }else{
                 var ausstehend = new Object(); 
                 let datumletzteImpfung = new Date(impfpassDaten[key].letzteImpfung[0]);
@@ -220,74 +120,12 @@ function abgeschlossenAuslesen(){
                         ausstehend.naechsteImpfung = datumnaechsteImpfung;
                         ausstehend.art = key;
                         ausstehendeImpfungen.push(ausstehend);
-                        speichereAusstehend();
+                        zeichneAusstehend();
                     }
                 }
-                
-
-
-
-            }
-                
-
+            }      
         }
     }
-    //TODO Es muss bei der dynamischen Erstellung der Abgeschlossen-Beiträge der Name "abgeschlossenEintrag" hinzugefügt werden
-   /* let abgeschlossen = document.getElementsByName("abgeschlossenEintrag")
-    for(let part of abgeschlossen){
-        var ausstehend = new Object();
-        //TODO Das wird nachher aus dem Impfpass-JSON-Objekt herausgelesen, nicht aus der Tabellenzeile
-        ausstehend.datum = part.childNodes[1].textContent;
-        ausstehend.art = part.childNodes[3].textContent;
-        ausstehend.charge = part.childNodes[5].textContent;
-        ausstehend.arzt = part.childNodes[7].textContent;
-
-        let datumHeute = new Date()
-        let teileImpfdatum = parseDate(ausstehend.datum)
-        datumHeute = new Date(datumHeute)
-        let datumImpfung = new Date(teileImpfdatum[2], teileImpfdatum[1]-1, teileImpfdatum[0]);
-
-  
-        //datumImpfung = new Date(datumImpfung)
-        //let datumnaechsteImpfung = new Date((datum))
-
-        let zeitDifferenz = datumHeute - datumImpfung;
-        let minuten = zeitDifferenz / 1000 / 60
-        let stunden = minuten / 60
-        let tage = stunden / 24
-        let jahre = tage / 365
-
-        // HIER erfolgt die Zeitberechnung der Wiederholung von Impfugen nach einem bestimmten Zeitraum
-        // Bei dem verschiedenen Impfungen muss das Jahr als Zeitabstand zwischen den Impfungen angepasst werden!
-        switch(ausstehend.art.trim()){
-            case "Grippe":
-                if(jahre >= 1){
-                    ausstehend.naechsteImpfung = new Date(parseInt(teileImpfdatum[2])+1, teileImpfdatum[1]-1, teileImpfdatum[0]).toLocaleDateString('de-DE');
-                    ausstehendeImpfungen.push(ausstehend);
-                }
-                break;
-            case "Kombi":
-                if(jahre >= 10){
-                    ausstehend.naechsteImpfung = new Date(parseInt(teileImpfdatum[2])+10, teileImpfdatum[1]-1, teileImpfdatum[0]).toLocaleDateString('de-DE');
-                    ausstehendeImpfungen.push(ausstehend);
-                }
-                break;
-        }
-    }
-    speichereAusstehend();*/
-}
-
-//TODO Diese Methode kann gelöscht werden, wenn die Daten aus dem Impfpass genommen werden
-
-function speichereAusstehend(){
-    let zaehlerAusstehend = 0;
-    for(let ausstehend of ausstehendeImpfungen){
-        let key = "ausstehend" + zaehlerAusstehend;
-        let value = JSON.stringify(ausstehendeImpfungen[zaehlerAusstehend]);
-        window.localStorage.setItem(key, value);
-        zaehlerAusstehend = zaehlerAusstehend + 1;    
-    }
-    zeichneAusstehend();
 }
 
 function zeichneAusstehend(){
@@ -373,8 +211,8 @@ function terminBuchen(event){
         strong.innerHTML = arzt.hausarztTelefonnummer;     
     }
     ausstehendIndex = event.target.parentElement.parentElement.rowIndex -1;
-    ausstehende = JSON.parse(localStorage.getItem("ausstehend"+ausstehendIndex));
-
+    console.log(ausstehende);
+    ausstehende = ausstehendeImpfungen[ausstehendIndex];
     let artImpfung = document.getElementById("terminArt");
     artImpfung.innerHTML ="";
     let option = document.createElement("option");
@@ -426,9 +264,8 @@ function loescheLocalStorage() {
             window.localStorage.removeItem(storageKey);
             i = 0;}
         i++;
-        //if(storageKey.slice(0,4) =="Arzt")
-            //arzt = JSON.parse(window.localStorage.getItem(storageKey)); 
     }
+    zeichneAusstehend();
     speichereTermine();
     zeichneTermine();
     document.getElementById("terminAnlegen").removeEventListener("click",terminAusAusstehend);
@@ -485,10 +322,3 @@ function parseDate(input) {
     var parts = input.match(/(\d+)/g);
     return parts;
   }
-/*
-function setzeAktuelleZeit(){
-
-    document.getElementById("terminDatum").value = heute.toISOString().substring(0,10)
-    console.log(document.getElementById("terminDatum").value = heute.toISOString().substring(0,10))
-    console.log(unterschiedZeit)
-} */

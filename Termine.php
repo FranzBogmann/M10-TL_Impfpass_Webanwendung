@@ -96,68 +96,58 @@
 
             <h4>Termine</h4>
             <div class="row">
-                <table id="termine" class="table table-hover">
-                    <thead>
-                        <tr class="d-flex">
-                            <th class="col-3" data-sortable="true">Termin-Datum</th>
-                            <th class="col-3">Art</th>
-                            <th class="col-3">ausstehend seit</th>
-                            <th class="col-3">Arzt</th>
-                        </tr>
-                    </thead>
-                    <tbody id="terminDaten">
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table id="termine" class="table table-hover">
+                        <thead>
+                            <tr class="d-flex">
+                                <th class="col-3" data-sortable="true">Termin-Datum</th>
+                                <th class="col-3">Art</th>
+                                <th class="col-3">ausstehend seit</th>
+                                <th class="col-3">Arzt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="terminDaten">
+                            <!-- Hier werden die Einträge dynamisch aus dem LocalStorage erzeugt -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <h4>Ausstehende Impfungen</h4>
             <div class="row">
-                <table id="ausstehende" class="table table-hover table-responsive">
-                    <thead>
-                        <tr class="d-flex">
-                            <th class="col-3">ausstehend seit</th>
-                            <th class="col-3">Art</th>
-                            <th class="col-3">letzte Impfung</th>
-                            <th class="col-3">Termin buchen</th>
-                        </tr>
-                    </thead>
-                    <tbody id="ausstehendDaten">
-                        <!--Hier werden Daten automatisch aus den abgeschlossenen Impfungen generiert-->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table id="ausstehende" class="table table-hover table-responsive">
+                        <thead>
+                            <tr class="d-flex">
+                                <th class="col-3">ausstehend seit</th>
+                                <th class="col-3">Art</th>
+                                <th class="col-3">letzte Impfung</th>
+                                <th class="col-3">Termin buchen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ausstehendDaten">
+                            <!--Hier werden Daten automatisch aus den abgeschlossenen Impfungen generiert-->
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <h4>Letzte Impfungen</h4>
             <div class="row">
-                <table id="abgeschlossene" class="table table-hover">
-                    <thead>
-                        <tr class="d-flex">
-                            <th class="col-4">Art</th>
-                            <th class="col-4">letzte Impfung</th>
-                            <th class="col-4">Arzt</th>
-                        </tr>
-                    </thead>
-                    <tbody id="letzteImpfungenDaten">
-                       <!-- <tr class="d-flex" name="abgeschlossenEintrag">
-                            <td class="col-3" name="abgeschlossenDatum">21.5.2020</td>
-                            <td class="col-3" name="abgeschlossenArt">Grippe</td>
-                            <td class="col-3" name="abgeschlossenCharge">G010-872</td>
-                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
-                        </tr>
-                        <tr class="d-flex" name="abgeschlossenEintrag">
-                            <td class="col-3" name="abgeschlossenDatum">22.5.2020</td>
-                            <td class="col-3" name="abgeschlossenArt">Grippe</td>
-                            <td class="col-3" name="abgeschlossenCharge">G069-555</td>
-                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
-                        </tr>
-                        <tr class="d-flex" name="abgeschlossenEintrag">
-                            <td class="col-3" name="abgeschlossenDatum">24.5.2010</td>
-                            <td class="col-3" name="abgeschlossenArt">Kombi</td>
-                            <td class="col-3" name="abgeschlossenCharge">G010-691</td>
-                            <td class="col-3" name="abgeschlossenArzt">Max Mueller</td>
-                        </tr> -->
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table id="abgeschlossene" class="table table-hover">
+                        <thead>
+                            <tr class="d-flex">
+                                <th class="col-4">Art</th>
+                                <th class="col-4">letzte Impfung</th>
+                                <th class="col-4">Arzt</th>
+                            </tr>
+                        </thead>
+                        <tbody id="letzteImpfungenDaten">
+                            <!--Hier werden die Einträge dynamisch aus dem Impfpass erzeugt -->
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
