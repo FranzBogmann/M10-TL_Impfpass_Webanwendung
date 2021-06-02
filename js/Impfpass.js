@@ -1,5 +1,5 @@
 window.addEventListener("load", init);
-window.addEventListener("load", profilAbruf);
+window.addEventListener("load",profilAbruf);
 
 function init (){
     document.getElementById("impfTyp").addEventListener("click",auswahl);
@@ -20,6 +20,7 @@ function init (){
     document.getElementById("impfstoff").addEventListener("keyup",impfungSpeichern);
     document.getElementById("schieberegler").addEventListener("click",impfungSpeichern);
     document.getElementById("iSpeichern").addEventListener("click",speicherImpfung);
+    document.getElementById("bearbeiten").addEventListener("click",profilAbruf);
 
     holeLocalStorage();
     zeichneEinfachImpfung();
@@ -347,7 +348,7 @@ function profilAbruf(){
     let profil = JSON.parse(window.localStorage.getItem("Profil"));
     if (profil != null) {
         document.getElementById("Iemail").textContent = profil.email;
-        document.getElementById("Igeburtsdatum").textContent = profil.geburtstag;
+        document.getElementById("Igeburtsdatum").textContent = new Date (profil.geburtstag).toLocaleDateString("de-De");
         document.getElementById("Iwohnsitz").textContent = profil.wohnsitz;
         document.getElementById("IanmeldeName").innerHTML = profil.vorname + " " + profil.nachname;
     }
@@ -375,6 +376,7 @@ function profilAbruf(){
     //Aufruf des Profils
     let bild = JSON.parse(window.localStorage.getItem("Bild"));
     if(bild != null){
+
         document.getElementById("IprofilBild").setAttribute("src", bild.src);
     }   
 }
