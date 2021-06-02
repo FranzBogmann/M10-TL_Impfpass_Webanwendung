@@ -1,8 +1,0 @@
-Konzeptideen von Franz:
-
-Vorgaben für Seitenaufbau
-1. Eine Frontseite, mit maximal ein bis zwei Nebenseiten. Der Impfpass soll dynamisch sein, Vorbild: Corona Warn-App.
-2. Inhalte in Karten/Container mit kurzen Infos in Überschriften und wenig Textinhalt, einem oder zwei Buttons für Optionen.
-3. Viel mit Modifikationen im DOM arbeiten (createElement(), createTextNode(), appendChild()...) damit Dynamik erreicht wird!
-
-
