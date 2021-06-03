@@ -4,7 +4,6 @@ window.addEventListener("load", init);
 function init() {
     console.log("init Funktion betreten")
     termine = [];
-    ausstehendeImpfungen =[];
     arzt = new Object();
 
     document.getElementById("bearbeiten").addEventListener("click", function(){
@@ -76,6 +75,7 @@ function zeichneLetzteImpfungen() {
 //* Wenn schon einmal geimpft wurde, so wird anhand des Intervalls berechnet, wann die nächste Auffrischungsimpfung notwendig ist.
 function abgeschlossenAuslesen(){
     console.log("Ausstehende Impfungen werden ausgelesen")
+    ausstehendeImpfungen =[];
     for(let key of Object.keys(impfpassDaten)){
         if(impfpassDaten[key].termin == ""){
             let heuteDatum = new Date();
@@ -217,7 +217,7 @@ function zeichneTermine() {
             terminArt.innerHTML = termin.art;
 
             let terminAusstehend = document.createElement("td");
-            terminAusstehend.classList.add("col-3");
+            terminAusstehend.classList.add("col-2");
             tr.appendChild(terminAusstehend);
             terminAusstehend.innerHTML = termin.ausstehend;
 
@@ -225,6 +225,17 @@ function zeichneTermine() {
             terminArzt.classList.add("col-3");
             tr.appendChild(terminArzt);
             terminArzt.innerHTML = termin.arzt;
+
+            let tdLoeschen = document.createElement("td");
+            tdLoeschen.classList.add("col-1");
+            tr.appendChild(tdLoeschen);
+            let loeschenButton = document.createElement("button");
+            loeschenButton.setAttribute("type","button")
+            loeschenButton.classList.add("btn-close");
+            loeschenButton.id = "loeschenButton";
+            tdLoeschen.appendChild(loeschenButton);
+            document.getElementById("loeschenButton").addEventListener("click",/*function(event){*/terminLoeschen/*}*/);
+
         }
     }
 }
@@ -241,7 +252,15 @@ function speichereTermine() {
     }
 }
 
-
+function terminLoeschen(){
+    console.log(event.target.parentElement.parentElement.rowIndex -1);
+    terminIndex = event.target.parentElement.parentElement.rowIndex -1;
+    impfpassDaten[termine[terminIndex].art].termin = "";
+    localStorage.setItem("impfpass",JSON.stringify(impfpassDaten));
+    termine.splice(terminIndex,1);
+    document.getElementById("loeschenButton").removeEventListener("click",/*function(event){*/terminLoeschen/*}*/);
+    loescheLocalStorage();
+}
 
 
 //* Diese Funktion wird aufgerufen, sobald der/der Nutzer:Inn auf den dynamisch erzeugten "Termin buchen"-Button
@@ -319,7 +338,7 @@ function terminAusAusstehend(){
     let value = JSON.stringify(impfpassDaten); 
     localStorage.setItem("impfpass",value)
     termine.push(termin);
-
+    document.getElementById("terminAnlegen").removeEventListener("click",terminAusAusstehend);
     loescheLocalStorage();
 }
 
@@ -335,10 +354,9 @@ function loescheLocalStorage() {
             }
 
     }
-    zeichneAusstehend();
+    abgeschlossenAuslesen();
     speichereTermine();
     zeichneTermine();
-    document.getElementById("terminAnlegen").removeEventListener("click",terminAusAusstehend);
 }
 
 

@@ -102,8 +102,9 @@
                             <tr class="d-flex">
                                 <th class="col-3" data-sortable="true">Termin-Datum</th>
                                 <th class="col-3">Art</th>
-                                <th class="col-3">ausstehend seit</th>
+                                <th class="col-2">ausstehend seit</th>
                                 <th class="col-3">Arzt</th>
+                                <th class="col-1"></th>
                             </tr>
                         </thead>
                         <tbody id="terminDaten">
