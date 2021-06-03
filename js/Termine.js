@@ -7,96 +7,73 @@ function init() {
     ausstehendeImpfungen =[];
     arzt = new Object();
 
-    if (window.localStorage !== null) {
-        holeLocalStorage();
-    }
-
     document.getElementById("bearbeiten").addEventListener("click", function(){
         arzt = JSON.parse(localStorage.getItem("Arzt"));
     });
 
     zeichneLetzteImpfungen();
-    zeichneAusstehend();
+    //* Falls im LocalStorage schon Termine vorhanden sind, werden diese hier eingelesen
+    if (window.localStorage !== null) {
+        holeLocalStorage();
+    }
+
     zeichneTermine();
     console.log("init Funktion verlassen")
 }
 
-function zeichneTermine() {
-    console.log("Die zeichneTermine()-Funktion wird aufgerufen!");
+//*Zeichnen der Letzte Impfungen Tabelle. Dazu werden die Daten aus dem Impfpass-JSON-Objekt ausgelesen und 
+//*dynamisch in eine Tabelle eingefügt:
+function zeichneLetzteImpfungen() {
+    console.log("Die letzten Impfungen werden gezeichnet");
+    let table = document.getElementById("letzteImpfungenDaten");
+    table.innerHTML = "";
 
-    let table = document.getElementById("terminDaten");
-    table.innerHTML ="";
+    impfpassDaten = JSON.parse(localStorage.getItem("impfpass"));
 
-    if (termine == "") {
+    if (localStorage.getItem("impfpass") == JSON.stringify(impfpass) || impfpassDaten === null) {
         let tr = document.createElement("tr");
         tr.classList.add("d-flex");
         table.appendChild(tr);
 
-        let terminDatum = document.createElement("td");
-        terminDatum.classList.add("col-12");
-        tr.appendChild(terminDatum);
-        terminDatum.innerHTML = "Keine Termine!";
-    }else{
+        let tabellenEintrag = document.createElement("td");
+        tabellenEintrag.classList.add("col-12");
+        tr.appendChild(tabellenEintrag );
+        tabellenEintrag.innerHTML = "Keine letzten Impfungen vorhanden. Bitte diese im <a href='Impfpass.php'>Impfpass</a> anlegen!";
+    } else{
+        for (let key of Object.keys(impfpassDaten)) {
+            if(impfpassDaten[key].datum.length != 0) {
+                let tr = document.createElement("tr");
+                tr.classList.add("d-flex");
+                table.appendChild(tr);
 
-        for (let termin of termine) {
-            let tr = document.createElement("tr");
-            tr.classList.add("d-flex");
-            table.appendChild(tr);
+                let impfungArt = document.createElement("td");
+                impfungArt.classList.add("col-4");
+                impfungArt.classList.add("fs-5");
+                tr.appendChild(impfungArt);
+                impfungArt.innerHTML = key;
+                //TODO Hier das letzte Datum herausnehmen und den Index dieser Stelle Speichern!
+                let letzteImpfung = document.createElement("td");
+                letzteImpfung.classList.add("col-4");
+                tr.appendChild(letzteImpfung);
+                let impfungDatumString = new Date(impfpassDaten[key].letzteImpfung[0])
+                letzteImpfung.innerHTML = impfungDatumString.toLocaleDateString('de-DE');
 
-            let terminDatum = document.createElement("td");
-            terminDatum.classList.add("col-3");
-            tr.appendChild(terminDatum);
-            let div = document.createElement("div")
-            let terminDatumString = new Date(termin.datum)
-            div.classList.add("fw-bold");
-            div.textContent = terminDatumString.toLocaleDateString('de-DE');
-            terminDatum.appendChild(div);
-            div = document.createElement("div");
-            div.classList.add("text-muted");
-            div.textContent = terminDatumString.toLocaleTimeString('de-DE').slice(0,5);
-            terminDatum.appendChild(div);
-
-            let terminArt = document.createElement("td");
-            terminArt.classList.add("col-3");
-            terminArt.classList.add("fs-5");
-            tr.appendChild(terminArt);
-            terminArt.innerHTML = termin.art;
-
-            let terminAusstehend = document.createElement("td");
-            terminAusstehend.classList.add("col-3");
-            tr.appendChild(terminAusstehend);
-            terminAusstehend.innerHTML = termin.ausstehend;
-
-            let terminArzt = document.createElement("td");
-            terminArzt.classList.add("col-3");
-            tr.appendChild(terminArzt);
-            terminArzt.innerHTML = termin.arzt;
+                let impfungArzt = document.createElement("td");
+                impfungArzt.classList.add("col-4");
+                tr.appendChild(impfungArzt);
+                impfungArzt.innerHTML = impfpassDaten[key].letzteImpfung[1];
+            }
         }
-    }
+        //* anschließend werden aus den schon erhaltenen und nicht erhaltenen Impfungen die Ausstehende Impfungen-Tabelle befüllt.
+        abgeschlossenAuslesen();
+    } 
 }
 
-
-function holeLocalStorage() {
-    console.log("Termine neu geholt")
-    for (let i = 0; i < localStorage.length; i++) {
-        let storageKey = localStorage.key(i);
-        if(storageKey.slice(0,6) == "termin")
-            termine.push(JSON.parse(window.localStorage.getItem(storageKey)));
-    }
-}
-
-function speichereTermine() {
-    console.log("Termine werden in LocalStorage gespeichert")
-    let zaehlerTermine = 0;
-    for(let termin of termine){
-        let key = "termin" + zaehlerTermine;
-        let value = JSON.stringify(termine[zaehlerTermine]);
-        window.localStorage.setItem(key, value);
-        zaehlerTermine = zaehlerTermine + 1;    
-    }
-}
-
-// ---------- Ausstehend Berechnen ----------
+//* Hier werden die Ausstehenden Impfungen anhand ihres Impf-Intervalls berechnet.
+//* Dazu wird zunächst überprüft, ob ein Termin für diese Impfung schon vorhanden ist, dann ist diese nicht mehr ausstehend.
+//* Ist kein Termin vorhanden, wir überprüft, ob schon mal eine Impfung dieser Art vorhanden ist.
+//* Ist dies der Fall, wurde die Eigenschaft "letzte Impfung" im Objekt befüllt.
+//* Wenn schon einmal geimpft wurde, so wird anhand des Intervalls berechnet, wann die nächste Auffrischungsimpfung notwendig ist.
 function abgeschlossenAuslesen(){
     console.log("Ausstehende Impfungen werden ausgelesen")
     for(let key of Object.keys(impfpassDaten)){
@@ -130,6 +107,7 @@ function abgeschlossenAuslesen(){
     zeichneAusstehend();
 }
 
+//* Hier werden die in der vorigen Funktion indentifizierten, noch ausstehenden Impfungen aus dem Array ausgelesen und dynamisch in eine Tabelle gezeichnet.
 function zeichneAusstehend(){
     console.log("Ausstehende Impfungen werden gezeichnet")
     let table = document.getElementById("ausstehendDaten");
@@ -186,6 +164,88 @@ function zeichneAusstehend(){
     }    
 }
 
+//* Hier werden die im LocalStorage abgespeicherten Termine ausgelesen und einem Array hinzugefügt.
+function holeLocalStorage() {
+    console.log("Termine neu geholt")
+    for (let i = 0; i < localStorage.length; i++) {
+        let storageKey = localStorage.key(i);
+        if(storageKey.slice(0,6) == "termin")
+            termine.push(JSON.parse(window.localStorage.getItem(storageKey)));
+    }
+}
+
+//* An dieser Stelle werden die Termin-Objekte aus dem Array einzeln ausgelesen und in die Termine-Tabelle gezeichnet. 
+function zeichneTermine() {
+    console.log("Die zeichneTermine()-Funktion wird aufgerufen!");
+
+    let table = document.getElementById("terminDaten");
+    table.innerHTML ="";
+
+    if (termine == "") {
+        let tr = document.createElement("tr");
+        tr.classList.add("d-flex");
+        table.appendChild(tr);
+
+        let terminDatum = document.createElement("td");
+        terminDatum.classList.add("col-12");
+        tr.appendChild(terminDatum);
+        terminDatum.innerHTML = "Keine Termine!";
+    }else{
+
+        for (let termin of termine) {
+            let tr = document.createElement("tr");
+            tr.classList.add("d-flex");
+            table.appendChild(tr);
+
+            let terminDatum = document.createElement("td");
+            terminDatum.classList.add("col-3");
+            tr.appendChild(terminDatum);
+            let div = document.createElement("div")
+            let terminDatumString = new Date(termin.datum)
+            div.classList.add("fw-bold");
+            div.textContent = terminDatumString.toLocaleDateString('de-DE');
+            terminDatum.appendChild(div);
+            div = document.createElement("div");
+            div.classList.add("text-muted");
+            div.textContent = terminDatumString.toLocaleTimeString('de-DE').slice(0,5);
+            terminDatum.appendChild(div);
+
+            let terminArt = document.createElement("td");
+            terminArt.classList.add("col-3");
+            terminArt.classList.add("fs-5");
+            tr.appendChild(terminArt);
+            terminArt.innerHTML = termin.art;
+
+            let terminAusstehend = document.createElement("td");
+            terminAusstehend.classList.add("col-3");
+            tr.appendChild(terminAusstehend);
+            terminAusstehend.innerHTML = termin.ausstehend;
+
+            let terminArzt = document.createElement("td");
+            terminArzt.classList.add("col-3");
+            tr.appendChild(terminArzt);
+            terminArzt.innerHTML = termin.arzt;
+        }
+    }
+}
+
+
+function speichereTermine() {
+    console.log("Termine werden in LocalStorage gespeichert")
+    let zaehlerTermine = 0;
+    for(let termin of termine){
+        let key = "termin" + zaehlerTermine;
+        let value = JSON.stringify(termine[zaehlerTermine]);
+        window.localStorage.setItem(key, value);
+        zaehlerTermine = zaehlerTermine + 1;    
+    }
+}
+
+
+
+
+//* Diese Funktion wird aufgerufen, sobald der/der Nutzer:Inn auf den dynamisch erzeugten "Termin buchen"-Button
+//* in der "Ausstehende Impfungen"-Tabelle klickt
 function terminBuchen(event){
     //Eventlistener für Validitätsprüfung
     document.getElementById("terminDatum").addEventListener("keyup",valid);
@@ -231,6 +291,7 @@ function terminBuchen(event){
 
 }
 
+//* Hier wird validiert, dass alle Felder im "Termin buchen"-Dialog ausgefüllt und das Datum in der Zukunft gesetzt wurde, bevor der "Termin anlegen"-Button gedrückt werden kann.
 function valid(){
     
     if((document.getElementById("terminDatum").value != "") && (document.getElementById("terminArzt").value != "") && (Date.parse(document.getElementById("terminDatum").value) > Date.now())){
@@ -241,6 +302,9 @@ function valid(){
     }
 }
 
+//* Wurde ein neuer Termin mittels des "Termin buchen"-Dialogs angelegt, so wird ein neues Termin-Objekt dem Termine-Array hinzugefügt.
+//* Zusätzlich muss sichergestellt werden, dass diese Impfung nicht mehr ausstehend ist, da ein Termin angelegt wurde.
+//* Somit wird hier 
 function terminAusAusstehend(){
     console.log("Impftermin eingetragen und ausstehende Impfung gelöscht")
     ausstehendeImpfungen.splice(ausstehendIndex,1);
@@ -259,6 +323,7 @@ function terminAusAusstehend(){
     loescheLocalStorage();
 }
 
+//* In dieser Funktion werden alle Termin-Objekte aus dem LocalStorage gelöscht und anschließend neu abgespeichert und gezeichnet.
 function loescheLocalStorage() {
     console.log("Termine werden aus dem LocalStorage gelöscht und anschließend neu gezeichnet und gespeichert")
     //! Hier wird nicht das 0te Element im LocalStorage betrachtet, abhilfe mit Do-While schleife und If abfrage ob LocalStorage leer
@@ -275,53 +340,8 @@ function loescheLocalStorage() {
     document.getElementById("terminAnlegen").removeEventListener("click",terminAusAusstehend);
 }
 
-//Zeichnen der Letzte Impfungen Tabelle:
-function zeichneLetzteImpfungen() {
-    console.log("Die letzten Impfungen werden gezeichnet");
-    let table = document.getElementById("letzteImpfungenDaten");
-    table.innerHTML = "";
 
-    impfpassDaten = JSON.parse(localStorage.getItem("impfpass"));
-
-    if (localStorage.getItem("impfpass") == JSON.stringify(impfpass) || impfpassDaten === null) {
-        let tr = document.createElement("tr");
-        tr.classList.add("d-flex");
-        table.appendChild(tr);
-
-        let tabellenEintrag = document.createElement("td");
-        tabellenEintrag.classList.add("col-12");
-        tr.appendChild(tabellenEintrag );
-        tabellenEintrag.innerHTML = "Keine letzten Impfungen vorhanden. Bitte diese im <a href='Impfpass.php'>Impfpass</a> anlegen!";
-    } else{
-        for (let key of Object.keys(impfpassDaten)) {
-            if(impfpassDaten[key].datum.length != 0) {
-                let tr = document.createElement("tr");
-                tr.classList.add("d-flex");
-                table.appendChild(tr);
-
-                let impfungArt = document.createElement("td");
-                impfungArt.classList.add("col-4");
-                impfungArt.classList.add("fs-5");
-                tr.appendChild(impfungArt);
-                impfungArt.innerHTML = key;
-                //TODO Hier das letzte Datum herausnehmen und den Index dieser Stelle Speichern!
-                let letzteImpfung = document.createElement("td");
-                letzteImpfung.classList.add("col-4");
-                tr.appendChild(letzteImpfung);
-                let impfungDatumString = new Date(impfpassDaten[key].letzteImpfung[0])
-                letzteImpfung.innerHTML = impfungDatumString.toLocaleDateString('de-DE');
-
-                let impfungArzt = document.createElement("td");
-                impfungArzt.classList.add("col-4");
-                tr.appendChild(impfungArzt);
-                impfungArzt.innerHTML = impfpassDaten[key].letzteImpfung[1];
-            }
-        }
-        //! Hier wird geguckt, ob eine Impfung noch aussteht!
-        abgeschlossenAuslesen();
-    } 
-}
-
+//* Diese Funktion gibt die Teile eines Datums zurück, separiert anhand des "."
 //Quelle: https://stackoverflow.com/questions/2945113/how-to-create-a-new-date-in-javascript-from-a-non-standard-date-format/2945150
 function parseDate(input) {
     var parts = input.match(/(\d+)/g);
