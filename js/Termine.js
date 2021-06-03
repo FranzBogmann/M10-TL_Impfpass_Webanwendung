@@ -304,7 +304,7 @@ function valid(){
 
 //* Wurde ein neuer Termin mittels des "Termin buchen"-Dialogs angelegt, so wird ein neues Termin-Objekt dem Termine-Array hinzugefügt.
 //* Zusätzlich muss sichergestellt werden, dass diese Impfung nicht mehr ausstehend ist, da ein Termin angelegt wurde.
-//* Somit wird hier 
+
 function terminAusAusstehend(){
     console.log("Impftermin eingetragen und ausstehende Impfung gelöscht")
     ausstehendeImpfungen.splice(ausstehendIndex,1);
