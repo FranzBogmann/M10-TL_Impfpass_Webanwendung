@@ -326,13 +326,14 @@ function terminAusAusstehend(){
 //* In dieser Funktion werden alle Termin-Objekte aus dem LocalStorage gelöscht und anschließend neu abgespeichert und gezeichnet.
 function loescheLocalStorage() {
     console.log("Termine werden aus dem LocalStorage gelöscht und anschließend neu gezeichnet und gespeichert")
-    //! Hier wird nicht das 0te Element im LocalStorage betrachtet, abhilfe mit Do-While schleife und If abfrage ob LocalStorage leer
     for (let i = 0; i < localStorage.length; i) {
         let storageKey = localStorage.key(i);
         if(storageKey.slice(0,6) == "termin"){
             window.localStorage.removeItem(storageKey);
-            i = 0;}
-        i++;
+        }else{
+            i++;
+            }
+
     }
     zeichneAusstehend();
     speichereTermine();
