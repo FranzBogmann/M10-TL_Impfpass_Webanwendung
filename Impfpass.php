@@ -116,13 +116,13 @@
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label>Datum: </label>
-                                            <input type="date" id="iDatum" placeholder="Datum der Impfung"></input>
+                                            <input type="date" class="form-control" id="iDatum" placeholder="Datum der Impfung"></input>
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label>Charge: </label>
-                                            <input type="text" id="iChargenNr" placeholder="Chargennummer"></input>
+                                            <input type="text" class="form-control" id="iChargenNr" placeholder="Chargennummer"></input>
                                         </div>
                                     </div>
                                 </div>
@@ -130,13 +130,13 @@
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label>Arzt: </label>
-                                            <input type="text" id="iArzt" placeholder="Arzt der Impfte"></input>
+                                            <input type="text" class="form-control" id="iArzt" placeholder="Arzt der Impfte"></input>
                                         </div>
                                     </div>
                                     <div class="col-md-5">
                                         <div class="form-group">
                                             <label>Impfstoff: </label>
-                                            <input type="text" id="impfstoff" placeholder="Verwendeter Impfstoff"></input>
+                                            <input type="text" class="form-control" id="impfstoff" placeholder="Verwendeter Impfstoff"></input>
                                         </div>
                                     </div>
                                 </div>

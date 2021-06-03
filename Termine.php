@@ -38,7 +38,7 @@
                             </div>
 
                             <div id="dropdown">
-                                <label for="form-select">Wählen Sie ihre Impfung:</label>
+                                <label for="form-select">Ihre Impfung gegen:</label>
                                 <select id="terminArt" class="form-select" aria-label="Default select example" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
                                     <!--<option value="Diphtherie">Diphtherie</option>
                                     <option value="FSME">FSME</option>
