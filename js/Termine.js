@@ -234,7 +234,7 @@ function zeichneTermine() {
             loeschenButton.classList.add("btn-close");
             loeschenButton.id = "loeschenButton";
             tdLoeschen.appendChild(loeschenButton);
-            document.getElementById("loeschenButton").addEventListener("click",/*function(event){*/terminLoeschen/*}*/);
+            loeschenButton.addEventListener("click",function(event){terminLoeschen(event)});
 
         }
     }
@@ -252,13 +252,13 @@ function speichereTermine() {
     }
 }
 
-function terminLoeschen(){
+function terminLoeschen(event){
     console.log(event.target.parentElement.parentElement.rowIndex -1);
     terminIndex = event.target.parentElement.parentElement.rowIndex -1;
     impfpassDaten[termine[terminIndex].art].termin = "";
     localStorage.setItem("impfpass",JSON.stringify(impfpassDaten));
     termine.splice(terminIndex,1);
-    document.getElementById("loeschenButton").removeEventListener("click",/*function(event){*/terminLoeschen/*}*/);
+    //document.getElementById("loeschenButton").removeEventListener("click",/*function(event){*/terminLoeschen/*}*/);
     loescheLocalStorage();
 }
 
