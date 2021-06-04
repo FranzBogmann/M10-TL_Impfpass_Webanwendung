@@ -94,8 +94,8 @@
             </div>
 
             <p>Auf der Termine-Seite werden Ihre Termine sowie die letzten und ausstehenden Impfungen tabellarisch dargestellt.</p>
-            <p>Beachten Sie bitte, dass die Termine für die ausstehenden Impfungen erst mit mindestens einer angelegten Imfpung gebucht werden können.
-               Diese legen sie zunächst im <a href='Impfpass.php'>Impfpass</a> an!</p>
+            <p>Hier werden die Daten aus Ihrem Impfpass ausgelesen und überprüft, ob eine Auffrischungsimpfung erforderlich ist bzw.
+            die Impfung noch nicht vorhanden ist.</p>
             <br>
             <h4>Termine</h4>
             <div class="row">

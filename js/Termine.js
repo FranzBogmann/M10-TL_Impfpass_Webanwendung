@@ -27,9 +27,9 @@ function zeichneLetzteImpfungen() {
     let table = document.getElementById("letzteImpfungenDaten");
     table.innerHTML = "";
 
-    impfpassDaten = JSON.parse(localStorage.getItem("impfpass"));
 
-    if (localStorage.getItem("impfpass") == JSON.stringify(impfpass) || impfpassDaten === null) {
+    if (localStorage.getItem("impfpass") == JSON.stringify(impfpass) || JSON.parse(localStorage.getItem("impfpass")) === null) {
+        impfpassDaten = impfpass;
         let tr = document.createElement("tr");
         tr.classList.add("d-flex");
         table.appendChild(tr);
@@ -39,6 +39,7 @@ function zeichneLetzteImpfungen() {
         tr.appendChild(tabellenEintrag );
         tabellenEintrag.innerHTML = "Keine letzten Impfungen vorhanden. Bitte diese im <a href='Impfpass.php'>Impfpass</a> anlegen!";
     } else{
+        impfpassDaten = JSON.parse(localStorage.getItem("impfpass"));
         for (let key of Object.keys(impfpassDaten)) {
             if(impfpassDaten[key].datum.length != 0) {
                 let tr = document.createElement("tr");
@@ -63,9 +64,9 @@ function zeichneLetzteImpfungen() {
                 impfungArzt.innerHTML = impfpassDaten[key].letzteImpfung[1];
             }
         }
+    }
         //* anschließend werden aus den schon erhaltenen und nicht erhaltenen Impfungen die Ausstehende Impfungen-Tabelle befüllt.
         abgeschlossenAuslesen();
-    } 
 }
 
 //* Hier werden die Ausstehenden Impfungen anhand ihres Impf-Intervalls berechnet.
@@ -80,7 +81,7 @@ function abgeschlossenAuslesen(){
         if(impfpassDaten[key].termin == ""){
             let heuteDatum = new Date();
             heuteDatum.toLocaleDateString("de-De");
-            if(impfpassDaten[key].letzteImpfung[0] === null){
+            if(impfpassDaten[key].letzteImpfung[0] === null || impfpassDaten[key].letzteImpfung == ""){
                 var ausstehend = new Object();
                 ausstehend.datum = "Noch nie geimpft!"
                 ausstehend.art = key;
@@ -113,7 +114,7 @@ function zeichneAusstehend(){
     let table = document.getElementById("ausstehendDaten");
     table.innerHTML = "";
 
-    if (ausstehendeImpfungen.length == 0) {
+    if (ausstehendeImpfungen.length == 0 && termine.length != 0) {
         let tr = document.createElement("tr");
         tr.classList.add("d-flex");
         table.appendChild(tr);
