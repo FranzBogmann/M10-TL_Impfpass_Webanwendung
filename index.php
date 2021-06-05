@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <p>Willkommen bei dem digitalen Impfpass💉</p>
-                <p>Diese Webanwendung erlaubt dir alle deine vergangenen Impfungen digital zu erfassen sowie zukünftige Impftermine zu speichern. So hast Du deinen Imfpass immer dabei und verlierst nie den Überblick über alle Impfungen!😉</p>
+                <p>Diese Webanwendung erlaubt dir alle deine vergangenen Impfungen digital zu erfassen sowie zukünftige Impftermine zu speichern. So hast Du deinen Impfpass immer dabei und verlierst nie den Überblick über alle Impfungen!😉</p>
             </div>
 
             <div class="row">
@@ -29,7 +29,7 @@
                         <div class="card">
                           <div class="card-body">
                             <h5 class="card-title">Anleitung zur Nutzung</h5>
-                            <p class="card-text">Der digitale Impfpass besteht aus drei Bereichen: Einem Nutzerprofil, einer Terminübersicht und dem Impfpass selbst.</p>
+                            <p class="card-text">Der digitale Impfpass besteht aus drei Bereichen: Einem Nutzerprofil, der Terminübersicht und dem Impfpass selbst.</p>
                           </div>
                           <img src="images/index/Tutorial.png" class="card-img-bottom" alt="Anleitung zum Impferfolg">
                         </div>
