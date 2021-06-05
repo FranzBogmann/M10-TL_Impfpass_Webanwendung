@@ -158,9 +158,11 @@ function profilSpeichern() {
 
     //Überprüft ob die Email richitg eingegben ist sollte dies nicht der Fall sein wird der Bearbeitungsmodus einfach erneut eingeschaltet    
     if(modus == 1){  
-        ValidateEmail(profil.email);
-        bearbeitungsmodus();
+        if(!validateEmail)
+            bearbeitungsmodus();
     } 
+
+
 
     // Schreiben des Profils in ein JSON Object    
     let key = "Profil";
@@ -179,6 +181,12 @@ function arztSpeichern() {
         arzt.hausarzt = document.getElementById("hausarzt").value;
     if (document.getElementById("hausarztTelefonnummer").value != null)
         arzt.hausarztTelefonnummer = document.getElementById("hausarztTelefonnummer").value;
+
+    //Überprüft ob die Telefonnumer richitg eingegben ist sollte dies nicht der Fall sein wird der Bearbeitungsmodus einfach erneut eingeschaltet    
+    if(modus == 1){  
+        if(!validateNummer())
+            bearbeitungsmodus();
+    } 
 
     let key = "Arzt";
     let value = JSON.stringify(arzt);
@@ -220,11 +228,25 @@ function erstelleStandartArzt() {
     window.localStorage.setItem(key, value);
 }
 
-function ValidateEmail() {
- if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test( document.getElementById("email").value))
+function validateEmail() {
+ if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(document.getElementById("email").value))
   {
     return (true)
   }
-    alert("You have entered an invalid email address!")
+    alert("Bitte eine valide Email eingeben")
     return (false)
 }
+
+function validateNummer(nummer)
+{
+   var regEx = /^[0-9\s(-)]*$/;
+   if(document.getElementById("hausarztTelefonnummer").value.match(regEx))
+     {
+      return true;
+     }
+   else
+     {
+     alert("Bitte eine valide Telefonnumer eingeben");
+     return false;
+     }
+}    
