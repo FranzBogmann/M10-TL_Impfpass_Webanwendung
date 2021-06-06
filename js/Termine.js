@@ -4,7 +4,11 @@ window.addEventListener("load", init);
 function init() {
     console.log("init Funktion betreten")
     termine = [];
-    arzt = new Object();
+    if(localStorage.getItem("Arzt") !== null){
+        arzt = JSON.parse(localStorage.getItem("Arzt"))
+    }else{
+        arzt = new Object();
+    }
 
     document.getElementById("bearbeiten").addEventListener("click", function(){
         arzt = JSON.parse(localStorage.getItem("Arzt"));
