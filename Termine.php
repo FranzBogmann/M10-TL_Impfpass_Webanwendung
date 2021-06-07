@@ -31,45 +31,21 @@
 
                             <div class="input-group mb-3">
                                 <span class="input-group-text"
-                                    >Datum</span>
-                                <input id="terminDatum" type="datetime-local" class="form-control"
+                                    >Datum/Zeit</span>
+                                <input id="terminDatum" type="date" class="form-control"
                                     aria-label="Datum"
+                                    aria-describedby="basic-addon1">
+                                <input id="terminZeit" type="time" class="form-control"
+                                    aria-label="Zeit"
                                     aria-describedby="basic-addon1">
                             </div>
 
                             <div id="dropdown">
                                 <label for="form-select">Ihre Impfung gegen:</label>
                                 <select id="terminArt" class="form-select" aria-label="Default select example" onfocus='this.size=5;' onblur='this.size=1;' onchange='this.size=1; this.blur();'>
-                                    <!--<option value="Diphtherie">Diphtherie</option>
-                                    <option value="FSME">FSME</option>
-                                    <option value="Grippe">Grippe</option>
-                                    <option value="HepatitisB">Hepatitis B</option>
-                                    <option value="Hib">Influenza B (HiB)</option>
-                                    <option value="HPV">HPV</option>
-                                    <option value="Keuchhusten">Keuchhusten</option>
-                                    <option value="Masern">Masern</option>
-                                    <option value="Meningokokken">Meningokokken</option>
-                                    <option value="Mumps">Mumps</option>
-                                    <option value="Pneumokokken">Pneumokokken</option>
-                                    <option value="Polio">Polio</option>
-                                    <option value="Rotaviren">Rotaviren</option>
-                                    <option value="Roeteln">Röteln</option>
-                                    <option value="Tetanus">Tetanus</option>
-                                    <option value="Windpocken">Windpocken</option>
-                                    <option value="Guertelrose">Gürtelrose</option>
-                                    <option value="Covid19">Covid-19</option>-->
                                 </select>
                                 <br>
                             </div>
-                            <!--
-                            <div class="input-group mb-3">
-                                <span class="input-group-text"
-                                    >Impfung gegen</span>
-                                <input type="text" class="form-control"
-                                    placeholder="ADHS" aria-label="Impfung gegen"
-                                    aria-describedby="basic-addon1" id="terminArt">
-                            </div>
-                            -->
                             <div class="input-group mb-3">
                                 <span class="input-group-text"
                                     >Arzt/Ärztin</span>
