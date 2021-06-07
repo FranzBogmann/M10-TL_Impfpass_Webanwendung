@@ -206,7 +206,7 @@ function zeichneTermine() {
             terminDatum.classList.add("col-3");
             tr.appendChild(terminDatum);
             let div = document.createElement("div")
-            let terminDatumString = new Date(termin.datum)
+            let terminDatumString = new Date(termin.datum+"T"+termin.uhrzeit)
             div.classList.add("fw-bold");
             div.textContent = terminDatumString.toLocaleDateString('de-DE');
             terminDatum.appendChild(div);
@@ -274,6 +274,7 @@ function terminBuchen(event){
     //Eventlistener für Validitätsprüfung
     document.getElementById("terminDatum").addEventListener("keyup",valid);
     document.getElementById("terminArzt").addEventListener("keyup",valid);
+    document.getElementById("terminZeit").addEventListener("keyup",valid);
 
     document.getElementById("terminAnlegen").disabled = true;
 
@@ -318,7 +319,7 @@ function terminBuchen(event){
 //* Hier wird validiert, dass alle Felder im "Termin buchen"-Dialog ausgefüllt und das Datum in der Zukunft gesetzt wurde, bevor der "Termin anlegen"-Button gedrückt werden kann.
 function valid(){
     
-    if((document.getElementById("terminDatum").value != "") && (document.getElementById("terminArzt").value != "") && (Date.parse(document.getElementById("terminDatum").value) > Date.now())){
+    if((document.getElementById("terminDatum").value != "") && (document.getElementById("terminArzt").value != "") && (document.getElementById("terminZeit").value != "") && (Date.parse(document.getElementById("terminDatum").value+"T"+document.getElementById("terminZeit").value) > Date.now())){
         document.getElementById("terminAnlegen").disabled = false;
     }
     else{
@@ -335,11 +336,12 @@ function terminAusAusstehend(){
 
     let termin = {
         datum : document.getElementById("terminDatum").value,
+        uhrzeit: document.getElementById("terminZeit").value,
         art : document.getElementById("terminArt").options[document.getElementById("terminArt").selectedIndex].value,
         ausstehend : new Date(ausstehende.naechsteImpfung).toLocaleDateString("de-De"),
         arzt : document.getElementById("terminArzt").value
     };
-    impfpassDaten[document.getElementById("terminArt").options[document.getElementById("terminArt").selectedIndex].value].termin = new Date(termin.datum);
+    impfpassDaten[document.getElementById("terminArt").options[document.getElementById("terminArt").selectedIndex].value].termin = new Date(termin.datum+"T"+termin.uhrzeit);
     let value = JSON.stringify(impfpassDaten); 
     localStorage.setItem("impfpass",value)
     termine.push(termin);
