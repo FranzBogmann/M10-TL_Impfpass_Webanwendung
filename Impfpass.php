@@ -156,7 +156,7 @@
                 <div class="" id="impfpassProfil">
                     <div class="card p-3">
                         <div class="d-flex align-items-center">
-                            <div> <img src="/images/icons/favicon.svg" id="IprofilBild" class="rounded" width="100" height="100" style="margin: 5px"> </div>
+                            <div> <img src="./images/icons/favicon.svg" id="IprofilBild" class="rounded" width="100" height="100" style="margin: 5px"> </div>
                             <div class="ml-3 w-100">
                                 <h4 class="mb-0 mt-0" id="IanmeldeName">Max Mustermann</h4>
                                 <div class="p-2 mt-2 bg-primary d-flex justify-content-between rounded text-white stats">
